@@ -1,10 +1,13 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { addToken } from "../store/authSlice";
 import { useLoginMutation, type LoginInput } from "./useAuth";
 
 export const useLogin = () => {
   const navigate = useNavigate();
   const mutation = useLoginMutation();
+  const dispatch = useDispatch();
 
   const [formLogin, setFormLogin] = useState<LoginInput>({
     email: "",
@@ -31,8 +34,11 @@ export const useLogin = () => {
     }
 
     mutation.mutate(formLogin, {
-      onSuccess: () => {
+      onSuccess: (data) => {
+        console.log("data", data.data);
+
         alert("Success Login!");
+        dispatch(addToken(data.data));
         setFormLogin({ email: "", password: "" });
         setErrors([]);
         navigate("/");
