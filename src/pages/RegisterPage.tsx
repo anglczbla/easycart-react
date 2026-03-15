@@ -8,16 +8,26 @@ const RegisterPage = () => {
     isPending,
     helperPassword,
     showPassword,
+    errors,
   } = useRegister();
+
   return (
     <div>
+      {errors.length > 0 && (
+        <div style={{ color: "red", marginBottom: "10px" }}>
+          {errors.map((msg, index) => (
+            <p key={index}> {msg}</p>
+          ))}
+        </div>
+      )}
+
       <form onSubmit={submitRegister}>
         <input
           type="text"
           name="username"
           value={formRegist.username}
           onChange={handleRegist}
-          placeholder="input an username"
+          placeholder="input a username"
         />
         <input
           type="email"
@@ -31,10 +41,14 @@ const RegisterPage = () => {
           name="password"
           value={formRegist.password}
           onChange={handleRegist}
-          placeholder="input an password"
+          placeholder="input a password"
         />
-        <button onClick={helperPassword}>Show</button>
-        <button>{isPending ? "...Register" : "Register"}</button>
+        <button type="button" onClick={helperPassword}>
+          {showPassword ? "Hide" : "Show"}
+        </button>
+        <button type="submit" disabled={isPending}>
+          {isPending ? "...Registering" : "Register"}
+        </button>
       </form>
     </div>
   );

@@ -1,4 +1,5 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 import apiClient from "../lib/axios";
 
 export interface User {
@@ -28,16 +29,23 @@ export const useCurrentUser = () => {
   });
 };
 
-export const useRegisterMutation = () => {
+export const useRegisterMutation = (options?: {
+  onSuccess?: (data: any) => void;
+  onError?: (error: any) => void;
+}) => {
+  const navigate = useNavigate();
   return useMutation({
     mutationFn: (newUser: RegisterInput) => {
       return apiClient.post("/register", newUser);
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
       alert("success register!");
+      if (options?.onSuccess) options.onSuccess(data);
+      navigate("/login");
     },
     onError: (error: any) => {
-      console.error(error);
+      if (options?.onError) options.onError(error);
+      console.error(error.response?.data);
     },
   });
 };
