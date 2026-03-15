@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { useLogoutMutation } from "../hooks/auth/useAuth";
 import { useAppSelector } from "../hooks/useAppSelector";
-import { useLogoutMutation } from "../hooks/useAuth";
 import { removeToken } from "../store/authSlice";
 const Navbar = () => {
   const logout = useLogoutMutation();

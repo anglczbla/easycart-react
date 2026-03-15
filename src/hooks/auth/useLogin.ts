@@ -1,42 +1,47 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { type RegisterInput, useRegisterMutation } from "../hooks/useAuth";
+import { addToken } from "../../store/authSlice";
+import { useLoginMutation, type LoginInput } from "./useAuth";
 
-export const useRegister = () => {
+export const useLogin = () => {
   const navigate = useNavigate();
-  const mutation = useRegisterMutation();
+  const mutation = useLoginMutation();
+  const dispatch = useDispatch();
 
-  const [formRegist, setFormRegist] = useState<RegisterInput>({
-    username: "",
+  const [formLogin, setFormLogin] = useState<LoginInput>({
     email: "",
     password: "",
   });
   const [errors, setErrors] = useState<string[]>([]);
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleRegist = (
+  const handleLogin = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
     >,
   ) => {
     const { name, value } = e.target;
-    setFormRegist({ ...formRegist, [name]: value });
+    setFormLogin({ ...formLogin, [name]: value });
     if (errors.length > 0) setErrors([]);
   };
 
-  const submitRegister = (e: React.FormEvent<HTMLFormElement>) => {
+  const submitLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!formRegist.username || !formRegist.email || !formRegist.password) {
+    if (!formLogin.email || !formLogin.password) {
       return setErrors(["All fields are required!"]);
     }
 
-    mutation.mutate(formRegist, {
-      onSuccess: () => {
-        alert("Success Register!");
-        setFormRegist({ username: "", email: "", password: "" });
+    mutation.mutate(formLogin, {
+      onSuccess: (data) => {
+        console.log("data", data.data);
+
+        alert("Success Login!");
+        dispatch(addToken(data.data));
+        setFormLogin({ email: "", password: "" });
         setErrors([]);
-        navigate("/login");
+        navigate("/");
       },
       onError: (error: any) => {
         const msg = error.response?.data?.message;
@@ -46,9 +51,9 @@ export const useRegister = () => {
   };
 
   return {
-    formRegist,
-    submitRegister,
-    handleRegist,
+    formLogin,
+    submitLogin,
+    handleLogin,
     helperPassword: () => setShowPassword((prev) => !prev),
     showPassword,
     isPending: mutation.isPending,

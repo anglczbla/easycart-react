@@ -1,4 +1,5 @@
 import axios from "axios";
+import { store } from "../store/store";
 
 const BASE_URL = import.meta.env.VITE_BE_URL;
 
@@ -8,9 +9,9 @@ const apiClient = axios.create({
 
 apiClient.interceptors.request.use(
   (config) => {
-    const accessToken = localStorage.getItem("accessToken");
-    if (accessToken) {
-      config.headers.Authorization = `Bearer ${accessToken}`;
+    const token = store.getState().auth.token;
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
   },

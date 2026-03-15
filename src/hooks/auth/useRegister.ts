@@ -1,47 +1,42 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { addToken } from "../store/authSlice";
-import { useLoginMutation, type LoginInput } from "./useAuth";
+import { type RegisterInput, useRegisterMutation } from "./useAuth";
 
-export const useLogin = () => {
+export const useRegister = () => {
   const navigate = useNavigate();
-  const mutation = useLoginMutation();
-  const dispatch = useDispatch();
+  const mutation = useRegisterMutation();
 
-  const [formLogin, setFormLogin] = useState<LoginInput>({
+  const [formRegist, setFormRegist] = useState<RegisterInput>({
+    username: "",
     email: "",
     password: "",
   });
   const [errors, setErrors] = useState<string[]>([]);
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleLogin = (
+  const handleRegist = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
     >,
   ) => {
     const { name, value } = e.target;
-    setFormLogin({ ...formLogin, [name]: value });
+    setFormRegist({ ...formRegist, [name]: value });
     if (errors.length > 0) setErrors([]);
   };
 
-  const submitLogin = (e: React.FormEvent<HTMLFormElement>) => {
+  const submitRegister = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!formLogin.email || !formLogin.password) {
+    if (!formRegist.username || !formRegist.email || !formRegist.password) {
       return setErrors(["All fields are required!"]);
     }
 
-    mutation.mutate(formLogin, {
-      onSuccess: (data) => {
-        console.log("data", data.data);
-
-        alert("Success Login!");
-        dispatch(addToken(data.data));
-        setFormLogin({ email: "", password: "" });
+    mutation.mutate(formRegist, {
+      onSuccess: () => {
+        alert("Success Register!");
+        setFormRegist({ username: "", email: "", password: "" });
         setErrors([]);
-        navigate("/");
+        navigate("/login");
       },
       onError: (error: any) => {
         const msg = error.response?.data?.message;
@@ -51,9 +46,9 @@ export const useLogin = () => {
   };
 
   return {
-    formLogin,
-    submitLogin,
-    handleLogin,
+    formRegist,
+    submitRegister,
+    handleRegist,
     helperPassword: () => setShowPassword((prev) => !prev),
     showPassword,
     isPending: mutation.isPending,
