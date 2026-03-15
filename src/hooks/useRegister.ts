@@ -1,33 +1,18 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { type RegisterInput, useRegisterMutation } from "../hooks/useAuth";
 
 export const useRegister = () => {
+  const navigate = useNavigate();
+  const mutation = useRegisterMutation();
+
   const [formRegist, setFormRegist] = useState<RegisterInput>({
     username: "",
     email: "",
     password: "",
   });
   const [errors, setErrors] = useState<string[]>([]);
-  console.log("isi errors", errors);
-
   const [showPassword, setShowPassword] = useState(false);
-
-  const useRegister = useRegisterMutation({
-    onSuccess: () => {
-      setFormRegist({
-        username: "",
-        email: "",
-        password: "",
-      });
-      setErrors([]);
-    },
-    onError: (error) => {
-      const msg = error.response?.data.message;
-      console.log("msg", msg);
-
-      setErrors((prev) => [...prev, msg]);
-    },
-  });
 
   const handleRegist = (
     e: React.ChangeEvent<
@@ -36,32 +21,37 @@ export const useRegister = () => {
   ) => {
     const { name, value } = e.target;
     setFormRegist({ ...formRegist, [name]: value });
-
-    if (errors.length > 0) {
-      setErrors([]);
-    }
+    if (errors.length > 0) setErrors([]);
   };
 
   const submitRegister = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!formRegist.username || !formRegist.email || !formRegist.password) {
-      return alert("all fields are required!");
+      return setErrors(["All fields are required!"]);
     }
-    useRegister.mutate(formRegist);
-  };
 
-  const helperPassword = () => {
-    setShowPassword(!showPassword);
+    mutation.mutate(formRegist, {
+      onSuccess: () => {
+        alert("Success Register!");
+        setFormRegist({ username: "", email: "", password: "" });
+        setErrors([]);
+        navigate("/login");
+      },
+      onError: (error: any) => {
+        const msg = error.response?.data?.err || "Something went wrong";
+        setErrors((prev) => [...prev, msg]);
+      },
+    });
   };
 
   return {
-    helperPassword,
-    showPassword,
     formRegist,
     submitRegister,
     handleRegist,
-    isPending: useRegister.isPending,
+    helperPassword: () => setShowPassword((prev) => !prev),
+    showPassword,
+    isPending: mutation.isPending,
     errors,
   };
 };

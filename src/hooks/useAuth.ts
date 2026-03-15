@@ -1,5 +1,4 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
 import apiClient from "../lib/axios";
 
 export interface User {
@@ -29,51 +28,21 @@ export const useCurrentUser = () => {
   });
 };
 
-export const useRegisterMutation = (options?: {
-  onSuccess?: (data: any) => void;
-  onError?: (error: any) => void;
-}) => {
-  const navigate = useNavigate();
+export const useRegisterMutation = () => {
   return useMutation({
-    mutationFn: (newUser: RegisterInput) => {
-      return apiClient.post("/register", newUser);
-    },
-    onSuccess: (data) => {
-      alert("success register!");
-      if (options?.onSuccess) options.onSuccess(data);
-      navigate("/login");
-    },
-    onError: (error: any) => {
-      if (options?.onError) options.onError(error);
-      console.error(error.response?.data);
-    },
+    mutationFn: (newUser: RegisterInput) =>
+      apiClient.post("/register", newUser),
   });
 };
 
 export const useLoginMutation = () => {
   return useMutation({
-    mutationFn: (newLogin: LoginInput) => {
-      return apiClient.post("/login", newLogin);
-    },
-    onSuccess: () => {
-      alert("success login");
-    },
-    onError: (error: any) => {
-      console.error(error);
-    },
+    mutationFn: (newLogin: LoginInput) => apiClient.post("/login", newLogin),
   });
 };
 
 export const useLogoutMutation = () => {
   return useMutation({
-    mutationFn: (id: string) => {
-      return apiClient.post("/logout", { id });
-    },
-    onSuccess: () => {
-      alert("success logout");
-    },
-    onError: (error: any) => {
-      console.error(error);
-    },
+    mutationFn: (id: string) => apiClient.post("/logout", { id }),
   });
 };
