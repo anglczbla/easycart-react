@@ -1,42 +1,41 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { type RegisterInput, useRegisterMutation } from "../hooks/useAuth";
+import { useLoginMutation, type LoginInput } from "./useAuth";
 
-export const useRegister = () => {
+export const useLogin = () => {
   const navigate = useNavigate();
-  const mutation = useRegisterMutation();
+  const mutation = useLoginMutation();
 
-  const [formRegist, setFormRegist] = useState<RegisterInput>({
-    username: "",
+  const [formLogin, setFormLogin] = useState<LoginInput>({
     email: "",
     password: "",
   });
   const [errors, setErrors] = useState<string[]>([]);
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleRegist = (
+  const handleLogin = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
     >,
   ) => {
     const { name, value } = e.target;
-    setFormRegist({ ...formRegist, [name]: value });
+    setFormLogin({ ...formLogin, [name]: value });
     if (errors.length > 0) setErrors([]);
   };
 
-  const submitRegister = (e: React.FormEvent<HTMLFormElement>) => {
+  const submitLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!formRegist.username || !formRegist.email || !formRegist.password) {
+    if (!formLogin.email || !formLogin.password) {
       return setErrors(["All fields are required!"]);
     }
 
-    mutation.mutate(formRegist, {
+    mutation.mutate(formLogin, {
       onSuccess: () => {
-        alert("Success Register!");
-        setFormRegist({ username: "", email: "", password: "" });
+        alert("Success Login!");
+        setFormLogin({ email: "", password: "" });
         setErrors([]);
-        navigate("/login");
+        navigate("/");
       },
       onError: (error: any) => {
         const msg = error.response?.data?.message;
@@ -46,9 +45,9 @@ export const useRegister = () => {
   };
 
   return {
-    formRegist,
-    submitRegister,
-    handleRegist,
+    formLogin,
+    submitLogin,
+    handleLogin,
     helperPassword: () => setShowPassword((prev) => !prev),
     showPassword,
     isPending: mutation.isPending,
