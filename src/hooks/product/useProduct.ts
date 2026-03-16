@@ -10,15 +10,21 @@ export interface Products {
   category: string;
 }
 
-export interface UpdateProduct extends Products {
-  id: string;
-}
-
 export const usegetAllProducts = () => {
   return useQuery<Products[]>({
     queryKey: ["products"],
     queryFn: async () => {
       const res = await apiClient.get("/products");
+      return res.data.data;
+    },
+  });
+};
+
+export const usegetAllProductsById = (id: string) => {
+  return useQuery<Products[]>({
+    queryKey: ["products", id],
+    queryFn: async () => {
+      const res = await apiClient.get(`/products/${id}`);
       return res.data.data;
     },
   });
@@ -34,8 +40,8 @@ export const useAddProductMutation = () => {
 
 export const useUpdateProductMutation = () => {
   return useMutation({
-    mutationFn: ({ id, ...newProduct }: UpdateProduct) => {
-      return apiClient.put(`/products/${id}`, newProduct);
+    mutationFn: (product: Products) => {
+      return apiClient.put(`/products/${product.id}`, product);
     },
   });
 };

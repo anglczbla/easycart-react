@@ -1,15 +1,17 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   useAddProductMutation,
   useDeleteProductMutation,
+  usegetAllProducts,
   useUpdateProductMutation,
   type Products,
-  type UpdateProduct,
 } from "./useProduct";
 
 export const useProductForm = () => {
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
   const [formProduct, setFormProduct] = useState<Products>({
     id: "",
     name: "",
@@ -19,7 +21,7 @@ export const useProductForm = () => {
     category: "",
   });
 
-  const [formEdit, setFormEdit] = useState<UpdateProduct>({
+  const [formEdit, setFormEdit] = useState<Products>({
     id: "",
     name: "",
     description: "",
@@ -28,16 +30,25 @@ export const useProductForm = () => {
     category: "",
   });
 
-  const [showEdit, setShowEdit] = useState<any>();
+  const [showEdit, setShowEdit] = useState<string | null>();
 
   const [errors, setErrors] = useState<string[]>([]);
   const addProduct = useAddProductMutation();
   const updateProduct = useUpdateProductMutation();
   const deleteProduct = useDeleteProductMutation();
+  const products = usegetAllProducts();
 
-  const toggleEdit = (idx: number, product: UpdateProduct) => {
-    setShowEdit(idx);
-    setFormEdit(product);
+  const toggleEdit = (id: string) => {
+    const product = products.data?.find((prod) => prod.id == id);
+    setShowEdit(id);
+
+    if (product) {
+      setFormEdit(product);
+    }
+  };
+
+  const detailProd = (id: string) => {
+    navigate(`/products/${id}`);
   };
 
   const handleForm = (
@@ -92,40 +103,37 @@ export const useProductForm = () => {
     });
   };
 
-  const updatedProd = (id: string, formEdit: Omit<UpdateProduct, "id">) => {
+  const updatedProd = (updatedProduct: Products) => {
     if (
-      !formEdit.name ||
-      !formEdit.description ||
-      !formEdit.price ||
-      !formEdit.stock ||
-      !formEdit.category
+      !updatedProduct.name ||
+      !updatedProduct.description ||
+      !updatedProduct.price ||
+      !updatedProduct.stock ||
+      !updatedProduct.category
     ) {
       return setErrors(["All fields are required!"]);
     }
 
-    updateProduct.mutate(
-      { id, ...formEdit },
-      {
-        onSuccess: () => {
-          alert("success edit products");
-          queryClient.invalidateQueries({ queryKey: ["products"] });
-          setShowEdit(null);
-          setFormEdit({
-            id: "",
-            name: "",
-            description: "",
-            price: 0,
-            stock: 0,
-            category: "",
-          });
-          setErrors([]);
-        },
-        onError: (error: any) => {
-          const msg = error.response?.data?.message;
-          setErrors((prev) => [...prev, msg]);
-        },
+    updateProduct.mutate(updatedProduct, {
+      onSuccess: () => {
+        alert("success edit products");
+        queryClient.invalidateQueries({ queryKey: ["products"] });
+        setShowEdit(null);
+        setFormEdit({
+          id: "",
+          name: "",
+          description: "",
+          price: 0,
+          stock: 0,
+          category: "",
+        });
+        setErrors([]);
       },
-    );
+      onError: (error: any) => {
+        const msg = error.response?.data?.message;
+        setErrors((prev) => [...prev, msg]);
+      },
+    });
   };
 
   const delProd = (id: string) => {
@@ -154,5 +162,7 @@ export const useProductForm = () => {
     toggleEdit,
     showEdit,
     isPending: addProduct.isPending,
+    detailProd,
+    data: products.data,
   };
 };

@@ -14,6 +14,8 @@ const ProductPage = () => {
     toggleEdit,
     showEdit,
     handleFormEdit,
+    detailProd,
+    data,
   } = useProductForm();
 
   return (
@@ -67,12 +69,14 @@ const ProductPage = () => {
         </form>
       </div>
       <ProductList
+        data={data || []}
         formEdit={formEdit}
         updatedProd={updatedProd}
         delProd={delProd}
         toggleEdit={toggleEdit}
         showEdit={showEdit}
         handleFormEdit={handleFormEdit}
+        detailProd={detailProd}
       />
     </div>
   );
