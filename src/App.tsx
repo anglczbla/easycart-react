@@ -18,8 +18,8 @@ function App() {
 
           <Route element={<ProtectedRoute />}>
             <Route path="/" element={<HomePage />} />
-            <Route path="/product" element={<ProductPage />} />
-            <Route path="/product/:id" element={<ProductDetail />} />
+            <Route path="/products" element={<ProductPage />} />
+            <Route path="/products/:id" element={<ProductDetail />} />
           </Route>
         </Routes>
       </QueryClientProvider>

@@ -21,7 +21,7 @@ export const usegetAllProducts = () => {
 };
 
 export const usegetAllProductsById = (id: string) => {
-  return useQuery<Products[]>({
+  return useQuery<Products>({
     queryKey: ["products", id],
     queryFn: async () => {
       const res = await apiClient.get(`/products/${id}`);

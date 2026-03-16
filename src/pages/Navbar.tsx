@@ -34,7 +34,7 @@ const Navbar = () => {
   return (
     <div>
       <Link to="/">Home</Link>
-      <Link to="/product">Product</Link>
+      <Link to="/products">Product</Link>
       <button onClick={() => logutUser(id)}>Logout</button>
     </div>
   );

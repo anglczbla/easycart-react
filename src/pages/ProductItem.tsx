@@ -27,6 +27,7 @@ const ProductItem = ({
   return (
     <div>
       <div onClick={() => onProductClicked(product.id)}>
+        Detail Product
         <ul>
           <li>Name: {product.name}</li>
           <li>Description: {product.description}</li>
@@ -34,7 +35,6 @@ const ProductItem = ({
           <li>Stock: {product.stock}</li>
           <li>Category: {product.category}</li>
         </ul>
-
         <button
           onClick={(e) => {
             e.stopPropagation();
@@ -43,7 +43,6 @@ const ProductItem = ({
         >
           Delete
         </button>
-
         <button
           onClick={(e) => {
             e.stopPropagation();

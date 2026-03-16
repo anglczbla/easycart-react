@@ -1,20 +1,26 @@
 import { useParams } from "react-router-dom";
 import { usegetAllProductsById } from "../hooks/product/useProduct";
-import ProductList from "./ProductList";
 
 const ProductDetail = () => {
   const { id } = useParams();
   const { data, isLoading } = usegetAllProductsById(id || "");
+
   return (
     <div>
       <div>
-        {isLoading
-          ? "...Load Products"
-          : data?.map((item) => (
-              <div key={item.id}>
-                <ProductList data={data} />
-              </div>
-            ))}
+        {isLoading ? (
+          "...Load Products"
+        ) : (
+          <ul>
+            <li>
+              <li>Name: {data?.name}</li>
+              <li>Description: {data?.description}</li>
+              <li>Price: Rp.{data?.price}</li>
+              <li>Stock: {data?.stock}</li>
+              <li>Category: {data?.category}</li>
+            </li>
+          </ul>
+        )}
       </div>
     </div>
   );
