@@ -2,8 +2,19 @@ import { useProductForm } from "../hooks/product/useProductForm";
 import ProductList from "./ProductList";
 
 const ProductPage = () => {
-  const { formProduct, handleForm, submitProduct, errors, isPending } =
-    useProductForm();
+  const {
+    formProduct,
+    handleForm,
+    submitProduct,
+    errors,
+    isPending,
+    formEdit,
+    updatedProd,
+    delProd,
+    toggleEdit,
+    showEdit,
+    handleFormEdit,
+  } = useProductForm();
 
   return (
     <div>
@@ -55,7 +66,14 @@ const ProductPage = () => {
           </button>
         </form>
       </div>
-      <ProductList />
+      <ProductList
+        formEdit={formEdit}
+        updatedProd={updatedProd}
+        delProd={delProd}
+        toggleEdit={toggleEdit}
+        showEdit={showEdit}
+        handleFormEdit={handleFormEdit}
+      />
     </div>
   );
 };

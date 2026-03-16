@@ -1,11 +1,11 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import {
-    useAddProductMutation,
-    useDeleteProductMutation,
-    useUpdateProductMutation,
-    type Products,
-    type UpdateProduct,
+  useAddProductMutation,
+  useDeleteProductMutation,
+  useUpdateProductMutation,
+  type Products,
+  type UpdateProduct,
 } from "./useProduct";
 
 export const useProductForm = () => {
@@ -92,7 +92,7 @@ export const useProductForm = () => {
     });
   };
 
- const updatedProd = (id: string, formEdit: Omit<UpdateProduct, "id">) => {
+  const updatedProd = (id: string, formEdit: Omit<UpdateProduct, "id">) => {
     if (
       !formEdit.name ||
       !formEdit.description ||
@@ -104,11 +104,12 @@ export const useProductForm = () => {
     }
 
     updateProduct.mutate(
-      { id...formEdit },
+      { id, ...formEdit },
       {
         onSuccess: () => {
           alert("success edit products");
           queryClient.invalidateQueries({ queryKey: ["products"] });
+          setShowEdit(null);
           setFormEdit({
             id: "",
             name: "",
