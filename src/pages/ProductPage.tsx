@@ -1,5 +1,63 @@
+import { useProductForm } from "../hooks/product/useProductForm";
+import ProductList from "./ProductList";
+
 const ProductPage = () => {
-  return <div>ProductPage</div>;
+  const { formProduct, handleForm, submitProduct, errors, isPending } =
+    useProductForm();
+
+  return (
+    <div>
+      <div>
+        <form onSubmit={submitProduct}>
+          {errors.length > 0 && (
+            <div className="font-bold text-red-500 text-center">
+              {errors.map((msg, index) => (
+                <p key={index}> {msg}</p>
+              ))}
+            </div>
+          )}
+          <input
+            type="text"
+            name="name"
+            value={formProduct.name}
+            onChange={handleForm}
+            placeholder="input name product"
+          />
+          <textarea
+            name="description"
+            value={formProduct.description}
+            onChange={handleForm}
+            placeholder="input description product"
+          />
+          <input
+            type="number"
+            name="price"
+            value={formProduct.price}
+            onChange={handleForm}
+            placeholder="input price product"
+          />
+          <input
+            type="number"
+            name="stock"
+            value={formProduct.stock}
+            onChange={handleForm}
+            placeholder="input stock product"
+          />
+          <input
+            type="text"
+            name="category"
+            value={formProduct.category}
+            onChange={handleForm}
+            placeholder="input category product"
+          />
+          <button type="submit">
+            {isPending ? "...Adding Product" : "Add Product"}
+          </button>
+        </form>
+      </div>
+      <ProductList />
+    </div>
+  );
 };
 
 export default ProductPage;

@@ -2,6 +2,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import apiClient from "../../lib/axios";
 
 export interface Products {
+  id: string;
   name: string;
   description: string;
   price: number;
@@ -18,7 +19,7 @@ export const usegetAllProducts = () => {
     queryKey: ["products"],
     queryFn: async () => {
       const res = await apiClient.get("/products");
-      return res.data;
+      return res.data.data;
     },
   });
 };

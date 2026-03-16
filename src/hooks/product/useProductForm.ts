@@ -1,16 +1,17 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import {
-  useAddProductMutation,
-  useDeleteProductMutation,
-  useUpdateProductMutation,
-  type Products,
-  type UpdateProduct,
+    useAddProductMutation,
+    useDeleteProductMutation,
+    useUpdateProductMutation,
+    type Products,
+    type UpdateProduct,
 } from "./useProduct";
 
 export const useProductForm = () => {
   const queryClient = useQueryClient();
   const [formProduct, setFormProduct] = useState<Products>({
+    id: "",
     name: "",
     description: "",
     price: 0,
@@ -48,6 +49,15 @@ export const useProductForm = () => {
     setFormProduct({ ...formProduct, [name]: value });
   };
 
+  const handleFormEdit = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >,
+  ) => {
+    const { name, value } = e.target;
+    setFormEdit({ ...formEdit, [name]: value });
+  };
+
   const submitProduct = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -66,6 +76,7 @@ export const useProductForm = () => {
         alert("success add product!");
         queryClient.invalidateQueries({ queryKey: ["products"] });
         setFormProduct({
+          id: "",
           name: "",
           description: "",
           price: 0,
@@ -81,7 +92,7 @@ export const useProductForm = () => {
     });
   };
 
-  const updatedProd = (id: string, formEdit: Products) => {
+ const updatedProd = (id: string, formEdit: Omit<UpdateProduct, "id">) => {
     if (
       !formEdit.name ||
       !formEdit.description ||
@@ -93,7 +104,7 @@ export const useProductForm = () => {
     }
 
     updateProduct.mutate(
-      { id, ...formEdit },
+      { id...formEdit },
       {
         onSuccess: () => {
           alert("success edit products");
@@ -134,6 +145,7 @@ export const useProductForm = () => {
     formProduct,
     formEdit,
     handleForm,
+    handleFormEdit,
     submitProduct,
     updatedProd,
     delProd,
