@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import apiClient from "../../lib/axios";
 
-interface Products {
+export interface Products {
   name: string;
   description: string;
   price: number;
@@ -9,7 +9,7 @@ interface Products {
   category: string;
 }
 
-interface UpdateProduct extends Products {
+export interface UpdateProduct extends Products {
   id: string;
 }
 
