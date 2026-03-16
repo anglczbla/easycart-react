@@ -8,9 +8,12 @@ interface AuthPayload {
   };
 }
 
+const responseBe = localStorage.getItem("userData") || "null";
+const userData = JSON.parse(responseBe);
+
 const initialState = {
-  token: "",
-  idUser: "",
+  token: userData?.token || "",
+  idUser: userData?.data?.id || "",
 };
 
 const authSlice = createSlice({
@@ -18,6 +21,7 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     addToken: (state, action: PayloadAction<AuthPayload>) => {
+      console.log(action.payload);
       state.token = action.payload.token;
       state.idUser = action.payload.data.id;
     },

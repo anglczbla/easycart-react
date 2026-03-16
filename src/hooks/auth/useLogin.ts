@@ -37,6 +37,10 @@ export const useLogin = () => {
       onSuccess: (data) => {
         console.log("data", data.data);
 
+        localStorage.setItem("userData", JSON.stringify(data.data));
+
+        dispatch(addToken(data.data));
+
         alert("Success Login!");
         dispatch(addToken(data.data));
         setFormLogin({ email: "", password: "" });

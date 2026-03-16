@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useLogoutMutation } from "../hooks/auth/useAuth";
@@ -7,9 +8,14 @@ const Navbar = () => {
   const logout = useLogoutMutation();
   const navigate = useNavigate();
   const id = useAppSelector((state) => state.auth.idUser);
-  console.log("id", id);
-
   const dispatch = useDispatch();
+  const token = useAppSelector((state) => state.auth.token);
+
+  useEffect(() => {
+    if (!token) {
+      navigate("/login");
+    }
+  });
 
   const logutUser = (id: string) => {
     logout.mutate(id, {
@@ -17,6 +23,7 @@ const Navbar = () => {
         alert("success logout");
         navigate("/login");
         dispatch(removeToken());
+        localStorage.removeItem("userData");
       },
       onError: () => {
         alert("error logout");
