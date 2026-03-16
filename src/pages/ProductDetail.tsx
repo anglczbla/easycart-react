@@ -12,13 +12,11 @@ const ProductDetail = () => {
           "...Load Products"
         ) : (
           <ul>
-            <li>
-              <li>Name: {data?.name}</li>
-              <li>Description: {data?.description}</li>
-              <li>Price: Rp.{data?.price}</li>
-              <li>Stock: {data?.stock}</li>
-              <li>Category: {data?.category}</li>
-            </li>
+            <li>Name: {data?.name}</li>
+            <li>Description: {data?.description}</li>
+            <li>Price: Rp.{data?.price}</li>
+            <li>Stock: {data?.stock}</li>
+            <li>Category: {data?.category}</li>
           </ul>
         )}
       </div>

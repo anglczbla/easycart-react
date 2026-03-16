@@ -14,6 +14,7 @@ interface ProductListProps {
   ) => void;
   detailProd: (id: string) => void;
   data: Products[];
+  filterSearch: Products[];
 }
 const ProductList = ({
   formEdit,
@@ -24,14 +25,17 @@ const ProductList = ({
   handleFormEdit,
   detailProd,
   data,
+  filterSearch,
 }: ProductListProps) => {
   return (
     <div>
       <div>
         {(data?.length ?? 0) <= 0 ? (
           <p>product empty</p>
+        ) : filterSearch?.length <= 0 ? (
+          <p>product not found</p>
         ) : (
-          data?.map((prod) => (
+          filterSearch?.map((prod) => (
             <ProductItem
               key={prod.id}
               product={prod}

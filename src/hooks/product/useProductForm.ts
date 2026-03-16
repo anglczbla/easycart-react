@@ -1,6 +1,6 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import {
   useAddProductMutation,
   useDeleteProductMutation,
@@ -31,12 +31,24 @@ export const useProductForm = () => {
   });
 
   const [showEdit, setShowEdit] = useState<string | null>();
-
   const [errors, setErrors] = useState<string[]>([]);
+  const [search, setSearch] = useSearchParams();
   const addProduct = useAddProductMutation();
   const updateProduct = useUpdateProductMutation();
   const deleteProduct = useDeleteProductMutation();
   const products = usegetAllProducts();
+
+  const searching = search.get("q") || "";
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch({
+      q: e.target.value,
+    });
+  };
+
+  const filterSearch = products.data?.filter((p) =>
+    p.name.includes(searching.toLocaleLowerCase()),
+  );
 
   const toggleEdit = (id: string) => {
     const product = products.data?.find((prod) => prod.id == id);
@@ -164,5 +176,8 @@ export const useProductForm = () => {
     isPending: addProduct.isPending,
     detailProd,
     data: products.data,
+    searching,
+    handleSearch,
+    filterSearch,
   };
 };
