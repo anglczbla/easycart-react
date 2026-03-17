@@ -85,8 +85,8 @@ const ProductItem = ({
             placeholder="input stock product"
           />
           <select
-            name="categoryId"
-            value={formUpdateProduct.categoryId}
+            name="category"
+            value={formUpdateProduct.category}
             onChange={handleFormEdit}
           >
             <option value="">Select Category</option>

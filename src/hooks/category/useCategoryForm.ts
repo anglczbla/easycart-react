@@ -1,6 +1,5 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import {
   useAddCategoryMutation,
   useDeleteCategoryMutation,
@@ -11,7 +10,6 @@ import {
 
 export const useCategoryForm = () => {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
   const [category, setCategory] = useState<Category>({
     id: "",
     name: "",

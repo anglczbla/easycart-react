@@ -35,6 +35,7 @@ const Navbar = () => {
     <div>
       <Link to="/">Home</Link>
       <Link to="/products">Product</Link>
+      <Link to="/masterData">Master Data</Link>
       <button onClick={() => logutUser(id)}>Logout</button>
     </div>
   );

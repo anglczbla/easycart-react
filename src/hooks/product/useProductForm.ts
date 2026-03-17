@@ -18,7 +18,7 @@ export const useProductForm = () => {
     description: "",
     price: 0,
     stock: 0,
-    categoryId: "",
+    category: "",
   });
 
   const [formEdit, setFormEdit] = useState<Products>({
@@ -27,7 +27,7 @@ export const useProductForm = () => {
     description: "",
     price: 0,
     stock: 0,
-    categoryId: "",
+    category: "",
   });
 
   const [showEdit, setShowEdit] = useState<string | null>();
@@ -70,6 +70,7 @@ export const useProductForm = () => {
   ) => {
     const { name, value } = e.target;
     setFormProduct({ ...formProduct, [name]: value });
+    setErrors([]);
   };
 
   const handleFormEdit = (
@@ -79,6 +80,7 @@ export const useProductForm = () => {
   ) => {
     const { name, value } = e.target;
     setFormEdit({ ...formEdit, [name]: value });
+    setErrors([]);
   };
 
   const submitProduct = (e: React.FormEvent<HTMLFormElement>) => {
@@ -89,7 +91,7 @@ export const useProductForm = () => {
       !formProduct.description ||
       !formProduct.price ||
       !formProduct.stock ||
-      !formProduct.categoryId
+      !formProduct.category
     ) {
       return setErrors(["All fields are required!"]);
     }
@@ -104,7 +106,7 @@ export const useProductForm = () => {
           description: "",
           price: 0,
           stock: 0,
-          categoryId: "",
+          category: "",
         });
         setErrors([]);
       },
@@ -121,7 +123,7 @@ export const useProductForm = () => {
       !updatedProduct.description ||
       !updatedProduct.price ||
       !updatedProduct.stock ||
-      !updatedProduct.categoryId
+      !updatedProduct.category
     ) {
       return setErrors(["All fields are required!"]);
     }
@@ -137,7 +139,7 @@ export const useProductForm = () => {
           description: "",
           price: 0,
           stock: 0,
-          categoryId: "",
+          category: "",
         });
         setErrors([]);
       },

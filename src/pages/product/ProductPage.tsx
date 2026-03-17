@@ -73,8 +73,8 @@ const ProductPage = () => {
             placeholder="input stock product"
           />
           <select
-            name="categoryId"
-            value={formProduct.categoryId}
+            name="category"
+            value={formProduct.category}
             onChange={handleForm}
           >
             <option value="">Select Category</option>

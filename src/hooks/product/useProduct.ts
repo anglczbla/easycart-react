@@ -7,7 +7,7 @@ export interface Products {
   description: string;
   price: number;
   stock: number;
-  categoryId: string;
+  category: string;
 }
 
 export const usegetAllProducts = () => {
