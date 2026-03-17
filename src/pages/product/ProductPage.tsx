@@ -17,25 +17,13 @@ const ProductPage = () => {
     handleFormEdit,
     detailProd,
     data,
-    handleSearch,
     filterSearch,
-    searching,
   } = useProductForm();
 
   const { data: categories, isLoading } = usegetAllCategories();
 
   return (
     <div>
-      <div>
-        <label htmlFor="search">Search</label>
-        <input
-          type="text"
-          name="searching"
-          value={searching}
-          onChange={handleSearch}
-          placeholder="search product"
-        />
-      </div>
       <div>
         <form onSubmit={submitProduct}>
           {errors.length > 0 && (

@@ -2,14 +2,24 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useLogoutMutation } from "../hooks/auth/useAuth";
+import { useGlobalSearch } from "../hooks/search/useGlobalSearch";
 import { useAppSelector } from "../hooks/useAppSelector";
 import { removeToken } from "../store/authSlice";
+
 const Navbar = () => {
-  const logout = useLogoutMutation();
   const navigate = useNavigate();
-  const id = useAppSelector((state) => state.auth.idUser);
   const dispatch = useDispatch();
+  const id = useAppSelector((state) => state.auth.idUser);
   const token = useAppSelector((state) => state.auth.token);
+  const logout = useLogoutMutation();
+  const { query, updateSearch } = useGlobalSearch();
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (window.location.pathname !== "/products") {
+      navigate("/products");
+    }
+    updateSearch(e.target.value);
+  };
 
   useEffect(() => {
     if (!token) {
@@ -53,6 +63,16 @@ const Navbar = () => {
           <Link to="/masterData" className="hover:text-emerald-600 transition">
             Master Data
           </Link>
+        </div>
+
+        <div className="flex gap-2 text-secondary border border-transparent rounded-lg">
+          <input
+            type="text"
+            name="searching"
+            value={query}
+            onChange={handleSearch}
+            placeholder="Search.."
+          />
         </div>
 
         <button
