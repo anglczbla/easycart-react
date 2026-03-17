@@ -35,6 +35,24 @@ export const useCategoryForm = () => {
     }
   };
 
+  const handleChangeCategory = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >,
+  ) => {
+    const { name, value } = e.target;
+    setCategory({ ...category, [name]: value });
+  };
+
+  const handleEditCategory = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >,
+  ) => {
+    const { name, value } = e.target;
+    setEditCategory({ ...editCategory, [name]: value });
+  };
+
   const submitCategory = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -104,5 +122,7 @@ export const useCategoryForm = () => {
     isPendingUpdateCategory: onUpdateCategory.isPending,
     deleteCategory,
     isPendingDeleteCategory: onDeleteCategory.isPending,
+    handleChangeCategory,
+    handleEditCategory,
   };
 };

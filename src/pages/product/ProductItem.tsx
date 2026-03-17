@@ -1,3 +1,4 @@
+import type { Category } from "../../hooks/category/useCategory";
 import type { Products } from "../../hooks/product/useProduct";
 
 interface ProductItemProps {
@@ -13,6 +14,7 @@ interface ProductItemProps {
     >,
   ) => void;
   onProductClicked: (id: string) => void;
+  categories: Category[] | undefined;
 }
 const ProductItem = ({
   product,
@@ -23,6 +25,7 @@ const ProductItem = ({
   onProductClicked,
   onDeleteProduct,
   onUpdateProduct,
+  categories,
 }: ProductItemProps) => {
   return (
     <div>
@@ -81,6 +84,18 @@ const ProductItem = ({
             onChange={handleFormEdit}
             placeholder="input stock product"
           />
+          <select
+            name="categoryId"
+            value={formUpdateProduct.categoryId}
+            onChange={handleFormEdit}
+          >
+            <option value="">Select Category</option>
+            {categories?.map((c) => (
+              <option key={c.id} value={c.id}>
+                {c.name}
+              </option>
+            ))}
+          </select>
 
           <button onClick={() => onUpdateProduct(formUpdateProduct)}>
             Update

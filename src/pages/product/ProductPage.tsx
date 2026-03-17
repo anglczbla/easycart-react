@@ -72,13 +72,21 @@ const ProductPage = () => {
             onChange={handleForm}
             placeholder="input stock product"
           />
-          <select name="category">
+          <select
+            name="categoryId"
+            value={formProduct.categoryId}
+            onChange={handleForm}
+          >
             <option value="">Select Category</option>
-            {categories?.map((c) => (
-              <option key={c.id} value={c.id}>
-                {c.name}
-              </option>
-            ))}
+            {isLoading ? (
+              <option disabled>Loading...</option>
+            ) : (
+              categories?.map((c) => (
+                <option key={c.id} value={c.id}>
+                  {c.name}
+                </option>
+              ))
+            )}
           </select>
           <button type="submit">
             {isPending ? "...Adding Product" : "Add Product"}
@@ -95,6 +103,7 @@ const ProductPage = () => {
         handleFormEdit={handleFormEdit}
         detailProd={detailProd}
         filterSearch={filterSearch || []}
+        categories={categories}
       />
     </div>
   );

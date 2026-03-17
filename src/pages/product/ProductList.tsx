@@ -1,3 +1,4 @@
+import type { Category } from "../../hooks/category/useCategory";
 import type { Products } from "../../hooks/product/useProduct";
 import ProductItem from "./ProductItem";
 
@@ -15,6 +16,7 @@ interface ProductListProps {
   detailProd: (id: string) => void;
   data: Products[];
   filterSearch: Products[];
+  categories: Category[] | undefined;
 }
 const ProductList = ({
   formEdit,
@@ -26,6 +28,7 @@ const ProductList = ({
   detailProd,
   data,
   filterSearch,
+  categories,
 }: ProductListProps) => {
   return (
     <div>
@@ -46,6 +49,7 @@ const ProductList = ({
               onProductClicked={detailProd}
               onDeleteProduct={delProd}
               onUpdateProduct={updatedProd}
+              categories={categories}
             />
           ))
         )}
