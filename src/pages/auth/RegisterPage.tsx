@@ -1,4 +1,5 @@
 import { useRegister } from "../../hooks/auth/useRegister";
+import AuthLayout from "./AuthLayout";
 
 const RegisterPage = () => {
   const {
@@ -9,18 +10,14 @@ const RegisterPage = () => {
     helperPassword,
     showPassword,
     errors,
+    goToLogin,
   } = useRegister();
 
   return (
-    <div className="w-full p-10">
-      <div className="max-w-xl mx-auto text-center mb-16">
-        <h4 className="font-bold text-lg text-sky-400">Register</h4>
-        <p className="font-medium text-md text-sky-300">Create Your Account</p>
-      </div>
-
+    <AuthLayout title="Register" subtitle="Create Your Account">
       <form
         onSubmit={submitRegister}
-        className="flex flex-wrap flex-col justify-center items-center gap-5 border border-sky-400 rounded-xl p-5 lg:w-2/3 lg:mx-auto"
+        className="flex flex-col gap-5rounded-xl p-8 w-full max-w-md mx-auto"
       >
         {errors.length > 0 && (
           <div className="font-bold text-red-500 text-center">
@@ -35,7 +32,7 @@ const RegisterPage = () => {
           value={formRegist.username}
           onChange={handleRegist}
           placeholder="input a username"
-          className="w-full border border-sky-400 p-2 rounded-lg focus:outline-none focus:ring-sky-500 focus:ring-1 focus:border-sky-500"
+          className="w-full border border-primary p-2 rounded-lg focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary mb-2"
         />
         <input
           type="email"
@@ -43,7 +40,7 @@ const RegisterPage = () => {
           value={formRegist.email}
           onChange={handleRegist}
           placeholder="input an email"
-          className="w-full border border-sky-400 p-2 rounded-lg focus:outline-none focus:ring-sky-500 focus:ring-1 focus:border-sky-500"
+          className="w-full border border-primary p-2 rounded-lg focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary mb-2"
         />
         <div className="flex w-full gap-2 items-center">
           <input
@@ -52,27 +49,36 @@ const RegisterPage = () => {
             value={formRegist.password}
             onChange={handleRegist}
             placeholder="input a password"
-            className="w-full border border-sky-400 p-2 rounded-lg focus:outline-none focus:ring-sky-500 focus:ring-1 focus:border-sky-500"
+            className="w-full border border-primary p-2 rounded-lg focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary mb-2"
           />
 
           <button
             type="button"
             onClick={helperPassword}
-            className="text-base font-semibold text-sky-500 bg-sky-300 py-3 px-8 rounded-full hover:opacity-80 hover:shadow-lg transition duration-500 cursor-pointer"
+            className="text-base font-semibold text-secondary bg-primary py-3 px-8 rounded-full hover:opacity-80 hover:shadow-lg transition duration-500 cursor-pointer"
           >
             {showPassword ? "Hide" : "Show"}
           </button>
         </div>
 
-        <button
-          type="submit"
-          disabled={isPending}
-          className="w-full text-base font-semibold text-sky-500 bg-sky-300 py-3 px-8 rounded-full hover:opacity-80 hover:shadow-lg transition duration-500 cursor-pointer"
-        >
-          {isPending ? "...Registering" : "Register"}
-        </button>
+        <div className="flex gap-2 mt-2">
+          <button
+            type="submit"
+            disabled={isPending}
+            className="flex-1 text-base font-semibold text-secondary bg-primary py-3 px-8 rounded-full hover:opacity-80 hover:shadow-lg transition duration-500 cursor-pointer"
+          >
+            {isPending ? "...Registering" : "Register"}
+          </button>
+          <button
+            type="button"
+            onClick={goToLogin}
+            className="flex-1 text-base font-semibold text-secondary bg-primary py-3 px-8 rounded-full hover:opacity-80 hover:shadow-lg transition duration-500 cursor-pointer"
+          >
+            Login
+          </button>
+        </div>
       </form>
-    </div>
+    </AuthLayout>
   );
 };
 

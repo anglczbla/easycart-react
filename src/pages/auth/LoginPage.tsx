@@ -1,4 +1,5 @@
 import { useLogin } from "../../hooks/auth/useLogin";
+import AuthLayout from "./AuthLayout";
 
 const LoginPage = () => {
   const {
@@ -9,19 +10,14 @@ const LoginPage = () => {
     helperPassword,
     showPassword,
     errors,
+    goToRegister,
   } = useLogin();
-  return (
-    <div className="w-full p-10">
-      <div className="max-w-xl mx-auto text-center mb-16">
-        <h4 className="font-bold text-lg text-sky-400">Login</h4>
-        <p className="font-medium text-md text-sky-300">
-          Login to Your Account
-        </p>
-      </div>
 
+  return (
+    <AuthLayout title="Login" subtitle="Login to Your Account">
       <form
         onSubmit={submitLogin}
-        className="flex flex-wrap flex-col justify-center items-center gap-5 border border-sky-400 rounded-xl p-5 lg:w-1/3 lg:mx-auto"
+        className="flex flex-col gap-5 rounded-xl p-8 w-full max-w-md mx-auto"
       >
         {errors.length > 0 && (
           <div className="font-bold text-red-500 text-center">
@@ -36,7 +32,7 @@ const LoginPage = () => {
           value={formLogin.email}
           onChange={handleLogin}
           placeholder="input an email"
-          className="w-full border border-sky-400 p-2 rounded-lg focus:outline-none focus:ring-sky-500 focus:ring-1 focus:border-sky-500"
+          className="w-full border border-primary p-2 rounded-lg focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary"
         />
         <div className="flex w-full gap-2 items-center">
           <input
@@ -45,27 +41,37 @@ const LoginPage = () => {
             value={formLogin.password}
             onChange={handleLogin}
             placeholder="input a password"
-            className="w-full border border-sky-400 p-2 rounded-lg focus:outline-none focus:ring-sky-500 focus:ring-1 focus:border-sky-500"
+            className="w-full border border-primary p-2 rounded-lg focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary"
           />
 
           <button
             type="button"
             onClick={helperPassword}
-            className="text-base font-semibold text-sky-500 bg-sky-300 py-3 px-8 rounded-full hover:opacity-80 hover:shadow-lg transition duration-500 cursor-pointer"
+            className="text-base font-semibold text-secondary bg-primary py-3 px-8 rounded-full hover:opacity-80 hover:shadow-lg transition duration-500 cursor-pointer"
           >
             {showPassword ? "Hide" : "Show"}
           </button>
         </div>
 
-        <button
-          type="submit"
-          disabled={isPending}
-          className="w-full text-base font-semibold text-sky-500 bg-sky-300 py-3 px-8 rounded-full hover:opacity-80 hover:shadow-lg transition duration-500 cursor-pointer"
-        >
-          {isPending ? "...Login" : "Login"}
-        </button>
+        <div className="flex gap-2">
+          <button
+            type="submit"
+            disabled={isPending}
+            className="flex-1 text-base font-semibold text-secondary bg-primary py-3 px-8 rounded-full hover:opacity-80 hover:shadow-lg transition duration-500 cursor-pointer"
+          >
+            {isPending ? "...Login" : "Login"}
+          </button>
+
+          <button
+            type="button"
+            onClick={goToRegister}
+            className="flex-1 text-base font-semibold text-secondary bg-primary py-3 px-8 rounded-full hover:opacity-80 hover:shadow-lg transition duration-500 cursor-pointer"
+          >
+            Register
+          </button>
+        </div>
       </form>
-    </div>
+    </AuthLayout>
   );
 };
 

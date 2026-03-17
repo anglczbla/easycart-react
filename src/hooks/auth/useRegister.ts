@@ -14,6 +14,10 @@ export const useRegister = () => {
   const [errors, setErrors] = useState<string[]>([]);
   const [showPassword, setShowPassword] = useState(false);
 
+  const goToLogin = () => {
+    navigate("/login");
+  };
+
   const handleRegist = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
@@ -53,5 +57,6 @@ export const useRegister = () => {
     showPassword,
     isPending: mutation.isPending,
     errors,
+    goToLogin,
   };
 };
