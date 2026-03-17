@@ -1,4 +1,4 @@
-import type { Products } from "../hooks/product/useProduct";
+import type { Products } from "../../hooks/product/useProduct";
 
 interface ProductItemProps {
   product: Products;
@@ -33,7 +33,6 @@ const ProductItem = ({
           <li>Description: {product.description}</li>
           <li>Price: Rp.{product.price}</li>
           <li>Stock: {product.stock}</li>
-          <li>Category: {product.category}</li>
         </ul>
         <button
           onClick={(e) => {
@@ -82,13 +81,7 @@ const ProductItem = ({
             onChange={handleFormEdit}
             placeholder="input stock product"
           />
-          <input
-            type="text"
-            name="category"
-            value={formUpdateProduct.category}
-            onChange={handleFormEdit}
-            placeholder="input category product"
-          />
+
           <button onClick={() => onUpdateProduct(formUpdateProduct)}>
             Update
           </button>

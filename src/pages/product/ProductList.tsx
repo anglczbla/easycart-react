@@ -1,4 +1,4 @@
-import type { Products } from "../hooks/product/useProduct";
+import type { Products } from "../../hooks/product/useProduct";
 import ProductItem from "./ProductItem";
 
 interface ProductListProps {

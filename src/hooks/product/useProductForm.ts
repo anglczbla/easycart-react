@@ -18,7 +18,6 @@ export const useProductForm = () => {
     description: "",
     price: 0,
     stock: 0,
-    category: "",
   });
 
   const [formEdit, setFormEdit] = useState<Products>({
@@ -27,7 +26,6 @@ export const useProductForm = () => {
     description: "",
     price: 0,
     stock: 0,
-    category: "",
   });
 
   const [showEdit, setShowEdit] = useState<string | null>();
@@ -88,8 +86,7 @@ export const useProductForm = () => {
       !formProduct.name ||
       !formProduct.description ||
       !formProduct.price ||
-      !formProduct.stock ||
-      !formProduct.category
+      !formProduct.stock
     ) {
       return setErrors(["All fields are required!"]);
     }
@@ -104,7 +101,6 @@ export const useProductForm = () => {
           description: "",
           price: 0,
           stock: 0,
-          category: "",
         });
         setErrors([]);
       },
@@ -120,8 +116,7 @@ export const useProductForm = () => {
       !updatedProduct.name ||
       !updatedProduct.description ||
       !updatedProduct.price ||
-      !updatedProduct.stock ||
-      !updatedProduct.category
+      !updatedProduct.stock
     ) {
       return setErrors(["All fields are required!"]);
     }
@@ -137,7 +132,6 @@ export const useProductForm = () => {
           description: "",
           price: 0,
           stock: 0,
-          category: "",
         });
         setErrors([]);
       },

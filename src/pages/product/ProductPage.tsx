@@ -1,5 +1,6 @@
-import { useProductForm } from "../hooks/product/useProductForm";
-import ProductList from "./ProductList";
+import { usegetAllCategories } from "../../hooks/category/useCategory";
+import { useProductForm } from "../../hooks/product/useProductForm";
+import ProductList from "../product/ProductList";
 
 const ProductPage = () => {
   const {
@@ -20,6 +21,8 @@ const ProductPage = () => {
     filterSearch,
     searching,
   } = useProductForm();
+
+  const { data: categories, isLoading } = usegetAllCategories();
 
   return (
     <div>
@@ -69,13 +72,14 @@ const ProductPage = () => {
             onChange={handleForm}
             placeholder="input stock product"
           />
-          <input
-            type="text"
-            name="category"
-            value={formProduct.category}
-            onChange={handleForm}
-            placeholder="input category product"
-          />
+          <select name="category">
+            <option value="">Select Category</option>
+            {categories?.map((c) => (
+              <option key={c.id} value={c.id}>
+                {c.name}
+              </option>
+            ))}
+          </select>
           <button type="submit">
             {isPending ? "...Adding Product" : "Add Product"}
           </button>
