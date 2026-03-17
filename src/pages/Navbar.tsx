@@ -32,12 +32,37 @@ const Navbar = () => {
   };
 
   return (
-    <div>
-      <Link to="/">Home</Link>
-      <Link to="/products">Product</Link>
-      <Link to="/masterData">Master Data</Link>
-      <button onClick={() => logutUser(id)}>Logout</button>
-    </div>
+    <nav className="w-full bg-primary shadow-sm border-b border-gray-100">
+      <div className="max-w-7xl mx-auto px-4 flex justify-between items-center ">
+        <div className="flex items-center">
+          <Link to="/" className="flex items-center gap-2">
+            <img src="/logo.png" alt="EasyCart Logo" className="h-16 w-auto" />
+          </Link>
+        </div>
+
+        <div className="flex gap-8 font-semibold text-gray-700 text-secondary ">
+          <Link to="/" className="hover:text-emerald-600 transition">
+            Home
+          </Link>
+          <Link to="/products" className="hover:text-emerald-600 transition">
+            Product
+          </Link>
+          <Link to="/#" className="hover:text-emerald-600 transition">
+            Deals
+          </Link>
+          <Link to="/masterData" className="hover:text-emerald-600 transition">
+            Master Data
+          </Link>
+        </div>
+
+        <button
+          className="cursor-pointer text-secondary  px-6 py-2 rounded-full font-bold hover:text-red-500 transition"
+          onClick={() => logutUser(id)}
+        >
+          Logout
+        </button>
+      </div>
+    </nav>
   );
 };
 

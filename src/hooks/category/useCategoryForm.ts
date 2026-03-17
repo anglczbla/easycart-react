@@ -83,6 +83,7 @@ export const useCategoryForm = () => {
       onSuccess: () => {
         alert("success update category!");
         queryClient.invalidateQueries({ queryKey: ["category"] });
+        setShowEdit(null);
         setCategory({
           id: "",
           name: "",
