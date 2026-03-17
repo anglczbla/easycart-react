@@ -65,19 +65,21 @@ const ProductItem = ({
         </div>
 
         {isShowEditButton ? (
-          <div>
+          <div className="mt-5">
             <input
               type="text"
               name="name"
               value={formUpdateProduct.name}
               onChange={handleFormEdit}
               placeholder="input name product"
+              className="w-full bg-slate-200 text-dark p-3 rounded-md focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary  mb-2"
             />
             <textarea
               name="description"
               value={formUpdateProduct.description}
               onChange={handleFormEdit}
               placeholder="input description product"
+              className="w-full bg-slate-200 text-dark p-3 rounded-md focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary  mb-2"
             />
             <input
               type="number"
@@ -85,6 +87,7 @@ const ProductItem = ({
               value={formUpdateProduct.price}
               onChange={handleFormEdit}
               placeholder="input price product"
+              className="w-full bg-slate-200 text-dark p-3 rounded-md focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary  mb-2"
             />
             <input
               type="number"
@@ -92,11 +95,13 @@ const ProductItem = ({
               value={formUpdateProduct.stock}
               onChange={handleFormEdit}
               placeholder="input stock product"
+              className="w-full bg-slate-200 text-dark p-3 rounded-md focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary  mb-2"
             />
             <select
               name="category"
               value={formUpdateProduct.category}
               onChange={handleFormEdit}
+              className="w-full bg-slate-200 text-dark p-3 rounded-md focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary  mb-2"
             >
               <option value="">Select Category</option>
               {categories?.map((c) => (
@@ -105,7 +110,6 @@ const ProductItem = ({
                 </option>
               ))}
             </select>
-
             <div className="flex gap-2">
               <button
                 onClick={() => onUpdateProduct(formUpdateProduct)}
