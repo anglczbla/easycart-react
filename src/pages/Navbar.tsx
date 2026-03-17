@@ -43,7 +43,7 @@ const Navbar = () => {
 
   return (
     <nav className="w-full bg-primary shadow-sm border-b border-gray-100">
-      <div className="max-w-7xl mx-auto px-4 flex justify-between items-center ">
+      <div className="max-w-7xl mx-auto px-4 flex justify-between items-center">
         <div className="flex items-center">
           <Link to="/" className="flex items-center gap-2">
             <img src="/logo.png" alt="EasyCart Logo" className="h-16 w-auto" />

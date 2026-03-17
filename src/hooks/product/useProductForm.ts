@@ -171,7 +171,6 @@ export const useProductForm = () => {
     isPending: addProduct.isPending,
     detailProd,
     data: products.data,
-
     filterSearch,
   };
 };

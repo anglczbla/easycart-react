@@ -31,16 +31,15 @@ const ProductList = ({
   categories,
 }: ProductListProps) => {
   return (
-    <div>
-      <div>
-        {(data?.length ?? 0) <= 0 ? (
-          <p>product empty</p>
-        ) : filterSearch?.length <= 0 ? (
-          <p>product not found</p>
-        ) : (
-          filterSearch?.map((prod) => (
+    <div className="flex flex-wrap">
+      {(data?.length ?? 0) <= 0 ? (
+        <p>product empty</p>
+      ) : filterSearch?.length <= 0 ? (
+        <p>product not found</p>
+      ) : (
+        filterSearch?.map((prod) => (
+          <div className="w-full px-4 md:w-1/2 lg:w-1/3" key={prod.id}>
             <ProductItem
-              key={prod.id}
               product={prod}
               isShowEditButton={prod.id == showEdit}
               formUpdateProduct={formEdit}
@@ -51,9 +50,9 @@ const ProductList = ({
               onUpdateProduct={updatedProd}
               categories={categories}
             />
-          ))
-        )}
-      </div>
+          </div>
+        ))
+      )}
     </div>
   );
 };
