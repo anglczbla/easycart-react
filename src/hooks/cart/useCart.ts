@@ -9,6 +9,15 @@ export interface Cart {
   quantity: number;
 }
 
+export interface AddToCart {
+  product_id: string;
+}
+
+export interface deleteItemCart {
+  id: string;
+  product_id: string;
+}
+
 export const useGetCartById = () => {
   return useQuery<Cart[]>({
     queryKey: ["cart"],
@@ -21,7 +30,7 @@ export const useGetCartById = () => {
 
 export const useAddToCartMutation = () => {
   return useMutation({
-    mutationFn: (newItem: Cart) => {
+    mutationFn: (newItem: AddToCart) => {
       return apiClient.post("/cart", newItem);
     },
   });
@@ -41,9 +50,8 @@ export const useUpdateCartMutation = () => {
 
 export const useDeleteItemCartMutation = () => {
   return useMutation({
-    mutationFn: (item: Cart) => {
-      const product_id = item.product_id;
-      return apiClient.delete(`/cart/${item.cart_id}`, {
+    mutationFn: ({ id, product_id }: deleteItemCart) => {
+      return apiClient.delete(`/cart/${id}`, {
         data: {
           product_id: product_id,
         },

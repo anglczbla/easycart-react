@@ -1,9 +1,9 @@
 import { useParams } from "react-router-dom";
-import { usegetAllProductsById } from "../../hooks/product/useProduct";
+import { useProductDetail } from "../../hooks/product/useProductDetail";
 
 const ProductDetail = () => {
   const { id } = useParams();
-  const { data, isLoading } = usegetAllProductsById(id || "");
+  const { data, isLoading, addItem } = useProductDetail(id || "");
 
   return (
     <div>
@@ -11,12 +11,15 @@ const ProductDetail = () => {
         {isLoading ? (
           "...Load Products"
         ) : (
-          <ul>
-            <li>Name: {data?.name}</li>
-            <li>Description: {data?.description}</li>
-            <li>Price: Rp.{data?.price}</li>
-            <li>Stock: {data?.stock}</li>
-          </ul>
+          <div>
+            <ul>
+              <li>Name: {data?.name}</li>
+              <li>Description: {data?.description}</li>
+              <li>Price: Rp.{data?.price}</li>
+              <li>Stock: {data?.stock}</li>
+            </ul>
+            <button onClick={addItem}>Add to Cart</button>
+          </div>
         )}
       </div>
     </div>
