@@ -2,6 +2,7 @@ import { type Cart } from "../../hooks/cart/useCart";
 
 interface CartItemProps {
   cart: Cart;
+  totalPrice: number;
   onDelete: () => void;
   onIncrementQty: () => void;
   onDecrementQty: () => void;

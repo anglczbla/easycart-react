@@ -6,6 +6,11 @@ const CartList = () => {
   const { deleteItemCart, updateQtyItemCart } = useCartActions();
   const data = cart.data || [];
 
+  const totalPrice = data.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0,
+  );
+
   return (
     <div>
       <div>
@@ -38,8 +43,10 @@ const CartList = () => {
                     product_id: item.product_id,
                   })
                 }
+                totalPrice={totalPrice}
               />
             ))}
+            <p> Total: {totalPrice}</p>
           </>
         )}
       </div>

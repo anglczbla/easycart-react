@@ -18,7 +18,9 @@ const ProductDetail = () => {
               <li>Price: Rp.{data?.price}</li>
               <li>Stock: {data?.stock}</li>
             </ul>
-            <button onClick={addItem}>Add to Cart</button>
+            <button disabled={(data?.stock ?? 0) <= 0} onClick={addItem}>
+              {(data?.stock ?? 0) <= 0 ? "Out of Stock" : "Add to Cart"}
+            </button>
           </div>
         )}
       </div>
