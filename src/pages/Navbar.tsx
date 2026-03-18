@@ -58,7 +58,7 @@ const Navbar = () => {
             Product
           </Link>
           <Link to="/#" className="hover:text-emerald-600 transition">
-            Deals
+            Cart
           </Link>
           <Link to="/masterData" className="hover:text-emerald-600 transition">
             Master Data
