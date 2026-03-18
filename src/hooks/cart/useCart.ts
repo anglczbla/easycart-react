@@ -18,6 +18,10 @@ export interface deleteItemCart {
   product_id: string;
 }
 
+export interface UpdateCart extends deleteItemCart {
+  quantity: number;
+}
+
 export const useGetCartById = () => {
   return useQuery<Cart[]>({
     queryKey: ["cart"],
@@ -38,12 +42,12 @@ export const useAddToCartMutation = () => {
 
 export const useUpdateCartMutation = () => {
   return useMutation({
-    mutationFn: (newItem: Cart) => {
+    mutationFn: ({ id, quantity, product_id }: UpdateCart) => {
       const data = {
-        quantity: newItem.quantity,
-        product_id: newItem.product_id,
+        quantity,
+        product_id,
       };
-      return apiClient.put(`/cart/${newItem.cart_id}`, data);
+      return apiClient.put(`/cart/${id}`, data);
     },
   });
 };
@@ -62,6 +66,7 @@ export const useDeleteItemCartMutation = () => {
 
 export const useCartActions = () => {
   const deleteItem = useDeleteItemCartMutation();
+  const updateCart = useUpdateCartMutation();
   const queryClient = useQueryClient();
 
   const deleteItemCart = ({ id, product_id }: deleteItemCart) => {
@@ -80,5 +85,25 @@ export const useCartActions = () => {
     );
   };
 
-  return { deleteItemCart };
+  const updateQtyItemCart = ({ id, quantity, product_id }: UpdateCart) => {
+    updateCart.mutate(
+      {
+        id,
+        quantity,
+        product_id,
+      },
+      {
+        onSuccess: () => {
+          alert("success update item");
+          queryClient.invalidateQueries({ queryKey: ["cart"] });
+        },
+        onError: (error: any) => {
+          const msg = error.response?.data?.message;
+          console.error(msg);
+        },
+      },
+    );
+  };
+
+  return { deleteItemCart, updateQtyItemCart };
 };

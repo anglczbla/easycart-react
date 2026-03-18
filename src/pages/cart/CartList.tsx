@@ -3,7 +3,7 @@ import CartItem from "./CartItem";
 
 const CartList = () => {
   const cart = useGetCartById();
-  const { deleteItemCart } = useCartActions();
+  const { deleteItemCart, updateQtyItemCart } = useCartActions();
   const data = cart.data || [];
 
   return (
@@ -21,6 +21,20 @@ const CartList = () => {
                 onDelete={() =>
                   deleteItemCart({
                     id: item.cart_id,
+                    product_id: item.product_id,
+                  })
+                }
+                onIncrementQty={() =>
+                  updateQtyItemCart({
+                    id: item.cart_id,
+                    quantity: item.quantity + 1,
+                    product_id: item.product_id,
+                  })
+                }
+                onDecrementQty={() =>
+                  updateQtyItemCart({
+                    id: item.cart_id,
+                    quantity: item.quantity - 1,
                     product_id: item.product_id,
                   })
                 }
