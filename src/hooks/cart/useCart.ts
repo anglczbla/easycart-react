@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import apiClient from "../../lib/axios";
 
 export interface Cart {
@@ -58,4 +58,27 @@ export const useDeleteItemCartMutation = () => {
       });
     },
   });
+};
+
+export const useCartActions = () => {
+  const deleteItem = useDeleteItemCartMutation();
+  const queryClient = useQueryClient();
+
+  const deleteItemCart = ({ id, product_id }: deleteItemCart) => {
+    deleteItem.mutate(
+      { id, product_id },
+      {
+        onSuccess: () => {
+          alert("success delete item");
+          queryClient.invalidateQueries({ queryKey: ["cart"] });
+        },
+        onError: (error: any) => {
+          const msg = error.response?.data?.message;
+          console.error(msg);
+        },
+      },
+    );
+  };
+
+  return { deleteItemCart };
 };
