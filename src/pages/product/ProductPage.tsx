@@ -83,7 +83,7 @@ const ProductPage = () => {
                 <option disabled>Loading...</option>
               ) : (
                 categories?.map((c) => (
-                  <option key={c.id} value={c.id}>
+                  <option key={c.id} value={c.name}>
                     {c.name}
                   </option>
                 ))

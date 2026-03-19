@@ -39,8 +39,6 @@ export const useLogin = () => {
 
     mutation.mutate(formLogin, {
       onSuccess: (data) => {
-        console.log("data", data.data);
-
         localStorage.setItem("userData", JSON.stringify(data.data));
 
         dispatch(addToken(data.data));
