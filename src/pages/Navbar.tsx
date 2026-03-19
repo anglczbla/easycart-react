@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useLogoutMutation } from "../hooks/auth/useAuth";
@@ -10,7 +9,6 @@ const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const id = useAppSelector((state) => state.auth.idUser);
-  const token = useAppSelector((state) => state.auth.token);
   const logout = useLogoutMutation();
   const { query, updateSearch } = useGlobalSearch();
 
@@ -20,12 +18,6 @@ const Navbar = () => {
     }
     updateSearch(e.target.value);
   };
-
-  useEffect(() => {
-    if (!token) {
-      navigate("/login");
-    }
-  });
 
   const logutUser = (id: string) => {
     logout.mutate(id, {

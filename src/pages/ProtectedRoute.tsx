@@ -1,13 +1,20 @@
-import { Outlet } from "react-router-dom";
-import Navbar from "./Navbar";
+import { useEffect } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
+import { useAppSelector } from "../hooks/useAppSelector";
 
 const ProtectedRoute = () => {
+  const navigate = useNavigate();
+  const token = useAppSelector((state) => state.auth.token);
+
+  useEffect(() => {
+    if (!token) {
+      navigate("/login");
+    }
+  });
+
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Navbar />
-      <main className="max-w-7xl mx-auto px-4 py-8">
-        <Outlet />
-      </main>
+    <div>
+      <Outlet />
     </div>
   );
 };
