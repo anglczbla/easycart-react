@@ -18,7 +18,7 @@ const CartList = () => {
           <p>Cart is Empty</p>
         ) : (
           <>
-            <p>My Cart</p>
+            <p className="text-center font-bold text-lg">My Cart</p>
             {data.map((item) => (
               <CartItem
                 key={item.cart_id}
@@ -46,7 +46,7 @@ const CartList = () => {
                 totalPrice={totalPrice}
               />
             ))}
-            <p> Total: {totalPrice}</p>
+            <p className="font-bold text-lg p-2"> Total: {totalPrice}</p>
           </>
         )}
       </div>

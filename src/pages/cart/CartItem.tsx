@@ -15,15 +15,17 @@ const CartItem = ({
   onDecrementQty,
 }: CartItemProps) => {
   return (
-    <div>
-      <ul>
-        <li>{cart.name}</li>
-        <li>{cart.price}</li>
-        <li>{cart.quantity}</li>
-      </ul>
-      <button onClick={onDelete}>Delete</button>
-      <button onClick={onIncrementQty}>+</button>
-      <button onClick={onDecrementQty}>-</button>
+    <div className="w-full p-3">
+      <div className="bg-white rounded-xl shadow-lg overflow-hidden mb-10 p-5">
+        <ul>
+          <li>{cart.name}</li>
+          <li>{cart.price}</li>
+          <li>{cart.quantity}</li>
+        </ul>
+        <button onClick={onDelete}>Delete</button>
+        <button onClick={onIncrementQty}>+</button>
+        <button onClick={onDecrementQty}>-</button>
+      </div>
     </div>
   );
 };
