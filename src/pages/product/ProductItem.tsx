@@ -1,11 +1,11 @@
 import type { Category } from "../../hooks/category/useCategory";
-import type { Products } from "../../hooks/product/useProduct";
+import type { Product, updateProduct } from "../../hooks/product/useProduct";
 
 interface ProductItemProps {
-  product: Products;
-  formUpdateProduct: Products;
+  product: Product;
+  formUpdateProduct: updateProduct;
   isShowEditButton: boolean;
-  onUpdateProduct: (updatedProduct: Products) => void;
+  onUpdateProduct: (updatedProduct: updateProduct) => void;
   onDeleteProduct: (id: string) => void;
   onToggleEditProduct: (id: string) => void;
   handleFormEdit: (
@@ -36,6 +36,7 @@ const ProductItem = ({
             <li>Description: {product.description}</li>
             <li>Price: Rp.{product.price}</li>
             <li>Stock: {product.stock}</li>
+            <li>Category: {product.category}</li>
           </ul>
           <div className="flex gap-2">
             <button

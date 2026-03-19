@@ -7,22 +7,22 @@ import {
   useDeleteProductMutation,
   usegetAllProducts,
   useUpdateProductMutation,
-  type Products,
+  type ProductForm,
+  type updateProduct,
 } from "./useProduct";
 
 export const useProductForm = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
-  const [formProduct, setFormProduct] = useState<Products>({
-    id: "",
+  const [formProduct, setFormProduct] = useState<ProductForm>({
     name: "",
     description: "",
-    price: 0,
-    stock: 0,
+    price: "",
+    stock: "",
     category: "",
   });
 
-  const [formEdit, setFormEdit] = useState<Products>({
+  const [formEdit, setFormEdit] = useState<updateProduct>({
     id: "",
     name: "",
     description: "",
@@ -72,7 +72,10 @@ export const useProductForm = () => {
     >,
   ) => {
     const { name, value } = e.target;
-    setFormEdit({ ...formEdit, [name]: value });
+    setFormEdit({
+      ...formEdit,
+      [name]: name === "price" || name === "stock" ? Number(value) : value,
+    });
     setErrors([]);
   };
 
@@ -89,16 +92,23 @@ export const useProductForm = () => {
       return setErrors(["All fields are required!"]);
     }
 
-    addProduct.mutate(formProduct, {
+    const newData = {
+      name: formProduct.name,
+      description: formProduct.description,
+      price: Number(formProduct.price),
+      stock: Number(formProduct.stock),
+      category: formProduct.category,
+    };
+
+    addProduct.mutate(newData, {
       onSuccess: () => {
         alert("success add product!");
         queryClient.invalidateQueries({ queryKey: ["products"] });
         setFormProduct({
-          id: "",
           name: "",
           description: "",
-          price: 0,
-          stock: 0,
+          price: "",
+          stock: "",
           category: "",
         });
         setErrors([]);
@@ -110,7 +120,7 @@ export const useProductForm = () => {
     });
   };
 
-  const updatedProd = (updatedProduct: Products) => {
+  const updatedProd = (updatedProduct: updateProduct) => {
     if (
       !updatedProduct.name ||
       !updatedProduct.description ||

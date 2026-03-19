@@ -1,10 +1,10 @@
 import type { Category } from "../../hooks/category/useCategory";
-import type { Products } from "../../hooks/product/useProduct";
+import type { Product, updateProduct } from "../../hooks/product/useProduct";
 import ProductItem from "./ProductItem";
 
 interface ProductListProps {
-  formEdit: Products;
-  updatedProd: (updatedProduct: Products) => void;
+  formEdit: updateProduct;
+  updatedProd: (updatedProduct: Product) => void;
   delProd: (id: string) => void;
   toggleEdit: (id: string) => void;
   showEdit: any;
@@ -14,8 +14,8 @@ interface ProductListProps {
     >,
   ) => void;
   detailProd: (id: string) => void;
-  data: Products[];
-  filterSearch: Products[];
+  data: Product[];
+  filterSearch: Product[];
   categories: Category[] | undefined;
 }
 const ProductList = ({

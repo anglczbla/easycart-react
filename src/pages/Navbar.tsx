@@ -60,6 +60,9 @@ const Navbar = () => {
           <Link to="/cart" className="hover:text-emerald-600 transition">
             Cart
           </Link>
+          <Link to="/profile" className="hover:text-emerald-600 transition">
+            Profile
+          </Link>
           <Link to="/masterData" className="hover:text-emerald-600 transition">
             Master Data
           </Link>

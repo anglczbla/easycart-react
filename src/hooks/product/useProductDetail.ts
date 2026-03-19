@@ -25,7 +25,6 @@ export const useProductDetail = (id: string) => {
     data,
     isLoading,
     addItem,
-
     isPending: addToCart.isPending,
   };
 };

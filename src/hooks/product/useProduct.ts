@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import apiClient from "../../lib/axios";
 
-export interface Products {
+export interface Product {
   id: string;
   name: string;
   description: string;
@@ -10,8 +10,20 @@ export interface Products {
   category: string;
 }
 
+export interface ProductForm {
+  name: string;
+  description: string;
+  price: string;
+  stock: string;
+  category: string;
+}
+
+export interface updateProduct extends Product {
+  id: string;
+}
+
 export const usegetAllProducts = () => {
-  return useQuery<Products[]>({
+  return useQuery<Product[]>({
     queryKey: ["products"],
     queryFn: async () => {
       const res = await apiClient.get("/products");
@@ -21,7 +33,7 @@ export const usegetAllProducts = () => {
 };
 
 export const usegetAllProductsById = (id: string) => {
-  return useQuery<Products>({
+  return useQuery<Product>({
     queryKey: ["products", id],
     queryFn: async () => {
       const res = await apiClient.get(`/products/${id}`);
@@ -32,7 +44,7 @@ export const usegetAllProductsById = (id: string) => {
 
 export const useAddProductMutation = () => {
   return useMutation({
-    mutationFn: (newProduct: Products) => {
+    mutationFn: (newProduct: Omit<Product, "id">) => {
       return apiClient.post("/products", newProduct);
     },
   });
@@ -40,8 +52,8 @@ export const useAddProductMutation = () => {
 
 export const useUpdateProductMutation = () => {
   return useMutation({
-    mutationFn: (product: Products) => {
-      return apiClient.put(`/products/${product.id}`, product);
+    mutationFn: (data: updateProduct) => {
+      return apiClient.put(`/products/${data.id}`, data);
     },
   });
 };

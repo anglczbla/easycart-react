@@ -7,6 +7,7 @@ import CategoryPage from "./pages/category/CategoryPage";
 import HomePage from "./pages/HomePage";
 import ProductDetail from "./pages/product/ProductDetail";
 import ProductPage from "./pages/product/ProductPage";
+import ProfilePage from "./pages/profile/ProfilePage";
 import ProtectedRoute from "./pages/ProtectedRoute";
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
             <Route path="/products/:id" element={<ProductDetail />} />
             <Route path="/masterData" element={<CategoryPage />} />
             <Route path="/cart" element={<CartList />} />
+            <Route path="/profile" element={<ProfilePage />} />
           </Route>
         </Routes>
       </QueryClientProvider>
