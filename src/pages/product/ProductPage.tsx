@@ -18,6 +18,8 @@ const ProductPage = () => {
     detailProd,
     data,
     filterSearch,
+    query,
+    handleSearch,
   } = useProductForm();
 
   const { data: categories, isLoading } = usegetAllCategories();
@@ -109,6 +111,8 @@ const ProductPage = () => {
         detailProd={detailProd}
         filterSearch={filterSearch || []}
         categories={categories}
+        query={query}
+        handleSearch={handleSearch}
       />
     </div>
   );

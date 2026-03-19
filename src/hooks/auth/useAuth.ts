@@ -31,19 +31,19 @@ export const useCurrentUser = () => {
 export const useRegisterMutation = () => {
   return useMutation({
     mutationFn: (newUser: RegisterInput) =>
-      apiClient.post("/users/register", newUser),
+      apiClient.post("/auth/register", newUser),
   });
 };
 
 export const useLoginMutation = () => {
   return useMutation({
     mutationFn: (newLogin: LoginInput) =>
-      apiClient.post("/users/login", newLogin),
+      apiClient.post("/auth/login", newLogin),
   });
 };
 
 export const useLogoutMutation = () => {
   return useMutation({
-    mutationFn: (id: string) => apiClient.post("/users/logout", { id }),
+    mutationFn: (id: string) => apiClient.post("/auth/logout", { id }),
   });
 };

@@ -13,9 +13,6 @@ const Navbar = () => {
   const { query, updateSearch } = useGlobalSearch();
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (window.location.pathname !== "/products") {
-      navigate("/products");
-    }
     updateSearch(e.target.value);
   };
 

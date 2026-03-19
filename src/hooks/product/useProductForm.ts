@@ -37,11 +37,21 @@ export const useProductForm = () => {
   const updateProduct = useUpdateProductMutation();
   const deleteProduct = useDeleteProductMutation();
   const products = usegetAllProducts();
-  const { query } = useGlobalSearch();
+  const { query, updateSearch } = useGlobalSearch();
 
   const filterSearch = products.data?.filter((p) =>
     p.name.toLowerCase().includes(query.toLowerCase()),
   );
+
+  const handleSearch = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >,
+  ) => {
+    updateSearch(e.target.value);
+  };
+
+  console.log("filter", filterSearch);
 
   const toggleEdit = (id: string) => {
     const product = products.data?.find((prod) => prod.id == id);
@@ -182,5 +192,8 @@ export const useProductForm = () => {
     detailProd,
     data: products.data,
     filterSearch,
+    query,
+
+    handleSearch,
   };
 };

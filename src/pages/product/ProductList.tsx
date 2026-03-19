@@ -17,6 +17,12 @@ interface ProductListProps {
   data: Product[];
   filterSearch: Product[];
   categories: Category[] | undefined;
+  query: string;
+  handleSearch: (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >,
+  ) => void;
 }
 const ProductList = ({
   formEdit,
@@ -29,16 +35,27 @@ const ProductList = ({
   data,
   filterSearch,
   categories,
+  query,
+  handleSearch,
 }: ProductListProps) => {
   return (
     <div className="flex flex-wrap">
+      <div className="flex w-full gap-2 text-bold border border-transparent rounded-lg">
+        <input
+          type="text"
+          name="searching"
+          value={query}
+          onChange={handleSearch}
+          placeholder="Search.."
+        />
+      </div>
       {(data?.length ?? 0) <= 0 ? (
         <p>product empty</p>
       ) : filterSearch?.length <= 0 ? (
         <p>product not found</p>
       ) : (
         filterSearch?.map((prod) => (
-          <div className="w-full px-4 md:w-1/2 lg:w-1/3" key={prod.id}>
+          <div className="w-full mt-5 px-4 md:w-1/2 lg:w-1/3" key={prod.id}>
             <ProductItem
               product={prod}
               isShowEditButton={prod.id == showEdit}
