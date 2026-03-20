@@ -42,15 +42,16 @@ export const usegetAllProductsById = (id: string) => {
   });
 };
 
-export const useSearchProduct = (query: string) => {
+export const useSearchProduct = (query: string, category: string) => {
   return useQuery<Product[]>({
-    queryKey: ["search", query],
+    queryKey: ["products", query, category],
     queryFn: async () => {
-      const res = await apiClient.get(`/products/search?product=${query}`);
-      console.log("tes", res.data.product);
+      const res = await apiClient.get(
+        `/products/search?product=${query}&category=${category}`,
+      );
       return res.data.product;
     },
-    enabled: !!query,
+    enabled: true,
     placeholderData: [],
   });
 };

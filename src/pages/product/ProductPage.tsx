@@ -20,6 +20,9 @@ const ProductPage = () => {
     dataProduct,
     inputValue,
     handleSearch,
+    handleCategory,
+    categoryValue,
+    isLoadingSearch,
   } = useProductForm();
 
   const { data: categories, isLoading } = usegetAllCategories();
@@ -109,10 +112,17 @@ const ProductPage = () => {
         showEdit={showEdit}
         handleFormEdit={handleFormEdit}
         detailProd={detailProd}
-        filterSearch={dataProduct || []}
+        filterSearch={
+          inputValue !== "" || categoryValue !== ""
+            ? dataProduct || []
+            : data || []
+        }
         categories={categories}
         inputValue={inputValue}
+        categoryValue={categoryValue}
         handleSearch={handleSearch}
+        handleCategory={handleCategory}
+        isLoadingSearch={isLoadingSearch}
       />
     </div>
   );

@@ -37,7 +37,14 @@ export const useProductForm = () => {
   const updateProduct = useUpdateProductMutation();
   const deleteProduct = useDeleteProductMutation();
   const products = usegetAllProducts();
-  const { inputValue, updateSearch, data: dataProduct } = useGlobalSearch();
+  const {
+    inputValue,
+    updateSearch,
+    data: dataProduct,
+    updateCategory,
+    categoryValue,
+    isLoading: isLoadingSearch,
+  } = useGlobalSearch();
 
   const handleSearch = (
     e: React.ChangeEvent<
@@ -45,6 +52,14 @@ export const useProductForm = () => {
     >,
   ) => {
     updateSearch(e.target.value);
+  };
+
+  const handleCategory = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >,
+  ) => {
+    updateCategory(e.target.value);
   };
 
   const toggleEdit = (id: string) => {
@@ -188,5 +203,8 @@ export const useProductForm = () => {
     dataProduct,
     inputValue,
     handleSearch,
+    handleCategory,
+    categoryValue,
+    isLoadingSearch,
   };
 };

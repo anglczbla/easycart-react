@@ -4,20 +4,31 @@ import { useSearchProduct } from "../product/useProduct";
 
 export const useGlobalSearch = () => {
   const [search, setSearch] = useSearchParams();
-  const [inputValue, setInputValue] = useState("");
   const query = search.get("q") || "";
-  const { data } = useSearchProduct(query);
+  const category = search.get("category") || "";
+
+  const [categoryValue, setCategoryValue] = useState(category);
+  const [inputValue, setInputValue] = useState(query);
+
+  const { data, isLoading } = useSearchProduct(query, category);
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setSearch({ q: inputValue });
+      setSearch({ q: inputValue, category: categoryValue });
     }, 300);
     return () => clearTimeout(timer);
-  }, [inputValue]);
+  }, [inputValue, categoryValue, setSearch]);
 
-  const updateSearch = (value: string) => {
-    setInputValue(value);
+  const updateSearch = (value: string) => setInputValue(value);
+
+  const updateCategory = (value: string) => setCategoryValue(value);
+
+  return {
+    inputValue,
+    updateSearch,
+    data,
+    updateCategory,
+    categoryValue,
+    isLoading,
   };
-
-  return { inputValue, updateSearch, data };
 };
