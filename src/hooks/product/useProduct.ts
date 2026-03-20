@@ -42,6 +42,19 @@ export const usegetAllProductsById = (id: string) => {
   });
 };
 
+export const useSearchProduct = (query: string) => {
+  return useQuery<Product[]>({
+    queryKey: ["search", query],
+    queryFn: async () => {
+      const res = await apiClient.get(`/products/search?product=${query}`);
+      console.log("tes", res.data.product);
+      return res.data.product;
+    },
+    enabled: !!query,
+    placeholderData: [],
+  });
+};
+
 export const useAddProductMutation = () => {
   return useMutation({
     mutationFn: (newProduct: Omit<Product, "id">) => {

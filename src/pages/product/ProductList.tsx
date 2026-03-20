@@ -17,7 +17,7 @@ interface ProductListProps {
   data: Product[];
   filterSearch: Product[];
   categories: Category[] | undefined;
-  query: string;
+  inputValue: string;
   handleSearch: (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
@@ -35,7 +35,7 @@ const ProductList = ({
   data,
   filterSearch,
   categories,
-  query,
+  inputValue,
   handleSearch,
 }: ProductListProps) => {
   return (
@@ -44,32 +44,32 @@ const ProductList = ({
         <input
           type="text"
           name="searching"
-          value={query}
+          value={inputValue}
           onChange={handleSearch}
           placeholder="Search.."
         />
       </div>
-      {(data?.length ?? 0) <= 0 ? (
-        <p>product empty</p>
-      ) : filterSearch?.length <= 0 ? (
+
+      {(data?.length ?? 0) <= 0 && <p>product empty</p>}
+      {inputValue !== "" && (filterSearch?.length ?? 0) <= 0 && (
         <p>product not found</p>
-      ) : (
-        filterSearch?.map((prod) => (
-          <div className="w-full mt-5 px-4 md:w-1/2 lg:w-1/3" key={prod.id}>
-            <ProductItem
-              product={prod}
-              isShowEditButton={prod.id == showEdit}
-              formUpdateProduct={formEdit}
-              handleFormEdit={handleFormEdit}
-              onToggleEditProduct={toggleEdit}
-              onProductClicked={detailProd}
-              onDeleteProduct={delProd}
-              onUpdateProduct={updatedProd}
-              categories={categories}
-            />
-          </div>
-        ))
       )}
+
+      {(inputValue ? filterSearch : data).map((prod) => (
+        <div className="w-full mt-5 px-4 md:w-1/2 lg:w-1/3" key={prod.id}>
+          <ProductItem
+            product={prod}
+            isShowEditButton={prod.id == showEdit}
+            formUpdateProduct={formEdit}
+            handleFormEdit={handleFormEdit}
+            onToggleEditProduct={toggleEdit}
+            onProductClicked={detailProd}
+            onDeleteProduct={delProd}
+            onUpdateProduct={updatedProd}
+            categories={categories}
+          />
+        </div>
+      ))}
     </div>
   );
 };

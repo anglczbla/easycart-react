@@ -37,11 +37,7 @@ export const useProductForm = () => {
   const updateProduct = useUpdateProductMutation();
   const deleteProduct = useDeleteProductMutation();
   const products = usegetAllProducts();
-  const { query, updateSearch } = useGlobalSearch();
-
-  const filterSearch = products.data?.filter((p) =>
-    p.name.toLowerCase().includes(query.toLowerCase()),
-  );
+  const { inputValue, updateSearch, data: dataProduct } = useGlobalSearch();
 
   const handleSearch = (
     e: React.ChangeEvent<
@@ -50,8 +46,6 @@ export const useProductForm = () => {
   ) => {
     updateSearch(e.target.value);
   };
-
-  console.log("filter", filterSearch);
 
   const toggleEdit = (id: string) => {
     const product = products.data?.find((prod) => prod.id == id);
@@ -191,9 +185,8 @@ export const useProductForm = () => {
     isPending: addProduct.isPending,
     detailProd,
     data: products.data,
-    filterSearch,
-    query,
-
+    dataProduct,
+    inputValue,
     handleSearch,
   };
 };

@@ -17,8 +17,8 @@ const ProductPage = () => {
     handleFormEdit,
     detailProd,
     data,
-    filterSearch,
-    query,
+    dataProduct,
+    inputValue,
     handleSearch,
   } = useProductForm();
 
@@ -109,9 +109,9 @@ const ProductPage = () => {
         showEdit={showEdit}
         handleFormEdit={handleFormEdit}
         detailProd={detailProd}
-        filterSearch={filterSearch || []}
+        filterSearch={dataProduct || []}
         categories={categories}
-        query={query}
+        inputValue={inputValue}
         handleSearch={handleSearch}
       />
     </div>
