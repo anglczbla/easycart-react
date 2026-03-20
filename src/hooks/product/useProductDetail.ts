@@ -14,6 +14,7 @@ export const useProductDetail = (id: string) => {
       { product_id: data.id },
       {
         onSuccess: () => {
+          alert("success add to cart");
           queryClient.invalidateQueries({ queryKey: ["cart"] });
         },
       },

@@ -94,7 +94,6 @@ export const useCartActions = () => {
       },
       {
         onSuccess: () => {
-          alert("success update item");
           queryClient.invalidateQueries({ queryKey: ["cart"] });
         },
         onError: (error: any) => {

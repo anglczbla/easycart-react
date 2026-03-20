@@ -16,15 +16,28 @@ const CartItem = ({
 }: CartItemProps) => {
   return (
     <div className="w-full p-3">
-      <div className="bg-white rounded-xl shadow-lg overflow-hidden mb-10 p-5">
-        <ul>
-          <li>{cart.name}</li>
-          <li>{cart.price}</li>
-          <li>{cart.quantity}</li>
-        </ul>
-        <button onClick={onDelete}>Delete</button>
-        <button onClick={onIncrementQty}>+</button>
-        <button onClick={onDecrementQty}>-</button>
+      <div className="flex gap-10 bg-white rounded-xl shadow-lg overflow-hidden mb-10 p-5">
+        <div className="p-2">
+          <ul>
+            <li>Name: {cart.name}</li>
+            <li>Price: {cart.price}</li>
+            <li>Qty: {cart.quantity}</li>
+          </ul>
+        </div>
+        <div className="flex gap-5">
+          <button
+            onClick={onDelete}
+            className="text-base w-20 font-semibold text-red-500  py-2 px-2 hover:opacity-80  transition duration-500 cursor-pointer"
+          >
+            Delete
+          </button>
+          <button className="cursor-pointer" onClick={onIncrementQty}>
+            +
+          </button>
+          <button className="cursor-pointer" onClick={onDecrementQty}>
+            -
+          </button>
+        </div>
       </div>
     </div>
   );
