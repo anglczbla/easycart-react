@@ -14,8 +14,8 @@ import ProfilePage from "./pages/profile/ProfilePage";
 import ProtectedRoute from "./pages/ProtectedRoute";
 import { store } from "./store/store";
 
+const queryClient = new QueryClient();
 function App() {
-  const queryClient = new QueryClient();
   return (
     <Provider store={store}>
       <BrowserRouter>

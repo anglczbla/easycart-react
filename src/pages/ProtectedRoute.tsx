@@ -10,7 +10,7 @@ const ProtectedRoute = () => {
     if (!token) {
       navigate("/login");
     }
-  });
+  }, [token]);
 
   return (
     <div>

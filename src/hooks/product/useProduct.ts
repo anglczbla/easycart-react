@@ -51,8 +51,7 @@ export const useSearchProduct = (query: string, category: string) => {
       );
       return res.data.product;
     },
-    enabled: true,
-    placeholderData: [],
+    enabled: !!query || !!category,
   });
 };
 
