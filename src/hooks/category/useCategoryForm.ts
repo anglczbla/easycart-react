@@ -19,6 +19,7 @@ export const useCategoryForm = () => {
     name: "",
   });
   const [showEdit, setShowEdit] = useState<string | null>();
+  const [errors, setErrors] = useState<string[]>([]);
   const onAddCategory = useAddCategoryMutation();
   const onUpdateCategory = useUpdateCategoryMutation();
   const onDeleteCategory = useDeleteCategoryMutation();
@@ -40,6 +41,7 @@ export const useCategoryForm = () => {
   ) => {
     const { name, value } = e.target;
     setCategory({ ...category, [name]: value });
+    setErrors([]);
   };
 
   const handleEditCategory = (
@@ -49,6 +51,7 @@ export const useCategoryForm = () => {
   ) => {
     const { name, value } = e.target;
     setEditCategory({ ...editCategory, [name]: value });
+    setErrors([]);
   };
 
   const submitCategory = (e: React.FormEvent<HTMLFormElement>) => {
@@ -66,10 +69,12 @@ export const useCategoryForm = () => {
           id: "",
           name: "",
         });
+        setErrors([]);
       },
       onError: (error: any) => {
         const msg = error.response?.data?.message;
         console.error(msg);
+        setErrors([...errors, msg]);
       },
     });
   };
@@ -88,10 +93,13 @@ export const useCategoryForm = () => {
           id: "",
           name: "",
         });
+        setErrors([]);
       },
+
       onError: (error: any) => {
         const msg = error.response?.data?.message;
         console.error(msg);
+        setErrors([...errors, msg]);
       },
     });
   };
@@ -101,10 +109,12 @@ export const useCategoryForm = () => {
       onSuccess: () => {
         alert("success delete category!");
         queryClient.invalidateQueries({ queryKey: ["category"] });
+        setErrors([]);
       },
       onError: (error: any) => {
         const msg = error.response?.data?.message;
         console.error(msg);
+        setErrors([...errors, msg]);
       },
     });
   };
@@ -123,5 +133,6 @@ export const useCategoryForm = () => {
     isPendingDeleteCategory: onDeleteCategory.isPending,
     handleChangeCategory,
     handleEditCategory,
+    errors,
   };
 };

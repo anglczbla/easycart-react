@@ -14,6 +14,7 @@ const CategoryPage = () => {
     deleteCategory,
     handleChangeCategory,
     handleEditCategory,
+    errors,
   } = useCategoryForm();
 
   return (
@@ -21,6 +22,15 @@ const CategoryPage = () => {
       <h1 className="font-bold text-2xl mb-5">Category Management</h1>
 
       <form onSubmit={submitCategory} className="flex gap-2">
+        <div>
+          {errors.length > 0 && (
+            <div className="font-bold text-red-500 text-center">
+              {errors.map((msg, index) => (
+                <p key={index}> {msg}</p>
+              ))}
+            </div>
+          )}
+        </div>
         <input
           type="text"
           name="name"
