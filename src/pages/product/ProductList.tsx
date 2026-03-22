@@ -1,10 +1,10 @@
 import type { Category } from "../../hooks/category/useCategory";
-import type { Product, updateProduct } from "../../hooks/product/useProduct";
+import type { Product, ProductForm } from "../../hooks/product/useProduct";
 import ProductItem from "./ProductItem";
 
 interface ProductListProps {
-  formEdit: updateProduct;
-  updatedProd: (updatedProduct: Product) => void;
+  formEdit: ProductForm;
+  updatedProd: (updatedProduct: ProductForm) => void;
   delProd: (id: string) => void;
   toggleEdit: (id: string) => void;
   showEdit: any;

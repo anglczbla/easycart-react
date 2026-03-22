@@ -8,13 +8,13 @@ import {
   usegetAllProducts,
   useUpdateProductMutation,
   type ProductForm,
-  type updateProduct,
 } from "./useProduct";
 
 export const useProductForm = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const [formProduct, setFormProduct] = useState<ProductForm>({
+    id: "",
     name: "",
     description: "",
     price: "",
@@ -22,12 +22,12 @@ export const useProductForm = () => {
     category: "",
   });
 
-  const [formEdit, setFormEdit] = useState<updateProduct>({
+  const [formEdit, setFormEdit] = useState<ProductForm>({
     id: "",
     name: "",
     description: "",
-    price: 0,
-    stock: 0,
+    price: "",
+    stock: "",
     category: "",
   });
 
@@ -63,11 +63,19 @@ export const useProductForm = () => {
   };
 
   const toggleEdit = (id: string) => {
-    const product = products.data?.find((prod) => prod.id == id);
+    const product = products.data?.find((prod) => prod.id === id);
+
     setShowEdit(id);
 
     if (product) {
-      setFormEdit(product);
+      setFormEdit({
+        id: product.id,
+        name: product.name,
+        category: product.category,
+        description: product.description,
+        price: product.price.toString(),
+        stock: product.stock.toString(),
+      });
     }
   };
 
@@ -91,10 +99,7 @@ export const useProductForm = () => {
     >,
   ) => {
     const { name, value } = e.target;
-    setFormEdit({
-      ...formEdit,
-      [name]: name === "price" || name === "stock" ? Number(value) : value,
-    });
+    setFormEdit({ ...formEdit, [name]: value });
     setErrors([]);
   };
 
@@ -124,6 +129,7 @@ export const useProductForm = () => {
         alert("success add product!");
         queryClient.invalidateQueries({ queryKey: ["products"] });
         setFormProduct({
+          id: "",
           name: "",
           description: "",
           price: "",
@@ -139,7 +145,9 @@ export const useProductForm = () => {
     });
   };
 
-  const updatedProd = (updatedProduct: updateProduct) => {
+  const updatedProd = (updatedProduct: ProductForm) => {
+    console.log("data edit", updatedProduct);
+
     if (
       !updatedProduct.name ||
       !updatedProduct.description ||
@@ -150,8 +158,19 @@ export const useProductForm = () => {
       return setErrors(["All fields are required!"]);
     }
 
-    updateProduct.mutate(updatedProduct, {
-      onSuccess: () => {
+    const newData = {
+      id: updatedProduct.id,
+      name: updatedProduct.name,
+      description: updatedProduct.description,
+      price: Number(updatedProduct.price),
+      stock: Number(updatedProduct.stock),
+      category: updatedProduct.category,
+    };
+
+    updateProduct.mutate(newData, {
+      onSuccess: (data) => {
+        console.log(data.data);
+
         alert("success edit products");
         queryClient.invalidateQueries({ queryKey: ["products"] });
         setShowEdit(null);
@@ -159,8 +178,8 @@ export const useProductForm = () => {
           id: "",
           name: "",
           description: "",
-          price: 0,
-          stock: 0,
+          price: "",
+          stock: "",
           category: "",
         });
         setErrors([]);

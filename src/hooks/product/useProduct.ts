@@ -11,15 +11,12 @@ export interface Product {
 }
 
 export interface ProductForm {
+  id: string;
   name: string;
   description: string;
   price: string;
   stock: string;
   category: string;
-}
-
-export interface updateProduct extends Product {
-  id: string;
 }
 
 export const usegetAllProducts = () => {
@@ -67,7 +64,7 @@ export const useAddProductMutation = () => {
 
 export const useUpdateProductMutation = () => {
   return useMutation({
-    mutationFn: (data: updateProduct) => {
+    mutationFn: (data: Product) => {
       return apiClient.put(`/products/${data.id}`, data);
     },
   });
