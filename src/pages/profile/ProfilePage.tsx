@@ -10,17 +10,18 @@ const ProfilePage = () => {
     data,
     errors,
     isPending,
+    cancelButton,
   } = useUserForm();
   return (
     <div>
       <div>
         <h1>My Profile</h1>
         <ul>
-          <li>{data?.username}</li>
-          <li>{data?.email}</li>
-          <li>{data?.phone}</li>
-          <li>{data?.city}</li>
-          <li>{data?.address}</li>
+          <li> Username: {data?.username}</li>
+          <li>Email: {data?.email}</li>
+          <li>Phone: {data?.phone ?? "Add Phone Number"}</li>
+          <li>City: {data?.city ?? "Add City"} </li>
+          <li>Addres: {data?.address ?? "Add Address"}</li>
           <button onClick={() => data?.id && toggleEdit(data.id)}>
             Edit Profile
           </button>
@@ -83,12 +84,20 @@ const ProfilePage = () => {
                 className="w-full bg-slate-200 text-dark p-3 rounded-md focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary  mb-2"
               />
 
-              <button
-                type="submit"
-                className="flex text-base font-semibold text-white bg-primary mt-5 py-3 px-8 rounded-full hover:opacity-80 hover:shadow-lg transition duration-500 cursor-pointer"
-              >
-                {isPending ? "...Update Profile" : "Update Profile"}
-              </button>
+              <div className="flex gap-3">
+                <button
+                  type="submit"
+                  className="flex text-base font-semibold text-white bg-primary mt-5 py-3 px-8 rounded-full hover:opacity-80 hover:shadow-lg transition duration-500 cursor-pointer"
+                >
+                  {isPending ? "...Update Profile" : "Update Profile"}
+                </button>
+                <button
+                  onClick={cancelButton}
+                  className="flex text-base font-semibold text-white bg-red-700 mt-5 py-3 px-8 rounded-full hover:opacity-80 hover:shadow-lg transition duration-500 cursor-pointer"
+                >
+                  Cancel
+                </button>
+              </div>
             </form>
           ) : null}
         </ul>

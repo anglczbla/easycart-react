@@ -28,6 +28,10 @@ export const useUserForm = () => {
     }
   };
 
+  const cancelButton = () => {
+    setShowEdit(false);
+  };
+
   const handleFormProfile = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
@@ -39,15 +43,6 @@ export const useUserForm = () => {
   };
   const updateProfile = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    if (
-      !formProfile.email ||
-      !formProfile.username ||
-      !formProfile.phone ||
-      !formProfile.address
-    ) {
-      return setErrors(["All fields are required!"]);
-    }
 
     addProfile.mutate(formProfile, {
       onSuccess: () => {
@@ -80,5 +75,6 @@ export const useUserForm = () => {
     data: profile.data,
     errors,
     isPending: profile.isPending,
+    cancelButton,
   };
 };
