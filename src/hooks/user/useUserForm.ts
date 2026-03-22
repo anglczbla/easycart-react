@@ -6,10 +6,11 @@ export const useUserForm = () => {
   const queryClient = useQueryClient();
   const addProfile = useAddProfileMutation();
   const profile = useCurrentUser();
-  console.log("profile", profile);
 
   const [errors, setErrors] = useState<string[]>([]);
+  const [showEdit, setShowEdit] = useState<boolean>(false);
   const [formProfile, setFormProfile] = useState<User>({
+    id: "",
     email: "",
     username: "",
     phone: "",
@@ -17,6 +18,15 @@ export const useUserForm = () => {
     city: "",
     avatar: "",
   });
+
+  const toggleEdit = (id: string) => {
+    const data = profile?.data?.id === id;
+
+    if (data) {
+      setShowEdit(data);
+      setFormProfile({ ...formProfile, ...profile?.data });
+    }
+  };
 
   const handleFormProfile = (
     e: React.ChangeEvent<
@@ -43,7 +53,9 @@ export const useUserForm = () => {
       onSuccess: () => {
         alert("success add profile");
         queryClient.invalidateQueries({ queryKey: ["user"] });
+        setShowEdit(false);
         setFormProfile({
+          id: "",
           email: "",
           username: "",
           phone: "",
@@ -60,6 +72,8 @@ export const useUserForm = () => {
   };
 
   return {
+    showEdit,
+    toggleEdit,
     formProfile,
     handleFormProfile,
     updateProfile,
