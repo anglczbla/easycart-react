@@ -17,7 +17,7 @@ const RegisterPage = () => {
     <AuthLayout title="Register" subtitle="Create Your Account">
       <form
         onSubmit={submitRegister}
-        className="flex flex-col gap-5rounded-xl p-8 w-full max-w-md mx-auto"
+        className="flex flex-col gap-5 rounded-xl p-8 w-full max-w-md mx-auto"
       >
         {errors.length > 0 && (
           <div className="font-bold text-red-500 text-center">

@@ -35,6 +35,8 @@ export const useRegister = () => {
       return setErrors(["All fields are required!"]);
     }
 
+    setErrors([]);
+
     mutation.mutate(formRegist, {
       onSuccess: () => {
         alert("Success Register!");
@@ -43,8 +45,8 @@ export const useRegister = () => {
         navigate("/login");
       },
       onError: (error: any) => {
-        const msg = error.response?.data?.message;
-        setErrors((prev) => [...prev, msg]);
+        const msg = error.response?.data?.message || "registration failed";
+        setErrors([msg]);
       },
     });
   };

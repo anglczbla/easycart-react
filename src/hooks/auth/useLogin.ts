@@ -37,6 +37,8 @@ export const useLogin = () => {
       return setErrors(["All fields are required!"]);
     }
 
+    setErrors([]);
+
     mutation.mutate(formLogin, {
       onSuccess: (data) => {
         localStorage.setItem("userData", JSON.stringify(data.data));
@@ -44,14 +46,13 @@ export const useLogin = () => {
         dispatch(addToken(data.data));
 
         alert("Success Login!");
-        dispatch(addToken(data.data));
         setFormLogin({ email: "", password: "" });
         setErrors([]);
         navigate("/");
       },
       onError: (error: any) => {
-        const msg = error.response?.data?.message;
-        setErrors((prev) => [...prev, msg]);
+        const msg = error.response?.data?.message || "login failed";
+        setErrors([msg]);
       },
     });
   };
