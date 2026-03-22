@@ -1,11 +1,5 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import apiClient from "../../lib/axios";
-
-export interface User {
-  id: string;
-  email: string;
-  username: string;
-}
 
 export interface RegisterInput {
   email: string;
@@ -17,16 +11,6 @@ export interface LoginInput {
   email: string;
   password?: string;
 }
-
-export const useCurrentUser = () => {
-  return useQuery<User>({
-    queryKey: ["me"],
-    queryFn: async () => {
-      const res = await apiClient.get("/users/me");
-      return res.data;
-    },
-  });
-};
 
 export const useRegisterMutation = () => {
   return useMutation({

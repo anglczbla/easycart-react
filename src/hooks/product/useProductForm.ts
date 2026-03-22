@@ -146,8 +146,6 @@ export const useProductForm = () => {
   };
 
   const updatedProd = (updatedProduct: ProductForm) => {
-    console.log("data edit", updatedProduct);
-
     if (
       !updatedProduct.name ||
       !updatedProduct.description ||

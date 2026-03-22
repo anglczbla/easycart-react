@@ -46,7 +46,6 @@ export const useSearchProduct = (query: string, category: string) => {
       const res = await apiClient.get(
         `/products/search?product=${query}&category=${category}`,
       );
-      console.log("search response:", res.data);
       return res.data.product;
     },
     enabled: !!query || !!category,
