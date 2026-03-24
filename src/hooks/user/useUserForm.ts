@@ -1,6 +1,6 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import type { User } from "../../types";
+import type { User } from "../../types/types";
 import { useAddProfileMutation, useCurrentUser } from "./useUser";
 export const useUserForm = () => {
   const queryClient = useQueryClient();
@@ -9,7 +9,7 @@ export const useUserForm = () => {
 
   const [errors, setErrors] = useState<string[]>([]);
   const [showEdit, setShowEdit] = useState<boolean>(false);
-  const [formProfile, setFormProfile] = useState<User>({
+  const [formProfile, setFormProfile] = useState<Omit<User, "role">>({
     id: "",
     email: "",
     username: "",

@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import apiClient from "../../lib/axios";
-import type { Category } from "../../types";
+import type { Category } from "../../types/types";
 
 export const usegetAllCategories = () => {
   return useQuery<Category[]>({

@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import apiClient from "../../lib/axios";
-import type { LoginInput, RegisterInput } from "../../types";
+import type { LoginInput, RegisterInput } from "../../types/types";
 
 export const useRegisterMutation = () => {
   return useMutation({

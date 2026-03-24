@@ -5,6 +5,7 @@ interface AuthPayload {
   token: string;
   data: {
     id: string;
+    admin: boolean;
   };
 }
 
@@ -14,6 +15,7 @@ const userData = JSON.parse(responseBe);
 const initialState = {
   token: userData?.token || "",
   idUser: userData?.data?.id || "",
+  admin: userData?.data?.role === "admin" || false,
 };
 
 const authSlice = createSlice({
@@ -23,10 +25,12 @@ const authSlice = createSlice({
     addToken: (state, action: PayloadAction<AuthPayload>) => {
       state.token = action.payload.token;
       state.idUser = action.payload.data.id;
+      state.admin = action.payload.data.admin;
     },
     removeToken: (state) => {
       state.token = "";
       state.idUser = "";
+      state.admin = false;
     },
   },
 });

@@ -2,8 +2,8 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addToken } from "../../store/authSlice";
+import type { LoginInput } from "../../types/types";
 import { useLoginMutation } from "./useAuth";
-import type { LoginInput } from "../../types";
 
 export const useLogin = () => {
   const navigate = useNavigate();

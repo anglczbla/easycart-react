@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import apiClient from "../../lib/axios";
-import type { User } from "../../types";
+import type { User } from "../../types/types";
 
 export const useCurrentUser = () => {
   return useQuery<User>({
@@ -14,7 +14,7 @@ export const useCurrentUser = () => {
 
 export const useAddProfileMutation = () => {
   return useMutation({
-    mutationFn: (newProfile: User) => {
+    mutationFn: (newProfile: Omit<User, "role">) => {
       return apiClient.put("/users", newProfile);
     },
   });

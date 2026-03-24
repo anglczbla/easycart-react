@@ -1,4 +1,4 @@
-import type { Category, Product, ProductForm } from "../../types";
+import type { Category, Product, ProductForm } from "../../types/types";
 import ProductItem from "./ProductItem";
 
 interface ProductListProps {
