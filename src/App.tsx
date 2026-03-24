@@ -1,6 +1,7 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Provider } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import AdminRoute from "./pages/AdminRoute";
 import LoginPage from "./pages/auth/LoginPage";
 import RegisterPage from "./pages/auth/RegisterPage";
 import CartList from "./pages/cart/CartList";
@@ -29,10 +30,13 @@ function App() {
                 <Route path="/" element={<HomePage />} />
                 <Route path="/products" element={<ProductPage />} />
                 <Route path="/products/:id" element={<ProductDetail />} />
-                <Route path="/masterData" element={<CategoryPage />} />
                 <Route path="/cart" element={<CartList />} />
                 <Route path="/profile" element={<ProfilePage />} />
               </Route>
+            </Route>
+
+            <Route element={<AdminRoute />}>
+              <Route path="/masterData" element={<CategoryPage />} />
             </Route>
 
             <Route path="*" element={<NotFound />} />
