@@ -3,6 +3,7 @@ import ProductItem from "./ProductItem";
 
 interface ProductListProps {
   formEdit: ProductForm;
+  admin: boolean;
   updatedProd: (updatedProduct: ProductForm) => void;
   delProd: (id: string) => void;
   toggleEdit: (id: string) => void;
@@ -48,6 +49,7 @@ const ProductList = ({
   handleCategory,
   categoryValue,
   isLoadingSearch,
+  admin,
 }: ProductListProps) => {
   return (
     <div>
@@ -96,6 +98,7 @@ const ProductList = ({
           filterSearch.map((prod) => (
             <div className="w-full mt-5 px-4 md:w-1/2 lg:w-1/3" key={prod.id}>
               <ProductItem
+                admin={admin}
                 product={prod}
                 isShowEditButton={prod.id == showEdit}
                 formUpdateProduct={formEdit}

@@ -10,6 +10,7 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const id = useAppSelector((state) => state.auth.idUser);
   const logout = useLogoutMutation();
+  const admin = useAppSelector((state) => state.auth.admin);
   const { updateSearch, data, inputValue, isFetching, resetSearch } =
     useGlobalSearch(false);
 
@@ -17,7 +18,7 @@ const Navbar = () => {
     updateSearch(e.target.value);
   };
 
-  const logutUser = (id: string) => {
+  const logoutUser = (id: string) => {
     logout.mutate(id, {
       onSuccess: () => {
         alert("success logout");
@@ -72,9 +73,14 @@ const Navbar = () => {
           <Link to="/profile" className="hover:text-emerald-600 transition">
             Profile
           </Link>
-          <Link to="/masterData" className="hover:text-emerald-600 transition">
-            Master Data
-          </Link>
+          {admin && (
+            <Link
+              to="/masterData"
+              className="hover:text-emerald-600 transition"
+            >
+              Master Data
+            </Link>
+          )}
         </div>
 
         <div className="relative flex gap-2 text-secondary border border-transparent rounded-lg">
@@ -94,7 +100,7 @@ const Navbar = () => {
 
         <button
           className="cursor-pointer text-secondary px-6 py-2 rounded-full font-bold hover:text-red-500 transition"
-          onClick={() => logutUser(id)}
+          onClick={() => logoutUser(id)}
         >
           Logout
         </button>

@@ -2,6 +2,7 @@ import type { Category, Product, ProductForm } from "../../types/types";
 
 interface ProductItemProps {
   product: Product;
+  admin: boolean;
   formUpdateProduct: ProductForm;
   isShowEditButton: boolean;
   onUpdateProduct: (updatedProduct: ProductForm) => void;
@@ -26,6 +27,7 @@ const ProductItem = ({
   onDeleteProduct,
   onUpdateProduct,
   categories,
+  admin,
 }: ProductItemProps) => {
   return (
     <div className="bg-white rounded-xl shadow-lg overflow-hidden mb-10 p-5">
@@ -48,18 +50,24 @@ const ProductItem = ({
           </li>
         </ul>
         <div className="flex gap-2">
-          <button
-            onClick={() => onDeleteProduct(product.id)}
-            className="flex text-base font-semibold text-white bg-primary mt-5 py-3 px-8 rounded-full hover:opacity-80 hover:shadow-lg transition duration-500 cursor-pointer"
-          >
-            Delete
-          </button>
-          <button
-            onClick={() => onToggleEditProduct(product.id)}
-            className="flex text-base font-semibold text-white bg-primary mt-5 py-3 px-8 rounded-full hover:opacity-80 hover:shadow-lg transition duration-500 cursor-pointer"
-          >
-            Edit
-          </button>
+          {admin && (
+            <button
+              onClick={() => onDeleteProduct(product.id)}
+              className="flex text-base font-semibold text-white bg-primary mt-5 py-3 px-8 rounded-full hover:opacity-80 hover:shadow-lg transition duration-500 cursor-pointer"
+            >
+              Delete
+            </button>
+          )}
+
+          {admin && (
+            <button
+              onClick={() => onToggleEditProduct(product.id)}
+              className="flex text-base font-semibold text-white bg-primary mt-5 py-3 px-8 rounded-full hover:opacity-80 hover:shadow-lg transition duration-500 cursor-pointer"
+            >
+              Edit
+            </button>
+          )}
+
           <button
             onClick={() => onProductClicked(product.id)}
             className="flex text-base font-semibold text-white bg-primary mt-5 py-3 px-8 rounded-full hover:opacity-80 hover:shadow-lg transition duration-500 cursor-pointer"
