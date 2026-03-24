@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { type RegisterInput, useRegisterMutation } from "./useAuth";
+import { useRegisterMutation } from "./useAuth";
+import type { RegisterInput } from "../../types";
 
 export const useRegister = () => {
   const navigate = useNavigate();

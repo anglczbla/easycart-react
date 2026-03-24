@@ -1,6 +1,6 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import type { User } from "./useUser";
+import type { User } from "../../types";
 import { useAddProfileMutation, useCurrentUser } from "./useUser";
 export const useUserForm = () => {
   const queryClient = useQueryClient();

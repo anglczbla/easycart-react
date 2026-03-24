@@ -1,5 +1,4 @@
-import type { Category } from "../../hooks/category/useCategory";
-import type { Product, ProductForm } from "../../hooks/product/useProduct";
+import type { Category, Product, ProductForm } from "../../types";
 
 interface ProductItemProps {
   product: Product;

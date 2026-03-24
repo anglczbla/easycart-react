@@ -1,16 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import apiClient from "../../lib/axios";
-
-export interface RegisterInput {
-  email: string;
-  username: string;
-  password?: string;
-}
-
-export interface LoginInput {
-  email: string;
-  password?: string;
-}
+import type { LoginInput, RegisterInput } from "../../types";
 
 export const useRegisterMutation = () => {
   return useMutation({

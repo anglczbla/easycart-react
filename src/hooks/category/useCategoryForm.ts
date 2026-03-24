@@ -5,8 +5,8 @@ import {
   useDeleteCategoryMutation,
   usegetAllCategories,
   useUpdateCategoryMutation,
-  type Category,
 } from "./useCategory";
+import type { Category } from "../../types";
 
 export const useCategoryForm = () => {
   const queryClient = useQueryClient();

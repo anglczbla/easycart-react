@@ -1,23 +1,6 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import apiClient from "../../lib/axios";
-
-export interface Product {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-  stock: number;
-  category: string;
-}
-
-export interface ProductForm {
-  id: string;
-  name: string;
-  description: string;
-  price: string;
-  stock: string;
-  category: string;
-}
+import type { Product } from "../../types";
 
 export const usegetAllProducts = () => {
   return useQuery<Product[]>({

@@ -1,13 +1,13 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import type { ProductForm } from "../../types";
 import { useGlobalSearch } from "../search/useGlobalSearch";
 import {
   useAddProductMutation,
   useDeleteProductMutation,
   usegetAllProducts,
   useUpdateProductMutation,
-  type ProductForm,
 } from "./useProduct";
 
 export const useProductForm = () => {

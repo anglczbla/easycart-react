@@ -1,27 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import apiClient from "../../lib/axios";
-
-export interface Cart {
-  cart_id: string;
-  product_id: string;
-  name: string;
-  price: number;
-  quantity: number;
-}
-
-export interface AddToCart {
-  product_id: string;
-  quantity: number;
-}
-
-export interface deleteItemCart {
-  id: string;
-  product_id: string;
-}
-
-export interface UpdateCart extends deleteItemCart {
-  quantity: number;
-}
+import type { AddToCart, Cart, UpdateCart, deleteItemCart } from "../../types";
 
 export const useGetCartById = () => {
   return useQuery<Cart[]>({

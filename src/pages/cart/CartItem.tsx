@@ -1,4 +1,4 @@
-import { type Cart } from "../../hooks/cart/useCart";
+import type { Cart } from "../../types";
 
 interface CartItemProps {
   cart: Cart;

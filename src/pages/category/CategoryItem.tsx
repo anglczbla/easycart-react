@@ -1,4 +1,4 @@
-import type { Category } from "../../hooks/category/useCategory";
+import type { Category } from "../../types";
 
 interface CategoryItemProps {
   category: Category;

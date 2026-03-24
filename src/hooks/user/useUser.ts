@@ -1,15 +1,6 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import apiClient from "../../lib/axios";
-
-export interface User {
-  id: string;
-  email: string;
-  username: string;
-  phone: string;
-  address: string;
-  city: string;
-  avatar: string;
-}
+import type { User } from "../../types";
 
 export const useCurrentUser = () => {
   return useQuery<User>({
