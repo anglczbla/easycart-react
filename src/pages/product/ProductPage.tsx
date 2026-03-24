@@ -31,7 +31,7 @@ const ProductPage = () => {
 
   return (
     <div>
-      {admin && (
+      {admin ? (
         <div>
           <div className="max-w-xl mx-auto text-center mb-10">
             <h4 className="font-semibold text-lg text-primary">Form Product</h4>
@@ -109,31 +109,54 @@ const ProductPage = () => {
               </form>
             </div>
           </div>
-        </div>
-      )}
 
-      <ProductList
-        admin={admin}
-        data={data || []}
-        formEdit={formEdit}
-        updatedProd={updatedProd}
-        delProd={delProd}
-        toggleEdit={toggleEdit}
-        showEdit={showEdit}
-        handleFormEdit={handleFormEdit}
-        detailProd={detailProd}
-        filterSearch={
-          inputValue !== "" || categoryValue !== ""
-            ? dataProduct || []
-            : data || []
-        }
-        categories={categories}
-        inputValue={inputValue}
-        categoryValue={categoryValue}
-        handleSearch={handleSearch}
-        handleCategory={handleCategory}
-        isLoadingSearch={isLoadingSearch}
-      />
+          <ProductList
+            admin={admin}
+            data={data || []}
+            formEdit={formEdit}
+            updatedProd={updatedProd}
+            delProd={delProd}
+            toggleEdit={toggleEdit}
+            showEdit={showEdit}
+            handleFormEdit={handleFormEdit}
+            detailProd={detailProd}
+            filterSearch={
+              inputValue !== "" || categoryValue !== ""
+                ? dataProduct || []
+                : data || []
+            }
+            categories={categories}
+            inputValue={inputValue}
+            categoryValue={categoryValue}
+            handleSearch={handleSearch}
+            handleCategory={handleCategory}
+            isLoadingSearch={isLoadingSearch}
+          />
+        </div>
+      ) : (
+        <ProductList
+          admin={admin}
+          data={data || []}
+          formEdit={formEdit}
+          updatedProd={updatedProd}
+          delProd={delProd}
+          toggleEdit={toggleEdit}
+          showEdit={showEdit}
+          handleFormEdit={handleFormEdit}
+          detailProd={detailProd}
+          filterSearch={
+            inputValue !== "" || categoryValue !== ""
+              ? dataProduct || []
+              : data || []
+          }
+          categories={categories}
+          inputValue={inputValue}
+          categoryValue={categoryValue}
+          handleSearch={handleSearch}
+          handleCategory={handleCategory}
+          isLoadingSearch={isLoadingSearch}
+        />
+      )}
     </div>
   );
 };

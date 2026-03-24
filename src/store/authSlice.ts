@@ -5,7 +5,7 @@ interface AuthPayload {
   token: string;
   data: {
     id: string;
-    admin: boolean;
+    role: string;
   };
 }
 
@@ -25,7 +25,7 @@ const authSlice = createSlice({
     addToken: (state, action: PayloadAction<AuthPayload>) => {
       state.token = action.payload.token;
       state.idUser = action.payload.data.id;
-      state.admin = action.payload.data.admin;
+      state.admin = action.payload.data.role === "admin";
     },
     removeToken: (state) => {
       state.token = "";
