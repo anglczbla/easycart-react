@@ -3,7 +3,7 @@ import CartItem from "./CartItem";
 
 const CartList = () => {
   const cart = useGetCartById();
-  const { deleteItemCart, updateQtyItemCart } = useCartActions();
+  const { deleteItemCart, updateQtyItemCart, errorMessage } = useCartActions();
   const data = cart.data || [];
 
   const totalPrice = data.reduce(
@@ -14,6 +14,11 @@ const CartList = () => {
   return (
     <div>
       <div>
+        {errorMessage && (
+          <div className="font-bold text-red-600 text-center">
+            {errorMessage}
+          </div>
+        )}
         {data?.length <= 0 ? (
           <p>Cart is Empty</p>
         ) : (

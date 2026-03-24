@@ -11,6 +11,7 @@ export interface Cart {
 
 export interface AddToCart {
   product_id: string;
+  quantity: number;
 }
 
 export interface deleteItemCart {
@@ -104,5 +105,10 @@ export const useCartActions = () => {
     );
   };
 
-  return { deleteItemCart, updateQtyItemCart };
+  return {
+    deleteItemCart,
+    updateQtyItemCart,
+
+    errorMessage: (updateCart.error as any)?.response?.data?.message,
+  };
 };

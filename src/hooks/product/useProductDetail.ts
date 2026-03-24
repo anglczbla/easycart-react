@@ -11,7 +11,7 @@ export const useProductDetail = (id: string) => {
     if (!data) return;
 
     addToCart.mutate(
-      { product_id: data.id },
+      { product_id: data.id, quantity: 1 },
       {
         onSuccess: () => {
           alert("success add to cart");
