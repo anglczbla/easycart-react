@@ -64,3 +64,11 @@ export interface LoginInput {
   email: string;
   password?: string;
 }
+
+export interface Order {
+  id: string;
+  userId: string;
+  totalPrice: number;
+  shippingAddress: string;
+  status: string;
+}
