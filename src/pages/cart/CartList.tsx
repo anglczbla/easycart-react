@@ -1,8 +1,10 @@
+import { useNavigate } from "react-router-dom";
 import { useCartActions, useGetCartById } from "../../hooks/cart/useCart";
 import CartItem from "./CartItem";
 
 const CartList = () => {
   const cart = useGetCartById();
+  const navigate = useNavigate();
   const { deleteItemCart, updateQtyItemCart, errorMessage } = useCartActions();
   const data = cart.data || [];
 
@@ -10,6 +12,10 @@ const CartList = () => {
     (total, item) => total + item.price * item.quantity,
     0,
   );
+
+  const handleCheckout = () => {
+    navigate("/order");
+  };
 
   return (
     <div>
@@ -25,34 +31,39 @@ const CartList = () => {
           <>
             <p className="text-center font-bold text-lg">My Cart</p>
             {data.map((item) => (
-              <CartItem
-                key={item.cart_id}
-                cart={item}
-                onDelete={() =>
-                  deleteItemCart({
-                    id: item.cart_id,
-                    product_id: item.product_id,
-                  })
-                }
-                onIncrementQty={() =>
-                  updateQtyItemCart({
-                    id: item.cart_id,
-                    quantity: item.quantity + 1,
-                    product_id: item.product_id,
-                  })
-                }
-                onDecrementQty={() =>
-                  updateQtyItemCart({
-                    id: item.cart_id,
-                    quantity: item.quantity - 1,
-                    product_id: item.product_id,
-                  })
-                }
-                totalPrice={totalPrice}
-              />
+              <div>
+                <CartItem
+                  key={item.cart_id}
+                  cart={item}
+                  onDelete={() =>
+                    deleteItemCart({
+                      id: item.cart_id,
+                      product_id: item.product_id,
+                    })
+                  }
+                  onIncrementQty={() =>
+                    updateQtyItemCart({
+                      id: item.cart_id,
+                      quantity: item.quantity + 1,
+                      product_id: item.product_id,
+                    })
+                  }
+                  onDecrementQty={() =>
+                    updateQtyItemCart({
+                      id: item.cart_id,
+                      quantity: item.quantity - 1,
+                      product_id: item.product_id,
+                    })
+                  }
+                  totalPrice={totalPrice}
+                />
+              </div>
             ))}
             <p className="font-bold text-lg p-2"> Total: {totalPrice}</p>
-            <button className="text-base font-semibold text-secondary bg-primary py-3 px-8 rounded-full hover:opacity-80 hover:shadow-lg transition duration-500 cursor-pointer">
+            <button
+              onClick={handleCheckout}
+              className="text-base font-semibold text-secondary bg-primary py-3 px-8 rounded-full hover:opacity-80 hover:shadow-lg transition duration-500 cursor-pointer"
+            >
               Check Out
             </button>
           </>

@@ -68,7 +68,7 @@ export interface LoginInput {
 export interface Order {
   id: string;
   userId: string;
-  totalPrice: number;
-  shippingAddress: string;
+  total_price: number;
+  shipping_address: string;
   status: string;
 }

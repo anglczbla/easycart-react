@@ -1,8 +1,8 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import apiClient from "../../lib/axios";
 import type { Order } from "../../types/types";
 
-export const usGetAllOrders = () => {
+export const useGetAllOrders = () => {
   return useQuery<Order[]>({
     queryKey: ["order"],
     queryFn: async () => {
@@ -22,11 +22,11 @@ export const useGetHistoryOrders = () => {
   });
 };
 
-export const useGetOrderById = (userId: string) => {
+export const useGetOrderById = (orderId: string) => {
   return useQuery<Order>({
-    queryKey: ["order", userId],
+    queryKey: ["order", orderId],
     queryFn: async () => {
-      const res = await apiClient.get(`/orders/${userId}`);
+      const res = await apiClient.get(`/orders/${orderId}`);
       return res.data.data;
     },
   });
@@ -34,8 +34,8 @@ export const useGetOrderById = (userId: string) => {
 
 export const useCreateOrderMutation = () => {
   return useMutation({
-    mutationFn: (data: Order) => {
-      return apiClient.post("/orders", data);
+    mutationFn: () => {
+      return apiClient.post("/orders");
     },
   });
 };
@@ -46,4 +46,43 @@ export const useUpdateOrderMutation = () => {
       return apiClient.put(`/orders/${data.id}`, data);
     },
   });
+};
+
+export const useOrderActions = () => {
+  const queryClient = useQueryClient();
+  const createOrder = useCreateOrderMutation();
+  const updateOrder = useUpdateOrderMutation();
+
+  const creatingOrder = () => {
+    createOrder.mutate(undefined, {
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ["order"] });
+        queryClient.invalidateQueries({ queryKey: ["cart"] });
+        queryClient.invalidateQueries({ queryKey: ["products"] });
+        alert("success create order");
+      },
+      onError: (error: any) => {
+        const msg = error.response?.data?.message;
+        console.error(msg);
+      },
+    });
+  };
+
+  const updatingOrder = (data: Order) => {
+    updateOrder.mutate(data, {
+      onSuccess: () => {
+        alert("success update status");
+        queryClient.invalidateQueries({ queryKey: ["order"] });
+      },
+      onError: (error: any) => {
+        const msg = error.response?.data?.message;
+        console.error(msg);
+      },
+    });
+  };
+
+  return {
+    creatingOrder,
+    updatingOrder,
+  };
 };

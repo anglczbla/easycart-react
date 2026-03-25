@@ -9,6 +9,7 @@ import CategoryPage from "./pages/category/CategoryPage";
 import HomePage from "./pages/HomePage";
 import MainLayout from "./pages/MainLayout";
 import NotFound from "./pages/NotFound";
+import OrderPage from "./pages/order/OrderPage";
 import ProductDetail from "./pages/product/ProductDetail";
 import ProductPage from "./pages/product/ProductPage";
 import ProfilePage from "./pages/profile/ProfilePage";
@@ -32,6 +33,7 @@ function App() {
                 <Route path="/products/:id" element={<ProductDetail />} />
                 <Route path="/cart" element={<CartList />} />
                 <Route path="/profile" element={<ProfilePage />} />
+                <Route path="/order" element={<OrderPage />} />
               </Route>
             </Route>
 

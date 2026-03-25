@@ -99,7 +99,7 @@ export const useCategoryForm = () => {
       onError: (error: any) => {
         const msg = error.response?.data?.message;
         console.error(msg);
-        setErrors([...errors, msg]);
+        setErrors([msg]);
       },
     });
   };
