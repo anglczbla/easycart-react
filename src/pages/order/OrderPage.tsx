@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useGetCartById } from "../../hooks/cart/useCart";
 import { useOrderActions } from "../../hooks/order/useOrder";
 import { useUserForm } from "../../hooks/user/useUserForm";
+import Button from "../ui/Button";
 
 const OrderPage = () => {
   const { data } = useUserForm();
@@ -24,12 +25,10 @@ const OrderPage = () => {
           <li>
             Address: {data?.address} - {data?.city}
           </li>
-          <button
+          <Button
             onClick={() => navigate("/profile")}
-            className="text-base font-semibold text-secondary bg-primary py-3 px-8 rounded-full hover:opacity-80 hover:shadow-lg transition duration-500 cursor-pointer"
-          >
-            Edit Address
-          </button>
+            name="Edit Address"
+          />
 
           {orderData?.map((item) => (
             <div key={item.cart_id}>
@@ -41,13 +40,12 @@ const OrderPage = () => {
             </div>
           ))}
           <p>Total: {totalPrice}</p>
-          <button
+          <Button
             onClick={creatingOrder}
             disabled={!orderData || orderData.length === 0}
-            className="bg-primary text-secondary p-3 rounded-full mt-4 disabled:bg-gray-400 cursor-pointer"
-          >
-            Create Order
-          </button>
+            className="mt-4"
+            name="Create Order"
+          />
         </ul>
       </div>
     </div>

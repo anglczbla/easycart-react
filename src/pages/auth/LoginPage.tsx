@@ -1,4 +1,5 @@
 import { useLogin } from "../../hooks/auth/useLogin";
+import Button from "../ui/Button";
 import AuthLayout from "./AuthLayout";
 
 const LoginPage = () => {
@@ -43,32 +44,27 @@ const LoginPage = () => {
             placeholder="input a password"
             className="w-full border border-primary p-2 rounded-lg focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary"
           />
-
-          <button
+          <Button
+            name={showPassword ? "Hide" : "Show"}
             type="button"
             onClick={helperPassword}
-            className="text-base font-semibold text-secondary bg-primary py-3 px-8 rounded-full hover:opacity-80 hover:shadow-lg transition duration-500 cursor-pointer"
-          >
-            {showPassword ? "Hide" : "Show"}
-          </button>
+          />
         </div>
 
         <div className="flex gap-2">
-          <button
+          <Button
             type="submit"
             disabled={isPending}
-            className="flex-1 text-base font-semibold text-secondary bg-primary py-3 px-8 rounded-full hover:opacity-80 hover:shadow-lg transition duration-500 cursor-pointer"
-          >
-            {isPending ? "...Login" : "Login"}
-          </button>
+            className="flex-1"
+            name={isPending ? "...Login" : "Login"}
+          />
 
-          <button
+          <Button
             type="button"
             onClick={goToRegister}
-            className="flex-1 text-base font-semibold text-secondary bg-primary py-3 px-8 rounded-full hover:opacity-80 hover:shadow-lg transition duration-500 cursor-pointer"
-          >
-            Register
-          </button>
+            className="flex-1"
+            name="Register"
+          />
         </div>
       </form>
     </AuthLayout>

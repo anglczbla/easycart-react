@@ -1,4 +1,5 @@
 import type { Cart } from "../../types/types";
+import Button from "../ui/Button";
 
 interface CartItemProps {
   cart: Cart;
@@ -25,18 +26,21 @@ const CartItem = ({
           </ul>
         </div>
         <div className="flex gap-5">
-          <button
+          <Button
             onClick={onDelete}
-            className="text-base w-20 font-semibold text-red-500  py-2 px-2 hover:opacity-80  transition duration-500 cursor-pointer"
-          >
-            Delete
-          </button>
-          <button className="cursor-pointer" onClick={onIncrementQty}>
-            +
-          </button>
-          <button className="cursor-pointer" onClick={onDecrementQty}>
-            -
-          </button>
+            className="text-red-500 py-2 px-2 w-20"
+            name="Delete"
+          />
+          <Button
+            className="w-10 px-2 py-2"
+            onClick={onIncrementQty}
+            name="+"
+          />
+          <Button
+            className="w-10 px-2 py-2"
+            onClick={onDecrementQty}
+            name="-"
+          />
         </div>
       </div>
     </div>

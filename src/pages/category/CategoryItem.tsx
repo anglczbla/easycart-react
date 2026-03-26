@@ -1,4 +1,5 @@
 import type { Category } from "../../types/types";
+import Button from "../ui/Button";
 
 interface CategoryItemProps {
   category: Category;
@@ -30,35 +31,31 @@ const CategoryItem = ({
             onChange={onChangeEdit}
             className="border p-1 flex-grow"
           />
-          <button
+          <Button
             onClick={() => onUpdate(formEdit)}
-            className="bg-green-500 text-white px-2 rounded"
-          >
-            Save
-          </button>
-          <button
+            className="  px-2 py-1 rounded"
+            name="Save"
+          />
+          <Button
             onClick={() => onToggleEdit("")}
-            className="bg-gray-500 text-white px-2 rounded"
-          >
-            Cancel
-          </button>
+            className="bg-gray-500 px-2 py-1 rounded"
+            name="Cancel"
+          />
         </div>
       ) : (
         <>
           <span>{category.name}</span>
           <div className="flex gap-2">
-            <button
+            <Button
               onClick={() => onToggleEdit(category.id)}
-              className="bg-blue-500 text-white px-2 rounded"
-            >
-              Edit
-            </button>
-            <button
+              className="px-2 py-1 rounded"
+              name="Edit"
+            />
+            <Button
               onClick={() => onDelete(category.id)}
-              className="bg-red-500 text-white px-2 rounded"
-            >
-              Delete
-            </button>
+              className="bg-red-500 px-2 py-1 rounded"
+              name="Delete"
+            />
           </div>
         </>
       )}

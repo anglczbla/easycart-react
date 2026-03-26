@@ -1,5 +1,6 @@
 import { useRegister } from "../../hooks/auth/useRegister";
 import AuthLayout from "./AuthLayout";
+import Button from "../ui/Button";
 
 const RegisterPage = () => {
   const {
@@ -52,30 +53,26 @@ const RegisterPage = () => {
             className="w-full border border-primary p-2 rounded-lg focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary mb-2"
           />
 
-          <button
+          <Button
             type="button"
             onClick={helperPassword}
-            className="text-base font-semibold text-secondary bg-primary py-3 px-8 rounded-full hover:opacity-80 hover:shadow-lg transition duration-500 cursor-pointer"
-          >
-            {showPassword ? "Hide" : "Show"}
-          </button>
+            name={showPassword ? "Hide" : "Show"}
+          />
         </div>
 
         <div className="flex gap-2 mt-2">
-          <button
+          <Button
             type="submit"
             disabled={isPending}
-            className="flex-1 text-base font-semibold text-secondary bg-primary py-3 px-8 rounded-full hover:opacity-80 hover:shadow-lg transition duration-500 cursor-pointer"
-          >
-            {isPending ? "...Registering" : "Register"}
-          </button>
-          <button
+            className="flex-1"
+            name={isPending ? "...Registering" : "Register"}
+          />
+          <Button
             type="button"
             onClick={goToLogin}
-            className="flex-1 text-base font-semibold text-secondary bg-primary py-3 px-8 rounded-full hover:opacity-80 hover:shadow-lg transition duration-500 cursor-pointer"
-          >
-            Login
-          </button>
+            className="flex-1"
+            name="Login"
+          />
         </div>
       </form>
     </AuthLayout>

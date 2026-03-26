@@ -1,4 +1,5 @@
 import type { Category, Product, ProductForm } from "../../types/types";
+import Button from "../ui/Button";
 
 interface ProductItemProps {
   product: Product;
@@ -51,29 +52,26 @@ const ProductItem = ({
         </ul>
         <div className="flex gap-2">
           {admin && (
-            <button
+            <Button
               onClick={() => onDeleteProduct(product.id)}
-              className="flex text-base font-semibold text-white bg-primary mt-5 py-3 px-8 rounded-full hover:opacity-80 hover:shadow-lg transition duration-500 cursor-pointer"
-            >
-              Delete
-            </button>
+              className="flex mt-5 "
+              name="Delete"
+            />
           )}
 
           {admin && (
-            <button
+            <Button
               onClick={() => onToggleEditProduct(product.id)}
-              className="flex text-base font-semibold text-white bg-primary mt-5 py-3 px-8 rounded-full hover:opacity-80 hover:shadow-lg transition duration-500 cursor-pointer"
-            >
-              Edit
-            </button>
+              className="flex mt-5 "
+              name="Edit"
+            />
           )}
 
-          <button
+          <Button
             onClick={() => onProductClicked(product.id)}
-            className="flex text-base font-semibold text-white bg-primary mt-5 py-3 px-8 rounded-full hover:opacity-80 hover:shadow-lg transition duration-500 cursor-pointer"
-          >
-            Detail
-          </button>
+            className="flex mt-5 "
+            name="Detail"
+          />
         </div>
       </div>
 
@@ -125,18 +123,16 @@ const ProductItem = ({
             ))}
           </select>
           <div className="flex gap-2">
-            <button
+            <Button
               onClick={() => onUpdateProduct(formUpdateProduct)}
-              className="flex text-base font-semibold text-white bg-primary mt-5 py-3 px-8 rounded-full hover:opacity-80 hover:shadow-lg transition duration-500 cursor-pointer"
-            >
-              Update
-            </button>
-            <button
+              className="flex mt-5 "
+              name="Update"
+            />
+            <Button
               onClick={() => onToggleEditProduct("")}
-              className="flex text-base font-semibold text-white bg-primary mt-5 py-3 px-8 rounded-full hover:opacity-80 hover:shadow-lg transition duration-500 cursor-pointer"
-            >
-              Cancel
-            </button>
+              className="flex mt-5 "
+              name="Cancel"
+            />
           </div>
         </div>
       )}

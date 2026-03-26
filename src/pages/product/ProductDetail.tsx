@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useProductDetail } from "../../hooks/product/useProductDetail";
+import Button from "../ui/Button";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -18,13 +19,12 @@ const ProductDetail = () => {
               <li>Price: Rp.{data?.price}</li>
               <li>Stock: {data?.stock}</li>
 
-              <button
-                className="flex-1 text-base font-semibold text-secondary bg-primary py-3 px-8 mt-3 rounded-full hover:opacity-80 hover:shadow-lg transition duration-500 cursor-pointer"
+              <Button
+                className="flex-1 mt-3"
                 disabled={(data?.stock ?? 0) <= 0}
                 onClick={addItem}
-              >
-                {(data?.stock ?? 0) <= 0 ? "Out of Stock" : "Add to Cart"}
-              </button>
+                name={(data?.stock ?? 0) <= 0 ? "Out of Stock" : "Add to Cart"}
+              />
             </ul>
           </div>
         )}

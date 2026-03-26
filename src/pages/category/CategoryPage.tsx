@@ -1,4 +1,5 @@
 import { useCategoryForm } from "../../hooks/category/useCategoryForm";
+import Button from "../ui/Button";
 import CategoryList from "./CategoryList";
 
 const CategoryPage = () => {
@@ -39,13 +40,12 @@ const CategoryPage = () => {
           placeholder="input category name"
           className="border p-2 rounded-lg flex-grow"
         />
-        <button
+        <Button
           type="submit"
           disabled={isPendingAddCategory}
-          className="bg-sky-400 text-white px-5 rounded-lg font-bold"
-        >
-          {isPendingAddCategory ? "...Add" : "Add"}
-        </button>
+          className="  px-5 rounded-lg font-bold"
+          name={isPendingAddCategory ? "...Add" : "Add"}
+        />
       </form>
 
       <CategoryList

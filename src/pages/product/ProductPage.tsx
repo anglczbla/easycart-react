@@ -2,6 +2,7 @@ import { usegetAllCategories } from "../../hooks/category/useCategory";
 import { useProductForm } from "../../hooks/product/useProductForm";
 import { useAppSelector } from "../../hooks/useAppSelector";
 import ProductList from "../product/ProductList";
+import Button from "../ui/Button";
 
 const ProductPage = () => {
   const {
@@ -100,12 +101,11 @@ const ProductPage = () => {
                     ))
                   )}
                 </select>
-                <button
+                <Button
                   type="submit"
-                  className="flex text-base font-semibold text-white bg-primary mt-5 py-3 px-8 rounded-full hover:opacity-80 hover:shadow-lg transition duration-500 cursor-pointer"
-                >
-                  {isPending ? "...Adding Product" : "Add Product"}
-                </button>
+                  className="flex mt-5"
+                  name={isPending ? "...Adding Product" : "Add Product"}
+                />
               </form>
             </div>
           </div>

@@ -1,4 +1,5 @@
 import { useUserForm } from "../../hooks/user/useUserForm";
+import Button from "../ui/Button";
 
 const ProfilePage = () => {
   const {
@@ -22,9 +23,10 @@ const ProfilePage = () => {
           <li>Phone: {data?.phone ?? "Add Phone Number"}</li>
           <li>City: {data?.city ?? "Add City"} </li>
           <li>Addres: {data?.address ?? "Add Address"}</li>
-          <button onClick={() => data?.id && toggleEdit(data.id)}>
-            Edit Profile
-          </button>
+          <Button
+            onClick={() => data?.id && toggleEdit(data.id)}
+            name="Edit Profile"
+          />
           {showEdit ? (
             <form onSubmit={updateProfile}>
               {errors.length > 0 && (
@@ -85,18 +87,16 @@ const ProfilePage = () => {
               />
 
               <div className="flex gap-3">
-                <button
+                <Button
                   type="submit"
-                  className="flex text-base font-semibold text-white bg-primary mt-5 py-3 px-8 rounded-full hover:opacity-80 hover:shadow-lg transition duration-500 cursor-pointer"
-                >
-                  {isPending ? "...Update Profile" : "Update Profile"}
-                </button>
-                <button
+                  className="flex mt-5 "
+                  name={isPending ? "...Update Profile" : "Update Profile"}
+                />
+                <Button
                   onClick={cancelButton}
-                  className="flex text-base font-semibold text-white bg-red-700 mt-5 py-3 px-8 rounded-full hover:opacity-80 hover:shadow-lg transition duration-500 cursor-pointer"
-                >
-                  Cancel
-                </button>
+                  className="flex mt-5  bg-red-700"
+                  name="Cancel"
+                />
               </div>
             </form>
           ) : null}

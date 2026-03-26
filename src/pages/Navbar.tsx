@@ -4,6 +4,7 @@ import { useLogoutMutation } from "../hooks/auth/useAuth";
 import { useGlobalSearch } from "../hooks/search/useGlobalSearch";
 import { useAppSelector } from "../hooks/useAppSelector";
 import { removeToken } from "../store/authSlice";
+import Button from "./ui/Button";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -118,12 +119,11 @@ const Navbar = () => {
           )}
         </div>
 
-        <button
-          className="cursor-pointer text-secondary px-6 py-2 rounded-full font-bold hover:text-red-500 transition"
+        <Button
+          className="text-secondary px-6 py-2 font-bold hover:text-red-500 transition"
           onClick={() => logoutUser(id)}
-        >
-          Logout
-        </button>
+          name="Logout"
+        />
       </div>
     </nav>
   );
