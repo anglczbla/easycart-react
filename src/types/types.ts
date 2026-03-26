@@ -71,4 +71,6 @@ export interface Order {
   total_price: number;
   shipping_address: string;
   status: string;
+  product_name: string;
+  quantity: number;
 }

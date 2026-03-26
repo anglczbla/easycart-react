@@ -4,7 +4,7 @@ import type { Order } from "../../types/types";
 
 export const useGetAllOrders = () => {
   return useQuery<Order[]>({
-    queryKey: ["order"],
+    queryKey: ["order", "all"],
     queryFn: async () => {
       const res = await apiClient.get("/orders/all");
       return res.data.data;
@@ -14,7 +14,7 @@ export const useGetAllOrders = () => {
 
 export const useGetHistoryOrders = () => {
   return useQuery<Order[]>({
-    queryKey: ["order"],
+    queryKey: ["order", "history"],
     queryFn: async () => {
       const res = await apiClient.get(`/orders`);
       return res.data.data;
@@ -84,5 +84,8 @@ export const useOrderActions = () => {
   return {
     creatingOrder,
     updatingOrder,
+    errorMessage:
+      (createOrder.error as any)?.response?.data?.message ||
+      (updateOrder.error as any)?.response?.data?.message,
   };
 };

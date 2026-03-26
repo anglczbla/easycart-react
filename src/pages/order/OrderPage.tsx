@@ -6,17 +6,19 @@ import { useUserForm } from "../../hooks/user/useUserForm";
 const OrderPage = () => {
   const { data } = useUserForm();
   const { data: orderData } = useGetCartById();
-  const { creatingOrder } = useOrderActions();
+  const { creatingOrder, errorMessage } = useOrderActions();
 
-  const totalPrice = orderData?.reduce(
-    (total, item) => total + item.price * item.quantity,
-    0,
-  );
+  const totalPrice =
+    orderData?.reduce((total, item) => total + item.price * item.quantity, 0) ||
+    0;
 
   const navigate = useNavigate();
   return (
     <div>
       <div>Order Data</div>
+      {errorMessage && (
+        <div className=" text-red-500 font-bold p-2 mt-2">{errorMessage}</div>
+      )}
       <div>
         <ul>
           <li>
@@ -28,6 +30,7 @@ const OrderPage = () => {
           >
             Edit Address
           </button>
+
           {orderData?.map((item) => (
             <div key={item.cart_id}>
               <ul>
@@ -38,7 +41,13 @@ const OrderPage = () => {
             </div>
           ))}
           <p>Total: {totalPrice}</p>
-          <button onClick={creatingOrder}>Create Order</button>
+          <button
+            onClick={creatingOrder}
+            disabled={!orderData || orderData.length === 0}
+            className="bg-primary text-secondary p-3 rounded-full mt-4 disabled:bg-gray-400 cursor-pointer"
+          >
+            Create Order
+          </button>
         </ul>
       </div>
     </div>

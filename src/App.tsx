@@ -9,6 +9,8 @@ import CategoryPage from "./pages/category/CategoryPage";
 import HomePage from "./pages/HomePage";
 import MainLayout from "./pages/MainLayout";
 import NotFound from "./pages/NotFound";
+import AllOrderPage from "./pages/order/AllOrderPage";
+import OrderHistory from "./pages/order/OrderHistory";
 import OrderPage from "./pages/order/OrderPage";
 import ProductDetail from "./pages/product/ProductDetail";
 import ProductPage from "./pages/product/ProductPage";
@@ -34,11 +36,12 @@ function App() {
                 <Route path="/cart" element={<CartList />} />
                 <Route path="/profile" element={<ProfilePage />} />
                 <Route path="/order" element={<OrderPage />} />
+                <Route path="/order-history" element={<OrderHistory />} />
+                <Route element={<AdminRoute />}>
+                  <Route path="/masterData" element={<CategoryPage />} />
+                  <Route path="/all-orders" element={<AllOrderPage />} />
+                </Route>
               </Route>
-            </Route>
-
-            <Route element={<AdminRoute />}>
-              <Route path="/masterData" element={<CategoryPage />} />
             </Route>
 
             <Route path="*" element={<NotFound />} />

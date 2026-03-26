@@ -67,19 +67,39 @@ const Navbar = () => {
           <Link to="/products" className="hover:text-emerald-600 transition">
             Product
           </Link>
-          <Link to="/cart" className="hover:text-emerald-600 transition">
-            Cart
-          </Link>
+
           <Link to="/profile" className="hover:text-emerald-600 transition">
             Profile
           </Link>
+          {!admin && (
+            <div className="flex gap-5">
+              <Link to="/cart" className="hover:text-emerald-600 transition">
+                Cart
+              </Link>
+              <Link
+                to="/order-history"
+                className="hover:text-emerald-600 transition"
+              >
+                Order
+              </Link>
+            </div>
+          )}
+
           {admin && (
-            <Link
-              to="/masterData"
-              className="hover:text-emerald-600 transition"
-            >
-              Master Data
-            </Link>
+            <div className="flex gap-5">
+              <Link
+                to="/masterData"
+                className="hover:text-emerald-600 transition"
+              >
+                Master Data
+              </Link>
+              <Link
+                to="/all-orders"
+                className="hover:text-emerald-600 transition"
+              >
+                Orders
+              </Link>
+            </div>
           )}
         </div>
 
