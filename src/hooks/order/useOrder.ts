@@ -1,9 +1,9 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import apiClient from "../../lib/axios";
-import type { Order } from "../../types/types";
+import type { Order, OrderUsers } from "../../types/types";
 
 export const useGetAllOrders = () => {
-  return useQuery<Order[]>({
+  return useQuery<OrderUsers[]>({
     queryKey: ["order", "all"],
     queryFn: async () => {
       const res = await apiClient.get("/orders/all");
@@ -43,7 +43,7 @@ export const useCreateOrderMutation = () => {
 export const useUpdateOrderMutation = () => {
   return useMutation({
     mutationFn: (data: Order) => {
-      return apiClient.put(`/orders/${data.id}`, data);
+      return apiClient.put(`/orders/${data.id}`, { status: data.status });
     },
   });
 };
@@ -51,7 +51,6 @@ export const useUpdateOrderMutation = () => {
 export const useOrderActions = () => {
   const queryClient = useQueryClient();
   const createOrder = useCreateOrderMutation();
-  const updateOrder = useUpdateOrderMutation();
 
   const creatingOrder = () => {
     createOrder.mutate(undefined, {
@@ -68,24 +67,8 @@ export const useOrderActions = () => {
     });
   };
 
-  const updatingOrder = (data: Order) => {
-    updateOrder.mutate(data, {
-      onSuccess: () => {
-        alert("success update status");
-        queryClient.invalidateQueries({ queryKey: ["order"] });
-      },
-      onError: (error: any) => {
-        const msg = error.response?.data?.message;
-        console.error(msg);
-      },
-    });
-  };
-
   return {
     creatingOrder,
-    updatingOrder,
-    errorMessage:
-      (createOrder.error as any)?.response?.data?.message ||
-      (updateOrder.error as any)?.response?.data?.message,
+    errorMessage: (createOrder.error as any)?.response?.data?.message,
   };
 };

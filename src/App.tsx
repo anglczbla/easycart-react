@@ -9,7 +9,7 @@ import CategoryPage from "./pages/category/CategoryPage";
 import HomePage from "./pages/HomePage";
 import MainLayout from "./pages/MainLayout";
 import NotFound from "./pages/NotFound";
-import AllOrderPage from "./pages/order/AllOrderPage";
+import AllOrderPage from "./pages/order/admin/AllOrderPage";
 import OrderHistory from "./pages/order/OrderHistory";
 import OrderPage from "./pages/order/OrderPage";
 import ProductDetail from "./pages/product/ProductDetail";

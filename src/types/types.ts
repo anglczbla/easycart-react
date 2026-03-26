@@ -74,3 +74,7 @@ export interface Order {
   product_name: string;
   quantity: number;
 }
+
+export interface OrderUsers extends Order {
+  customer_name: string;
+}
