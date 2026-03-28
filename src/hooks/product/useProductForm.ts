@@ -36,6 +36,8 @@ export const useProductForm = () => {
   const [showEdit, setShowEdit] = useState<string | null>();
   const [errors, setErrors] = useState<Record<string, string[]>>({});
 
+  console.log("err", errors);
+
   const addProduct = useAddProductMutation();
   const updateProduct = useUpdateProductMutation();
   const deleteProduct = useDeleteProductMutation();

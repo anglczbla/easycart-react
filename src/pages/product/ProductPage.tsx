@@ -3,6 +3,7 @@ import { useProductForm } from "../../hooks/product/useProductForm";
 import { useAppSelector } from "../../hooks/useAppSelector";
 import ProductList from "../product/ProductList";
 import Button from "../ui/Button";
+import ErrorMessage from "../ui/ErrorMessage";
 
 const ProductPage = () => {
   const {
@@ -25,8 +26,7 @@ const ProductPage = () => {
     handleCategory,
     categoryValue,
     isLoadingSearch,
-    editImage,
-    image,
+
     handleEditImage,
     handleImage,
   } = useProductForm();
@@ -44,7 +44,10 @@ const ProductPage = () => {
               Create New Product
             </p>
           </div>
-          <div className="w-full lg:w-2/3 lg:mx-auto ">
+
+          <ErrorMessage errors={errors.message} />
+
+          <div className="w-full mt-5 lg:w-2/3 lg:mx-auto ">
             <div className="w-full px-4 mb-8">
               <form onSubmit={submitProduct}>
                 <input
@@ -72,7 +75,7 @@ const ProductPage = () => {
                     className="w-full bg-slate-200 text-dark p-3 rounded-md focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary  mb-2"
                   />
 
-                  {errors.price && <p>{errors.price[0]}</p>}
+                  <ErrorMessage errors={errors.price} />
 
                   <input
                     type="number"
@@ -84,7 +87,7 @@ const ProductPage = () => {
                   />
                 </div>
 
-                {errors.stock && <p>{errors.stock[0]}</p>}
+                <ErrorMessage errors={errors.stock} />
 
                 <select
                   name="category"
@@ -103,6 +106,7 @@ const ProductPage = () => {
                     ))
                   )}
                 </select>
+                <ErrorMessage errors={errors.category} />
                 <input
                   type="file"
                   placeholder="select image"
