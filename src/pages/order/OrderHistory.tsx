@@ -3,8 +3,6 @@ import { useGetHistoryOrders } from "../../hooks/order/useOrder";
 const OrderHistory = () => {
   const { data } = useGetHistoryOrders();
 
-  console.log("history", data);
-
   return (
     <div>
       <div>

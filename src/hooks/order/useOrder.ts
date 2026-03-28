@@ -1,4 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 import apiClient from "../../lib/axios";
 import type { Order, OrderUsers } from "../../types/types";
 
@@ -51,6 +52,7 @@ export const useUpdateOrderMutation = () => {
 export const useOrderActions = () => {
   const queryClient = useQueryClient();
   const createOrder = useCreateOrderMutation();
+  const navigate = useNavigate();
 
   const creatingOrder = () => {
     createOrder.mutate(undefined, {
@@ -59,6 +61,7 @@ export const useOrderActions = () => {
         queryClient.invalidateQueries({ queryKey: ["cart"] });
         queryClient.invalidateQueries({ queryKey: ["products"] });
         alert("success create order");
+        navigate("/order-history");
       },
       onError: (error: any) => {
         const msg = error.response?.data?.message;

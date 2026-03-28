@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useCartActions, useGetCartById } from "../../hooks/cart/useCart";
-import CartItem from "./CartItem";
 import Button from "../ui/Button";
+import CartItem from "./CartItem";
 
 const CartList = () => {
   const cart = useGetCartById();
@@ -61,10 +61,7 @@ const CartList = () => {
               </div>
             ))}
             <p className="font-bold text-lg p-2"> Total: {totalPrice}</p>
-            <Button
-              onClick={handleCheckout}
-              name="Check Out"
-            />
+            <Button onClick={handleCheckout} name="Check Out" />
           </>
         )}
       </div>
