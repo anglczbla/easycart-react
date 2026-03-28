@@ -140,6 +140,7 @@ const ProductPage = () => {
             handleSearch={handleSearch}
             handleCategory={handleCategory}
             isLoadingSearch={isLoadingSearch}
+            handleEditImage={handleEditImage}
           />
         </div>
       ) : (
@@ -164,6 +165,7 @@ const ProductPage = () => {
           handleSearch={handleSearch}
           handleCategory={handleCategory}
           isLoadingSearch={isLoadingSearch}
+          handleEditImage={handleEditImage}
         />
       )}
     </div>

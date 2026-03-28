@@ -6,6 +6,8 @@ const ProductDetail = () => {
   const { id } = useParams();
   const { data, isLoading, addItem } = useProductDetail(id || "");
 
+  const stock = Number(data?.stock);
+
   return (
     <div>
       <div>
@@ -21,9 +23,9 @@ const ProductDetail = () => {
 
               <Button
                 className="flex-1 mt-3"
-                disabled={(data?.stock ?? 0) <= 0}
+                disabled={(stock ?? 0) <= 0}
                 onClick={addItem}
-                name={(data?.stock ?? 0) <= 0 ? "Out of Stock" : "Add to Cart"}
+                name={(stock ?? 0) <= 0 ? "Out of Stock" : "Add to Cart"}
               />
             </ul>
           </div>

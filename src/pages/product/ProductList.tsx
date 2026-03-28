@@ -31,6 +31,7 @@ interface ProductListProps {
     >,
   ) => void;
   isLoadingSearch?: boolean;
+  handleEditImage: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const ProductList = ({
@@ -50,6 +51,7 @@ const ProductList = ({
   categoryValue,
   isLoadingSearch,
   admin,
+  handleEditImage,
 }: ProductListProps) => {
   return (
     <div>
@@ -108,6 +110,7 @@ const ProductList = ({
                 onDeleteProduct={delProd}
                 onUpdateProduct={updatedProd}
                 categories={categories}
+                handleEditImage={handleEditImage}
               />
             </div>
           ))}

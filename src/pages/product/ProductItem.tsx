@@ -16,6 +16,7 @@ interface ProductItemProps {
   ) => void;
   onProductClicked: (id: string) => void;
   categories: Category[] | undefined;
+  handleEditImage: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const ProductItem = ({
@@ -29,6 +30,7 @@ const ProductItem = ({
   onUpdateProduct,
   categories,
   admin,
+  handleEditImage,
 }: ProductItemProps) => {
   return (
     <div className="bg-white rounded-xl shadow-lg overflow-hidden mb-10 p-5">
@@ -122,11 +124,16 @@ const ProductItem = ({
           >
             <option value="">Select Category</option>
             {categories?.map((c) => (
-              <option key={c.id} value={c.id}>
+              <option key={c.id} value={c.name}>
                 {c.name}
               </option>
             ))}
           </select>
+          <input
+            type="file"
+            placeholder="select image"
+            onChange={handleEditImage}
+          />
           <div className="flex gap-2">
             <Button
               onClick={() => onUpdateProduct(formUpdateProduct)}
