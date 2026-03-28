@@ -25,14 +25,14 @@ const OrderPage = () => {
           <li>
             Address: {data?.address} - {data?.city}
           </li>
-          <Button
-            onClick={() => navigate("/profile")}
-            name="Edit Address"
-          />
+          <Button onClick={() => navigate("/profile")} name="Edit Address" />
 
           {orderData?.map((item) => (
             <div key={item.cart_id}>
               <ul>
+                <li>
+                  <img src={item.image} alt={item.image} />
+                </li>
                 <li>Name: {item.name}</li>
                 <li>Price: {item.price}</li>
                 <li>Quantity: {item.quantity}</li>

@@ -11,6 +11,9 @@ const OrderHistory = () => {
         {data?.map((item) => (
           <div key={item.id}>
             <ul>
+              <li>
+                <img src={item.product_image} alt={item.product_image} />
+              </li>
               <li>Product: {item.product_name}</li>
               <li>Qty: {item.quantity}</li>
               <li>Address: {item.shipping_address}</li>

@@ -39,6 +39,7 @@ export interface Cart {
   name: string;
   price: number;
   quantity: number;
+  image: string;
 }
 
 export interface AddToCart {
@@ -74,6 +75,7 @@ export interface Order {
   status: string;
   product_name: string;
   quantity: number;
+  product_image: string;
 }
 
 export interface OrderUsers extends Order {

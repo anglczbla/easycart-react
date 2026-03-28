@@ -21,16 +21,51 @@ const ProfilePage = () => {
         <ul>
           <li>
             {data?.avatar == null ? (
-              "Add Photo"
+              <p
+                className="cursor-pointer"
+                onClick={() => data?.id && toggleEdit(data.id)}
+              >
+                Add Photo
+              </p>
             ) : (
               <img src={data?.avatar} alt={data?.avatar} />
             )}
           </li>
           <li> Username: {data?.username}</li>
           <li>Email: {data?.email}</li>
-          <li>Phone: {data?.phone ?? "Add Phone Number"}</li>
-          <li>City: {data?.city ?? "Add City"} </li>
-          <li>Addres: {data?.address ?? "Add Address"}</li>
+          <li>
+            Phone:{" "}
+            {data?.phone ?? (
+              <p
+                className="cursor-pointer"
+                onClick={() => data?.id && toggleEdit(data.id)}
+              >
+                Add Phone Number
+              </p>
+            )}
+          </li>
+          <li>
+            City:{" "}
+            {data?.city ?? (
+              <p
+                className="cursor-pointer"
+                onClick={() => data?.id && toggleEdit(data.id)}
+              >
+                Add City
+              </p>
+            )}{" "}
+          </li>
+          <li>
+            Addres:{" "}
+            {data?.address ?? (
+              <p
+                className="cursor-pointer"
+                onClick={() => data?.id && toggleEdit(data.id)}
+              >
+                Add Address
+              </p>
+            )}
+          </li>
           <Button
             onClick={() => data?.id && toggleEdit(data.id)}
             name="Edit Profile"

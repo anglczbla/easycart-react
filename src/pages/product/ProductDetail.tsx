@@ -16,6 +16,10 @@ const ProductDetail = () => {
         ) : (
           <div className="w-full p-5">
             <ul className="bg-white rounded-xl shadow-lg overflow-hidden mb-10 p-5">
+              <li>
+                {" "}
+                <img src={data?.image} alt={data?.image} />
+              </li>
               <li>Name: {data?.name}</li>
               <li>Description: {data?.description}</li>
               <li>Price: Rp.{data?.price}</li>
