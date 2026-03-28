@@ -9,6 +9,7 @@ export const usegetAllProducts = () => {
       const res = await apiClient.get("/products");
       return res.data.data;
     },
+    staleTime: 0,
   });
 };
 
@@ -38,7 +39,7 @@ export const useSearchProduct = (query: string, category: string) => {
 
 export const useAddProductMutation = () => {
   return useMutation({
-    mutationFn: (newProduct: Omit<Product, "id">) => {
+    mutationFn: (newProduct: FormData) => {
       return apiClient.post("/products", newProduct);
     },
   });
@@ -46,8 +47,8 @@ export const useAddProductMutation = () => {
 
 export const useUpdateProductMutation = () => {
   return useMutation({
-    mutationFn: (data: Product) => {
-      return apiClient.put(`/products/${data.id}`, data);
+    mutationFn: ({ id, formData }: { id: string; formData: FormData }) => {
+      return apiClient.put(`/products/${id}`, formData);
     },
   });
 };

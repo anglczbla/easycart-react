@@ -21,6 +21,8 @@ export const useProductForm = () => {
     stock: "",
     category: "",
   });
+  const [image, setImage] = useState<File | null>(null);
+  const [editImage, setEditImage] = useState<File | null>(null);
 
   const [formEdit, setFormEdit] = useState<ProductForm>({
     id: "",
@@ -103,6 +105,16 @@ export const useProductForm = () => {
     setErrors([]);
   };
 
+  const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files) return;
+    setImage(e.target.files[0]);
+  };
+
+  const handleEditImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files) return;
+    setEditImage(e.target.files[0]);
+  };
+
   const submitProduct = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -111,20 +123,22 @@ export const useProductForm = () => {
       !formProduct.description ||
       !formProduct.price ||
       !formProduct.stock ||
-      !formProduct.category
+      !formProduct.category ||
+      !image
     ) {
       return setErrors(["All fields are required!"]);
     }
 
-    const newData = {
-      name: formProduct.name,
-      description: formProduct.description,
-      price: Number(formProduct.price),
-      stock: Number(formProduct.stock),
-      category: formProduct.category,
-    };
+    const formData = new FormData();
 
-    addProduct.mutate(newData, {
+    formData.append("name", formProduct.name);
+    formData.append("description", formProduct.description);
+    formData.append("price", formProduct.price);
+    formData.append("stock", formProduct.stock);
+    formData.append("category", formProduct.category);
+    formData.append("image", image);
+
+    addProduct.mutate(formData, {
       onSuccess: () => {
         alert("success add product!");
         queryClient.invalidateQueries({ queryKey: ["products"] });
@@ -156,37 +170,40 @@ export const useProductForm = () => {
       return setErrors(["All fields are required!"]);
     }
 
-    const newData = {
-      id: updatedProduct.id,
-      name: updatedProduct.name,
-      description: updatedProduct.description,
-      price: Number(updatedProduct.price),
-      stock: Number(updatedProduct.stock),
-      category: updatedProduct.category,
-    };
+    const formData = new FormData();
 
-    updateProduct.mutate(newData, {
-      onSuccess: (data) => {
-        console.log(data.data);
+    formData.append("name", updatedProduct.name);
+    formData.append("description", updatedProduct.description);
+    formData.append("price", updatedProduct.price);
+    formData.append("stock", updatedProduct.stock);
+    formData.append("category", updatedProduct.category);
+    if (editImage) {
+      formData.append("image", editImage);
+    }
 
-        alert("success edit products");
-        queryClient.invalidateQueries({ queryKey: ["products"] });
-        setShowEdit(null);
-        setFormEdit({
-          id: "",
-          name: "",
-          description: "",
-          price: "",
-          stock: "",
-          category: "",
-        });
-        setErrors([]);
+    updateProduct.mutate(
+      { id: updatedProduct.id, formData },
+      {
+        onSuccess: () => {
+          alert("success edit products");
+          queryClient.invalidateQueries({ queryKey: ["products"] });
+          setShowEdit(null);
+          setFormEdit({
+            id: "",
+            name: "",
+            description: "",
+            price: "",
+            stock: "",
+            category: "",
+          });
+          setErrors([]);
+        },
+        onError: (error: any) => {
+          const msg = error.response?.data?.message;
+          setErrors((prev) => [...prev, msg]);
+        },
       },
-      onError: (error: any) => {
-        const msg = error.response?.data?.message;
-        setErrors((prev) => [...prev, msg]);
-      },
-    });
+    );
   };
 
   const delProd = (id: string) => {
@@ -198,7 +215,8 @@ export const useProductForm = () => {
       },
       onError: (error: any) => {
         const msg = error.response?.data?.message;
-        setErrors((prev) => [...prev, msg]);
+        setErrors((prev) => [msg]);
+        queryClient.removeQueries({ queryKey: ["products"] });
       },
     });
   };
@@ -223,5 +241,9 @@ export const useProductForm = () => {
     handleCategory,
     categoryValue,
     isLoadingSearch,
+    editImage,
+    image,
+    handleEditImage,
+    handleImage,
   };
 };

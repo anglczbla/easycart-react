@@ -25,6 +25,10 @@ const ProductPage = () => {
     handleCategory,
     categoryValue,
     isLoadingSearch,
+    editImage,
+    image,
+    handleEditImage,
+    handleImage,
   } = useProductForm();
 
   const { data: categories, isLoading } = usegetAllCategories();
@@ -101,6 +105,11 @@ const ProductPage = () => {
                     ))
                   )}
                 </select>
+                <input
+                  type="file"
+                  placeholder="select image"
+                  onChange={handleImage}
+                />
                 <Button
                   type="submit"
                   className="flex mt-5"

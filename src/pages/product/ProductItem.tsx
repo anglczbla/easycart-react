@@ -49,6 +49,11 @@ const ProductItem = ({
           <li>
             <strong>Category:</strong> {product.category}
           </li>
+          <li>
+            <strong>
+              <img src={product.image} alt={product.name} />
+            </strong>
+          </li>
         </ul>
         <div className="flex gap-2">
           {admin && (
