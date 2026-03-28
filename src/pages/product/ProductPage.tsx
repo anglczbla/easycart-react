@@ -47,13 +47,6 @@ const ProductPage = () => {
           <div className="w-full lg:w-2/3 lg:mx-auto ">
             <div className="w-full px-4 mb-8">
               <form onSubmit={submitProduct}>
-                {errors.length > 0 && (
-                  <div className="font-bold text-red-500 text-center">
-                    {errors.map((msg, index) => (
-                      <p key={index}> {msg}</p>
-                    ))}
-                  </div>
-                )}
                 <input
                   type="text"
                   name="name"
@@ -78,6 +71,9 @@ const ProductPage = () => {
                     placeholder="input price product"
                     className="w-full bg-slate-200 text-dark p-3 rounded-md focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary  mb-2"
                   />
+
+                  {errors.price && <p>{errors.price[0]}</p>}
+
                   <input
                     type="number"
                     name="stock"
@@ -87,6 +83,8 @@ const ProductPage = () => {
                     className="w-full bg-slate-200 text-dark p-3 rounded-md focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary  mb-2"
                   />
                 </div>
+
+                {errors.stock && <p>{errors.stock[0]}</p>}
 
                 <select
                   name="category"

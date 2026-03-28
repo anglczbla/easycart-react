@@ -34,7 +34,8 @@ export const useProductForm = () => {
   });
 
   const [showEdit, setShowEdit] = useState<string | null>();
-  const [errors, setErrors] = useState<string[]>([]);
+  const [errors, setErrors] = useState<Record<string, string[]>>({});
+
   const addProduct = useAddProductMutation();
   const updateProduct = useUpdateProductMutation();
   const deleteProduct = useDeleteProductMutation();
@@ -92,7 +93,7 @@ export const useProductForm = () => {
   ) => {
     const { name, value } = e.target;
     setFormProduct({ ...formProduct, [name]: value });
-    setErrors([]);
+    setErrors({});
   };
 
   const handleFormEdit = (
@@ -102,7 +103,7 @@ export const useProductForm = () => {
   ) => {
     const { name, value } = e.target;
     setFormEdit({ ...formEdit, [name]: value });
-    setErrors([]);
+    setErrors({});
   };
 
   const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -126,7 +127,7 @@ export const useProductForm = () => {
       !formProduct.category ||
       !image
     ) {
-      return setErrors(["All fields are required!"]);
+      return setErrors({ message: ["all fields are required"] });
     }
 
     const formData = new FormData();
@@ -150,11 +151,10 @@ export const useProductForm = () => {
           stock: "",
           category: "",
         });
-        setErrors([]);
+        setErrors({});
       },
       onError: (error: any) => {
-        const msg = error.response?.data?.message;
-        setErrors((prev) => [...prev, msg]);
+        setErrors(error.response?.data?.errors);
       },
     });
   };
@@ -167,7 +167,7 @@ export const useProductForm = () => {
       !updatedProduct.stock ||
       !updatedProduct.category
     ) {
-      return setErrors(["All fields are required!"]);
+      return setErrors({ message: ["all fields are required"] });
     }
 
     const formData = new FormData();
@@ -196,11 +196,10 @@ export const useProductForm = () => {
             stock: "",
             category: "",
           });
-          setErrors([]);
+          setErrors({});
         },
         onError: (error: any) => {
-          const msg = error.response?.data?.message;
-          setErrors((prev) => [...prev, msg]);
+          setErrors(error.response?.data?.errors);
         },
       },
     );
@@ -211,11 +210,10 @@ export const useProductForm = () => {
       onSuccess: () => {
         alert("success delete products");
         queryClient.invalidateQueries({ queryKey: ["products"] });
-        setErrors([]);
+        setErrors({});
       },
       onError: (error: any) => {
-        const msg = error.response?.data?.message;
-        setErrors((prev) => [msg]);
+        setErrors(error.response?.data?.errors);
         queryClient.removeQueries({ queryKey: ["products"] });
       },
     });
