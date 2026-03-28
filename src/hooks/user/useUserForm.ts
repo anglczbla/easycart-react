@@ -18,6 +18,12 @@ export const useUserForm = () => {
     city: "",
     avatar: "",
   });
+  const [image, setImage] = useState<File | null>(null);
+
+  const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files) return;
+    setImage(e.target.files[0]);
+  };
 
   const toggleEdit = (id: string) => {
     const data = profile?.data?.id === id;
@@ -41,10 +47,22 @@ export const useUserForm = () => {
     setFormProfile({ ...formProfile, [name]: value });
     setErrors([]);
   };
+
   const updateProfile = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    addProfile.mutate(formProfile, {
+    const formData = new FormData();
+
+    if (image) {
+      formData.append("avatar", image);
+    }
+    formData.append("username", formProfile.username);
+    formData.append("email", formProfile.email);
+    formData.append("phone", formProfile.phone);
+    formData.append("address", formProfile.address);
+    formData.append("city", formProfile.city);
+
+    addProfile.mutate(formData, {
       onSuccess: () => {
         alert("success add profile");
         queryClient.invalidateQueries({ queryKey: ["user"] });
@@ -76,5 +94,6 @@ export const useUserForm = () => {
     errors,
     isPending: profile.isPending,
     cancelButton,
+    handleImage,
   };
 };

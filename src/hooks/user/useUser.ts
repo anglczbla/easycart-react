@@ -14,7 +14,7 @@ export const useCurrentUser = () => {
 
 export const useAddProfileMutation = () => {
   return useMutation({
-    mutationFn: (newProfile: Omit<User, "role">) => {
+    mutationFn: (newProfile: FormData) => {
       return apiClient.put("/users", newProfile);
     },
   });

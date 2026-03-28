@@ -12,12 +12,20 @@ const ProfilePage = () => {
     errors,
     isPending,
     cancelButton,
+    handleImage,
   } = useUserForm();
   return (
     <div>
       <div>
         <h1>My Profile</h1>
         <ul>
+          <li>
+            {data?.avatar == null ? (
+              "Add Photo"
+            ) : (
+              <img src={data?.avatar} alt={data?.avatar} />
+            )}
+          </li>
           <li> Username: {data?.username}</li>
           <li>Email: {data?.email}</li>
           <li>Phone: {data?.phone ?? "Add Phone Number"}</li>
@@ -37,6 +45,11 @@ const ProfilePage = () => {
                 </div>
               )}
               <input
+                type="file"
+                placeholder="add photo"
+                onChange={handleImage}
+              />
+              <input
                 type="text"
                 name="email"
                 value={formProfile.email}
@@ -52,7 +65,6 @@ const ProfilePage = () => {
                 placeholder="input new username"
                 className="w-full bg-slate-200 text-dark p-3 rounded-md focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary mb-2"
               />
-
               <input
                 type="number"
                 name="phone"
@@ -75,14 +87,6 @@ const ProfilePage = () => {
                 value={formProfile.city}
                 onChange={handleFormProfile}
                 placeholder="input city"
-                className="w-full bg-slate-200 text-dark p-3 rounded-md focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary  mb-2"
-              />
-              <input
-                type="text"
-                name="avatar"
-                value={formProfile.avatar}
-                onChange={handleFormProfile}
-                placeholder="input avatar"
                 className="w-full bg-slate-200 text-dark p-3 rounded-md focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary  mb-2"
               />
 
