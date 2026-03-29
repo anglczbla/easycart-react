@@ -12,7 +12,7 @@ export const useRegister = () => {
     email: "",
     password: "",
   });
-  const [errors, setErrors] = useState<string[]>([]);
+  const [errors, setErrors] = useState<Record<string, string[]>>({});
   const [showPassword, setShowPassword] = useState(false);
 
   const goToLogin = () => {
@@ -26,28 +26,27 @@ export const useRegister = () => {
   ) => {
     const { name, value } = e.target;
     setFormRegist({ ...formRegist, [name]: value });
-    if (errors.length > 0) setErrors([]);
+    if (errors) setErrors({});
   };
 
   const submitRegister = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!formRegist.username || !formRegist.email || !formRegist.password) {
-      return setErrors(["All fields are required!"]);
+      return setErrors({ message: ["all fields are required"] });
     }
 
-    setErrors([]);
+    setErrors({});
 
     mutation.mutate(formRegist, {
       onSuccess: () => {
         alert("Success Register!");
         setFormRegist({ username: "", email: "", password: "" });
-        setErrors([]);
+        setErrors({});
         navigate("/login");
       },
       onError: (error: any) => {
-        const msg = error.response?.data?.message || "registration failed";
-        setErrors([msg]);
+        setErrors(error.response?.data?.errors);
       },
     });
   };
@@ -61,5 +60,6 @@ export const useRegister = () => {
     isPending: mutation.isPending,
     errors,
     goToLogin,
+    errorMessage: (mutation.error as any)?.response?.data?.message,
   };
 };

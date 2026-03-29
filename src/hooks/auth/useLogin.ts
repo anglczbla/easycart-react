@@ -14,7 +14,7 @@ export const useLogin = () => {
     email: "",
     password: "",
   });
-  const [errors, setErrors] = useState<string[]>([]);
+  const [errors, setErrors] = useState<Record<string, string[]>>({});
   const [showPassword, setShowPassword] = useState(false);
 
   const goToRegister = () => {
@@ -28,17 +28,17 @@ export const useLogin = () => {
   ) => {
     const { name, value } = e.target;
     setFormLogin({ ...formLogin, [name]: value });
-    if (errors.length > 0) setErrors([]);
+    if (errors) setErrors({});
   };
 
   const submitLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!formLogin.email || !formLogin.password) {
-      return setErrors(["All fields are required!"]);
+      return setErrors({ message: ["all fields are required"] });
     }
 
-    setErrors([]);
+    setErrors({});
 
     mutation.mutate(formLogin, {
       onSuccess: (data) => {
@@ -48,12 +48,11 @@ export const useLogin = () => {
 
         alert("Success Login!");
         setFormLogin({ email: "", password: "" });
-        setErrors([]);
+        setErrors({});
         navigate("/");
       },
       onError: (error: any) => {
-        const msg = error.response?.data?.message || "login failed";
-        setErrors([msg]);
+        setErrors(error.response?.data?.errors);
       },
     });
   };

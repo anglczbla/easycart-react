@@ -1,6 +1,7 @@
 import { useRegister } from "../../hooks/auth/useRegister";
-import AuthLayout from "./AuthLayout";
 import Button from "../ui/Button";
+import ErrorMessage from "../ui/ErrorMessage";
+import AuthLayout from "./AuthLayout";
 
 const RegisterPage = () => {
   const {
@@ -12,6 +13,7 @@ const RegisterPage = () => {
     showPassword,
     errors,
     goToLogin,
+    errorMessage,
   } = useRegister();
 
   return (
@@ -20,13 +22,12 @@ const RegisterPage = () => {
         onSubmit={submitRegister}
         className="flex flex-col gap-5 rounded-xl p-8 w-full max-w-md mx-auto"
       >
-        {errors.length > 0 && (
-          <div className="font-bold text-red-500 text-center">
-            {errors.map((msg, index) => (
-              <p key={index}> {msg}</p>
-            ))}
+        {errorMessage && (
+          <div className="font-bold text-red-600 text-center">
+            {errorMessage}
           </div>
         )}
+        <ErrorMessage errors={errors?.message} />
         <input
           type="text"
           name="username"
@@ -35,6 +36,7 @@ const RegisterPage = () => {
           placeholder="input a username"
           className="w-full border border-primary p-2 rounded-lg focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary mb-2"
         />
+        <ErrorMessage errors={errors?.username} />
         <input
           type="email"
           name="email"
@@ -43,6 +45,7 @@ const RegisterPage = () => {
           placeholder="input an email"
           className="w-full border border-primary p-2 rounded-lg focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary mb-2"
         />
+        <ErrorMessage errors={errors?.email} />
         <div className="flex w-full gap-2 items-center">
           <input
             type={showPassword ? "text" : "password"}
@@ -52,6 +55,7 @@ const RegisterPage = () => {
             placeholder="input a password"
             className="w-full border border-primary p-2 rounded-lg focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary mb-2"
           />
+          <ErrorMessage errors={errors?.password} />
 
           <Button
             type="button"
