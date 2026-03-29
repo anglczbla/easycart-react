@@ -17,6 +17,7 @@ const LoginPage = () => {
 
   return (
     <AuthLayout title="Login" subtitle="Login to Your Account">
+      <ErrorMessage errors={errors.message} />
       <form
         onSubmit={submitLogin}
         className="flex flex-col gap-5 rounded-xl p-8 w-full max-w-md mx-auto"

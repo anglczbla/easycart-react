@@ -15,10 +15,14 @@ const ProductDetail = () => {
           <p className="italic font-base text-xl">"...Load Products"</p>
         ) : (
           <div className="w-full p-5">
-            <ul className="bg-white rounded-xl shadow-lg overflow-hidden mb-10 p-5">
+            <ul className="w-fullbg-white rounded-xl shadow-lg overflow-hidden mb-10 p-5">
               <li>
                 {" "}
-                <img src={data?.image} alt={data?.image} />
+                <img
+                  src={data?.image}
+                  alt={data?.image}
+                  className="object-cover"
+                />
               </li>
               <li>Name: {data?.name}</li>
               <li>Description: {data?.description}</li>
