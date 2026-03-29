@@ -1,5 +1,6 @@
 import { useLogin } from "../../hooks/auth/useLogin";
 import Button from "../ui/Button";
+import ErrorMessage from "../ui/ErrorMessage";
 import AuthLayout from "./AuthLayout";
 
 const LoginPage = () => {
@@ -20,13 +21,7 @@ const LoginPage = () => {
         onSubmit={submitLogin}
         className="flex flex-col gap-5 rounded-xl p-8 w-full max-w-md mx-auto"
       >
-        {errors.length > 0 && (
-          <div className="font-bold text-red-500 text-center">
-            {errors.map((msg, index) => (
-              <p key={index}> {msg}</p>
-            ))}
-          </div>
-        )}
+        <ErrorMessage errors={errors.email} />
         <input
           type="email"
           name="email"
@@ -35,6 +30,7 @@ const LoginPage = () => {
           placeholder="input an email"
           className="w-full border border-primary p-2 rounded-lg focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary"
         />
+        <ErrorMessage errors={errors.password} />
         <div className="flex w-full gap-2 items-center">
           <input
             type={showPassword ? "text" : "password"}
