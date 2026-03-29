@@ -60,6 +60,5 @@ export const useRegister = () => {
     isPending: mutation.isPending,
     errors,
     goToLogin,
-    errorMessage: (mutation.error as any)?.response?.data?.message,
   };
 };
