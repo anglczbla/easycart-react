@@ -1,3 +1,4 @@
+import { Package, ShoppingCart, User } from "lucide-react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useLogoutMutation } from "../hooks/auth/useAuth";
@@ -103,20 +104,36 @@ const Navbar = () => {
           )}
         </div>
 
-        <div className="flex gap-8  font-semibold text-gray-700 text-secondary">
-          <Link to="/profile" className="hover:text-emerald-600 transition">
-            Profile
+        <div className="flex gap-8 font-semibold text-gray-700 text-secondary">
+          <Link
+            to="/profile"
+            className="hover:text-emerald-600 transition flex items-center gap-2"
+          >
+            <User className="h-5 w-5" />
+            <span>Profile</span>
           </Link>
           {!admin && (
             <div className="flex gap-5">
-              <Link to="/cart" className="hover:text-emerald-600 transition">
-                Cart {cart}
+              <Link
+                to="/cart"
+                className="hover:text-emerald-600 transition flex items-center gap-2 relative"
+              >
+                <div className="relative">
+                  <ShoppingCart className="h-5 w-5" />
+                  {cart > 0 && (
+                    <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center border-2 border-primary">
+                      {cart}
+                    </span>
+                  )}
+                </div>
+                <span>Cart</span>
               </Link>
               <Link
                 to="/order-history"
-                className="hover:text-emerald-600 transition"
+                className="hover:text-emerald-600 transition flex items-center gap-2"
               >
-                Order
+                <Package className="h-5 w-5" />
+                <span>Order</span>
               </Link>
             </div>
           )}
