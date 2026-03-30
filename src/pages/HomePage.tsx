@@ -19,7 +19,7 @@ const HomePage = () => {
               <img
                 src={item.image}
                 alt={item.name}
-                className="w-full h-full object-contain p-4 transition-transform duration-500 group-hover:scale-105"
+                className="w-full h-full object-contain p-4 0 group-hover:scale-105 "
               />
             </div>
 

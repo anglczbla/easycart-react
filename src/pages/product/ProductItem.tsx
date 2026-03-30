@@ -34,30 +34,32 @@ const ProductItem = ({
   handleEditImage,
 }: ProductItemProps) => {
   return (
-    <div className="bg-white rounded-xl shadow-lg overflow-hidden mb-10 p-5">
+    <div className="group bg-white rounded-xl shadow-lg overflow-hidden mb-10 p-5 hover:shadow-2xl transition-all duration-300 overflow-hidden flex flex-col border border-gray-100">
       <div>
-        <ul>
-          <li>
-            <strong>Name:</strong> {product.name}
-          </li>
-          <li>
-            <strong>Description:</strong> {product.description}
-          </li>
-          <li>
-            <strong>Price:</strong> <PriceTag price={product.price} />
-          </li>
-          <li>
-            <strong>Stock:</strong> {product.stock}
-          </li>
-          <li>
-            <strong>Category:</strong> {product.category}
-          </li>
-          <li>
-            <strong>
-              <img src={product.image} alt={product.name} />
-            </strong>
-          </li>
-        </ul>
+        <div>
+          <div>
+            <img
+              src={product.image}
+              alt={product.name}
+              className="w-full h-full object-contain rounded-lg  transition-transform duration-50 group-hover:scale-105"
+            />
+          </div>
+          <div className="flex justify-between">
+            <div className="mt-5">
+              <h3 className="text-lg font-bold text-gray-900 line-clamp-1">
+                {product.name}
+              </h3>
+              <p className="text-gray-500 text-sm line-clamp-2">
+                {product.description}
+              </p>
+            </div>
+            <div className="mt-5">
+              <p>
+                <PriceTag price={product.price} />
+              </p>
+            </div>
+          </div>
+        </div>
         <div className="flex gap-2">
           {admin && (
             <Button
@@ -77,8 +79,8 @@ const ProductItem = ({
 
           <Button
             onClick={() => onProductClicked(product.id)}
-            className="flex mt-5 "
-            name="Detail"
+            className="w-full text-center mt-5 rounded-xl text-sm"
+            name="View Detail"
           />
         </div>
       </div>

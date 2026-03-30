@@ -1,8 +1,8 @@
+import { ArrowLeft } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useProductDetail } from "../../hooks/product/useProductDetail";
 import Button from "../ui/Button";
 import PriceTag from "../ui/PriceTag";
-import { ArrowLeft } from "lucide-react";
 
 const ProductDetail = () => {
   const { id } = useParams();

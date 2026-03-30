@@ -98,20 +98,25 @@ const ProductList = ({
 
         {!isLoadingSearch &&
           filterSearch.map((prod) => (
-            <div className="w-full mt-5 px-4 md:w-1/2 lg:w-1/3" key={prod.id}>
-              <ProductItem
-                admin={admin}
-                product={prod}
-                isShowEditButton={prod.id == showEdit}
-                formUpdateProduct={formEdit}
-                handleFormEdit={handleFormEdit}
-                onToggleEditProduct={toggleEdit}
-                onProductClicked={detailProd}
-                onDeleteProduct={delProd}
-                onUpdateProduct={updatedProd}
-                categories={categories}
-                handleEditImage={handleEditImage}
-              />
+            <div className="max-w-7xl mx-auto sm:px-6 lg:px-6 py-10">
+              <div
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
+                key={prod.id}
+              >
+                <ProductItem
+                  admin={admin}
+                  product={prod}
+                  isShowEditButton={prod.id == showEdit}
+                  formUpdateProduct={formEdit}
+                  handleFormEdit={handleFormEdit}
+                  onToggleEditProduct={toggleEdit}
+                  onProductClicked={detailProd}
+                  onDeleteProduct={delProd}
+                  onUpdateProduct={updatedProd}
+                  categories={categories}
+                  handleEditImage={handleEditImage}
+                />
+              </div>
             </div>
           ))}
       </div>
