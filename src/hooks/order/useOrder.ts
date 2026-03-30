@@ -1,4 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import apiClient from "../../lib/axios";
 import type { Order, OrderUsers } from "../../types/types";
@@ -60,7 +61,7 @@ export const useOrderActions = () => {
         queryClient.invalidateQueries({ queryKey: ["order"] });
         queryClient.invalidateQueries({ queryKey: ["cart"] });
         queryClient.invalidateQueries({ queryKey: ["products"] });
-        alert("success create order");
+        toast.success("success create order");
         navigate("/order-history");
       },
       onError: (error: any) => {

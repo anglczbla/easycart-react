@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
+import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import apiClient from "../../lib/axios";
 import { itemsInCart } from "../../store/cartSlice";
@@ -72,7 +73,7 @@ export const useCartActions = () => {
       { id, product_id },
       {
         onSuccess: () => {
-          alert("success delete item");
+          toast.success("success delete item");
           queryClient.invalidateQueries({ queryKey: ["cart"] });
         },
         onError: (error: any) => {

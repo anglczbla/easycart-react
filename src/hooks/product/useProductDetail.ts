@@ -1,4 +1,5 @@
 import { useQueryClient } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 import { useAddToCartMutation } from "../cart/useCart";
 import { usegetAllProductsById } from "./useProduct";
 
@@ -14,7 +15,7 @@ export const useProductDetail = (id: string) => {
       { product_id: data.id, quantity: 1 },
       {
         onSuccess: () => {
-          alert("success add to cart");
+          toast.success("success add to cart");
           queryClient.invalidateQueries({ queryKey: ["cart"] });
         },
       },

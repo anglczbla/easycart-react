@@ -1,4 +1,5 @@
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addToken } from "../../store/authSlice";
@@ -46,7 +47,7 @@ export const useLogin = () => {
 
         dispatch(addToken(data.data));
 
-        alert("Success Login!");
+        toast.success("Success Login!");
         setFormLogin({ email: "", password: "" });
         setErrors({});
         navigate("/");

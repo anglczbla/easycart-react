@@ -1,5 +1,6 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
+import toast from "react-hot-toast";
 import {
   useGetAllOrders,
   useUpdateOrderMutation,
@@ -34,7 +35,7 @@ const AllOrderPage = () => {
   const updatingOrder = (data: Order) => {
     updateOrder.mutate(data, {
       onSuccess: () => {
-        alert("success update status");
+        toast.success("success update status");
         queryClient.invalidateQueries({ queryKey: ["order"] });
         queryClient.invalidateQueries({ queryKey: ["all"] });
         setShowEdit(false);

@@ -1,4 +1,5 @@
 import { Package, ShoppingCart, User } from "lucide-react";
+import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useLogoutMutation } from "../hooks/auth/useAuth";
@@ -24,13 +25,13 @@ const Navbar = () => {
   const logoutUser = (id: string) => {
     logout.mutate(id, {
       onSuccess: () => {
-        alert("success logout");
+        toast.success("success logout");
         navigate("/login");
         dispatch(removeToken());
         localStorage.removeItem("userData");
       },
       onError: () => {
-        alert("error logout");
+        toast.error("error logout");
       },
     });
   };

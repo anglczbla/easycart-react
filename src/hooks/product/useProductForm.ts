@@ -1,5 +1,6 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import type { ProductForm } from "../../types/types";
 import { useGlobalSearch } from "../search/useGlobalSearch";
@@ -143,7 +144,7 @@ export const useProductForm = () => {
 
     addProduct.mutate(formData, {
       onSuccess: () => {
-        alert("success add product!");
+        toast.success("success add product!");
         queryClient.invalidateQueries({ queryKey: ["products"] });
         setFormProduct({
           id: "",
@@ -187,7 +188,7 @@ export const useProductForm = () => {
       { id: updatedProduct.id, formData },
       {
         onSuccess: () => {
-          alert("success edit products");
+          toast.success("success edit products");
           queryClient.invalidateQueries({ queryKey: ["products"] });
           setShowEdit(null);
           setFormEdit({
@@ -210,7 +211,7 @@ export const useProductForm = () => {
   const delProd = (id: string) => {
     deleteProduct.mutate(id, {
       onSuccess: () => {
-        alert("success delete products");
+        toast.success("success delete products");
         queryClient.invalidateQueries({ queryKey: ["products"] });
         setErrors({});
       },

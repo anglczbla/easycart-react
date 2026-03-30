@@ -1,4 +1,5 @@
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import type { RegisterInput } from "../../types/types";
 import { useRegisterMutation } from "./useAuth";
@@ -40,7 +41,7 @@ export const useRegister = () => {
 
     mutation.mutate(formRegist, {
       onSuccess: () => {
-        alert("Success Register!");
+        toast.success("Success Register!");
         setFormRegist({ username: "", email: "", password: "" });
         setErrors({});
         navigate("/login");

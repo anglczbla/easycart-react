@@ -1,5 +1,6 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
+import toast from "react-hot-toast";
 import type { Category } from "../../types/types";
 import {
   useAddCategoryMutation,
@@ -57,13 +58,13 @@ export const useCategoryForm = () => {
   const submitCategory = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!category) {
-      return alert("category is required");
+    if (!category.name) {
+      return toast.error("category is required");
     }
 
     onAddCategory.mutate(category, {
       onSuccess: () => {
-        alert("success add category!");
+        toast.success("success add category!");
         queryClient.invalidateQueries({ queryKey: ["category"] });
         setCategory({
           id: "",
@@ -80,13 +81,13 @@ export const useCategoryForm = () => {
   };
 
   const updateCategory = (category: Category) => {
-    if (!category) {
-      return alert("category is required");
+    if (!category.name) {
+      return toast.error("category is required");
     }
 
     onUpdateCategory.mutate(category, {
       onSuccess: () => {
-        alert("success update category!");
+        toast.success("success update category!");
         queryClient.invalidateQueries({ queryKey: ["category"] });
         setShowEdit(null);
         setCategory({
@@ -107,7 +108,7 @@ export const useCategoryForm = () => {
   const deleteCategory = (id: string) => {
     onDeleteCategory.mutate(id, {
       onSuccess: () => {
-        alert("success delete category!");
+        toast.success("success delete category!");
         queryClient.invalidateQueries({ queryKey: ["category"] });
         setErrors([]);
       },

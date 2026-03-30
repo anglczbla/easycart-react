@@ -1,5 +1,6 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
+import toast from "react-hot-toast";
 import type { User } from "../../types/types";
 import { useAddProfileMutation, useCurrentUser } from "./useUser";
 export const useUserForm = () => {
@@ -64,7 +65,7 @@ export const useUserForm = () => {
 
     addProfile.mutate(formData, {
       onSuccess: () => {
-        alert("success add profile");
+        toast.success("success add profile");
         queryClient.invalidateQueries({ queryKey: ["user"] });
         setShowEdit(false);
         setFormProfile({
