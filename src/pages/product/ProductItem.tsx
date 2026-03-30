@@ -1,25 +1,7 @@
-import type { Category, Product, ProductForm } from "../../types/types";
+import type { ProductItemProps } from "../../types/types";
 import Button from "../ui/Button";
 import Input from "../ui/Input";
 import PriceTag from "../ui/PriceTag";
-
-interface ProductItemProps {
-  product: Product;
-  admin: boolean;
-  formUpdateProduct: ProductForm;
-  isShowEditButton: boolean;
-  onUpdateProduct: (updatedProduct: ProductForm) => void;
-  onDeleteProduct: (id: string) => void;
-  onToggleEditProduct: (id: string) => void;
-  handleFormEdit: (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >,
-  ) => void;
-  onProductClicked: (id: string) => void;
-  categories: Category[] | undefined;
-  handleEditImage: (e: React.ChangeEvent<HTMLInputElement>) => void;
-}
 
 const ProductItem = ({
   product,

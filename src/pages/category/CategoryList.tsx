@@ -1,15 +1,5 @@
-import type { Category } from "../../types/types";
+import type { CategoryListProps } from "../../types/types";
 import CategoryItem from "./CategoryItem";
-
-interface CategoryListProps {
-  categories: Category[] | undefined;
-  editCategory: Category;
-  showEdit: string | null | undefined;
-  toggleEditCategory: (id: string) => void;
-  deleteCategory: (id: string) => void;
-  updateCategory: (category: Category) => void;
-  handleEditCategory: (e: React.ChangeEvent<HTMLInputElement>) => void;
-}
 
 const CategoryList = ({
   categories,

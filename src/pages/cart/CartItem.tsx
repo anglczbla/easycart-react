@@ -1,13 +1,6 @@
 import { Minus, Plus, Trash2 } from "lucide-react";
-import type { Cart } from "../../types/types";
+import type { CartItemProps } from "../../types/types";
 import PriceTag from "../ui/PriceTag";
-
-interface CartItemProps {
-  cart: Cart;
-  onDelete: () => void;
-  onIncrementQty: () => void;
-  onDecrementQty: () => void;
-}
 
 const CartItem = ({
   cart,

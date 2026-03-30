@@ -1,8 +1,4 @@
-interface AuthLayoutProps {
-  children: React.ReactNode;
-  title: string;
-  subtitle: string;
-}
+import type { AuthLayoutProps } from "../../types/types";
 
 const AuthLayout = ({ children, title, subtitle }: AuthLayoutProps) => {
   return (

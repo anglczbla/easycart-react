@@ -1,16 +1,6 @@
-import type { Order, OrderUsers } from "../../../types/types";
+import type { AllOrderPageListProps } from "../../../types/types";
 import Button from "../../ui/Button";
 import PriceTag from "../../ui/PriceTag";
-
-interface AllOrderPageListProps {
-  item: OrderUsers;
-  updatingOrder: (data: Order) => void;
-  toggleEdit: (id: string, status: string) => void;
-  cancelButton: () => void;
-  showEdit: string | false;
-  status: string;
-  handleChangeStatus: React.ChangeEventHandler<HTMLSelectElement>;
-}
 
 const AllOrderPageList = ({
   item,

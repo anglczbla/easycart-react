@@ -104,3 +104,97 @@ export interface PriceTagProps {
   price: string | number | undefined;
   className?: string;
 }
+
+export interface CartItemProps {
+  cart: Cart;
+  onDelete: () => void;
+  onIncrementQty: () => void;
+  onDecrementQty: () => void;
+}
+
+export interface AuthLayoutProps {
+  children: React.ReactNode;
+  title: string;
+  subtitle: string;
+}
+
+export interface CategoryItemProps {
+  category: Category;
+  formEdit: Category;
+  isShowEdit: boolean;
+  onToggleEdit: (id: string) => void;
+  onDelete: (id: string) => void;
+  onUpdate: (category: Category) => void;
+  onChangeEdit: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+export interface CategoryListProps {
+  categories: Category[] | undefined;
+  editCategory: Category;
+  showEdit: string | null | undefined;
+  toggleEditCategory: (id: string) => void;
+  deleteCategory: (id: string) => void;
+  updateCategory: (category: Category) => void;
+  handleEditCategory: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+export interface AllOrderPageListProps {
+  item: OrderUsers;
+  updatingOrder: (data: Order) => void;
+  toggleEdit: (id: string, status: string) => void;
+  cancelButton: () => void;
+  showEdit: string | false;
+  status: string;
+  handleChangeStatus: React.ChangeEventHandler<HTMLSelectElement>;
+}
+
+export interface ProductItemProps {
+  product: Product;
+  admin: boolean;
+  formUpdateProduct: ProductForm;
+  isShowEditButton: boolean;
+  onUpdateProduct: (updatedProduct: ProductForm) => void;
+  onDeleteProduct: (id: string) => void;
+  onToggleEditProduct: (id: string) => void;
+  handleFormEdit: (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >,
+  ) => void;
+  onProductClicked: (id: string) => void;
+  categories: Category[] | undefined;
+  handleEditImage: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+export interface ProductListProps {
+  formEdit: ProductForm;
+  admin: boolean;
+  updatedProd: (updatedProduct: ProductForm) => void;
+  delProd: (id: string) => void;
+  toggleEdit: (id: string) => void;
+  showEdit: any;
+  handleFormEdit: (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >,
+  ) => void;
+  detailProd: (id: string) => void;
+  data: Product[];
+  filterSearch: Product[];
+  categories: Category[] | undefined;
+  inputValue: string;
+  categoryValue: string;
+  handleSearch: (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >,
+  ) => void;
+
+  handleCategory: (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >,
+  ) => void;
+  isLoadingSearch?: boolean;
+  handleEditImage: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}

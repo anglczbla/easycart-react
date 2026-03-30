@@ -1,39 +1,6 @@
-import type { Category, Product, ProductForm } from "../../types/types";
+import type { ProductListProps } from "../../types/types";
 import Input from "../ui/Input";
 import ProductItem from "./ProductItem";
-
-interface ProductListProps {
-  formEdit: ProductForm;
-  admin: boolean;
-  updatedProd: (updatedProduct: ProductForm) => void;
-  delProd: (id: string) => void;
-  toggleEdit: (id: string) => void;
-  showEdit: any;
-  handleFormEdit: (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >,
-  ) => void;
-  detailProd: (id: string) => void;
-  data: Product[];
-  filterSearch: Product[];
-  categories: Category[] | undefined;
-  inputValue: string;
-  categoryValue: string;
-  handleSearch: (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >,
-  ) => void;
-
-  handleCategory: (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >,
-  ) => void;
-  isLoadingSearch?: boolean;
-  handleEditImage: (e: React.ChangeEvent<HTMLInputElement>) => void;
-}
 
 const ProductList = ({
   formEdit,

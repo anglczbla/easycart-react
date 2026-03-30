@@ -1,16 +1,6 @@
-import type { Category } from "../../types/types";
+import type { CategoryItemProps } from "../../types/types";
 import Button from "../ui/Button";
 import Input from "../ui/Input";
-
-interface CategoryItemProps {
-  category: Category;
-  formEdit: Category;
-  isShowEdit: boolean;
-  onToggleEdit: (id: string) => void;
-  onDelete: (id: string) => void;
-  onUpdate: (category: Category) => void;
-  onChangeEdit: (e: React.ChangeEvent<HTMLInputElement>) => void;
-}
 
 const CategoryItem = ({
   category,
