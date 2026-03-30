@@ -27,16 +27,18 @@ const CategoryList = ({
         <p>No categories found.</p>
       ) : (
         categories.map((cat) => (
-          <CategoryItem
-            key={cat.id}
-            category={cat}
-            formEdit={editCategory}
-            isShowEdit={cat.id === showEdit}
-            onToggleEdit={toggleEditCategory}
-            onDelete={deleteCategory}
-            onUpdate={updateCategory}
-            onChangeEdit={handleEditCategory}
-          />
+          <div className="p-2">
+            <CategoryItem
+              key={cat.id}
+              category={cat}
+              formEdit={editCategory}
+              isShowEdit={cat.id === showEdit}
+              onToggleEdit={toggleEditCategory}
+              onDelete={deleteCategory}
+              onUpdate={updateCategory}
+              onChangeEdit={handleEditCategory}
+            />
+          </div>
         ))
       )}
     </div>

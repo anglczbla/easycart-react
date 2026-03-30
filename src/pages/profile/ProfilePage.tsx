@@ -20,7 +20,7 @@ const ProfilePage = () => {
     <div>
       <h1 className="text-center font-bold p-5">My Profile</h1>
       <div className="max-w-7xl mx-auto flex flex-col gap-5">
-        <div className="w-full bg-white rounded-lg shadow-lg p-6 mt-2">
+        <div className="w-full flex justify-center items-center  p-6 mt-2">
           <div>
             {data?.avatar == null ? (
               <p
@@ -33,7 +33,7 @@ const ProfilePage = () => {
               <img
                 src={data?.avatar}
                 alt={data?.avatar}
-                className="rounded-full w-24 h-24 object-cover"
+                className="rounded-full w-45 h-35 object-cover object-center"
               />
             )}
           </div>

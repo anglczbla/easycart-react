@@ -35,55 +35,48 @@ const ProductItem = ({
   handleEditImage,
 }: ProductItemProps) => {
   return (
-    <div className="group bg-white rounded-xl shadow-lg overflow-hidden mb-10 p-5 hover:shadow-2xl transition-all duration-300 flex flex-col border border-gray-100">
-      <div>
-        <div>
+    <div className="w-full h-full bg-white rounded-xl shadow-lg overflow-hidden p-5 hover:shadow-2xl transition-all duration-300 flex flex-col border border-gray-100 group">
+      <div className="flex-1">
+        <img
+          src={product.image}
+          alt={product.name}
+          className="w-full h-48 object-cover rounded-lg transition-transform duration-300 group-hover:scale-105"
+        />
+        <div className="flex justify-between mt-5">
+          <div className="flex-1 mr-4">
+            <h3 className="text-lg font-bold text-gray-900 line-clamp-1">
+              {product.name}
+            </h3>
+            <p className="text-gray-500 text-sm line-clamp-2">
+              {product.description}
+            </p>
+          </div>
           <div>
-            <img
-              src={product.image}
-              alt={product.name}
-              className="w-full h-full object-contain rounded-lg  transition-transform duration-50 group-hover:scale-105"
-            />
-          </div>
-          <div className="flex justify-between">
-            <div className="mt-5">
-              <h3 className="text-lg font-bold text-gray-900 line-clamp-1">
-                {product.name}
-              </h3>
-              <p className="text-gray-500 text-sm line-clamp-2">
-                {product.description}
-              </p>
-            </div>
-            <div className="mt-5">
-              <p>
-                <PriceTag price={product.price} />
-              </p>
-            </div>
+            <PriceTag price={product.price} />
           </div>
         </div>
-        <div className="flex gap-2">
-          {admin && (
-            <Button
-              onClick={() => onDeleteProduct(product.id)}
-              className="flex mt-5 "
-              name="Delete"
-            />
-          )}
+      </div>
 
-          {admin && (
-            <Button
-              onClick={() => onToggleEditProduct(product.id)}
-              className="flex mt-5 "
-              name="Edit"
-            />
-          )}
-
+      <div className="flex gap-2 mt-auto pt-4">
+        {admin && (
           <Button
-            onClick={() => onProductClicked(product.id)}
-            className="w-full text-center mt-5 rounded-xl text-sm"
-            name="View Detail"
+            onClick={() => onDeleteProduct(product.id)}
+            className="w-full"
+            name="Delete"
           />
-        </div>
+        )}
+        {admin && (
+          <Button
+            onClick={() => onToggleEditProduct(product.id)}
+            className="w-full"
+            name="Edit"
+          />
+        )}
+        <Button
+          onClick={() => onProductClicked(product.id)}
+          className="w-full text-center rounded-xl text-sm"
+          name="View Detail"
+        />
       </div>
 
       {isShowEditButton && (
@@ -132,18 +125,19 @@ const ProductItem = ({
           </select>
           <input
             type="file"
-            placeholder="select image"
+            accept="image/*"
             onChange={handleEditImage}
+            className="mb-2"
           />
-          <div className="flex gap-2">
+          <div className="flex gap-2 mt-3">
             <Button
               onClick={() => onUpdateProduct(formUpdateProduct)}
-              className="flex mt-5 "
+              className="w-full"
               name="Update"
             />
             <Button
               onClick={() => onToggleEditProduct("")}
-              className="flex mt-5 "
+              className="w-full bg-red-600"
               name="Cancel"
             />
           </div>

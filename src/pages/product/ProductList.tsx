@@ -82,44 +82,44 @@ const ProductList = ({
           </select>
         </div>
       </div>
-      <div className="flex flex-wrap">
-        {isLoadingSearch && (
-          <p className="w-full text-center mt-10">searching products...</p>
-        )}
-        {!isLoadingSearch && data.length === 0 && (
-          <p className="w-full text-center mt-10">product empty</p>
-        )}
-        {!isLoadingSearch &&
-          data.length > 0 &&
-          (inputValue !== "" || categoryValue !== "") &&
-          filterSearch.length === 0 && (
-            <p className="w-full text-center mt-10">product not found</p>
-          )}
 
-        {!isLoadingSearch &&
-          filterSearch.map((prod) => (
-            <div className="max-w-7xl mx-auto sm:px-6 lg:px-6 py-10">
-              <div
-                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
+      {isLoadingSearch && (
+        <p className="w-full text-center mt-10">searching products...</p>
+      )}
+
+      {!isLoadingSearch && data.length === 0 && (
+        <p className="w-full text-center mt-10">product empty</p>
+      )}
+
+      {!isLoadingSearch &&
+        data.length > 0 &&
+        (inputValue !== "" || categoryValue !== "") &&
+        filterSearch.length === 0 && (
+          <p className="w-full text-center mt-10">product not found</p>
+        )}
+
+      {!isLoadingSearch && (
+        <div className="max-w-7xl mx-auto px-6 py-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  gap-8">
+            {filterSearch.map((prod) => (
+              <ProductItem
                 key={prod.id}
-              >
-                <ProductItem
-                  admin={admin}
-                  product={prod}
-                  isShowEditButton={prod.id == showEdit}
-                  formUpdateProduct={formEdit}
-                  handleFormEdit={handleFormEdit}
-                  onToggleEditProduct={toggleEdit}
-                  onProductClicked={detailProd}
-                  onDeleteProduct={delProd}
-                  onUpdateProduct={updatedProd}
-                  categories={categories}
-                  handleEditImage={handleEditImage}
-                />
-              </div>
-            </div>
-          ))}
-      </div>
+                admin={admin}
+                product={prod}
+                isShowEditButton={prod.id === showEdit}
+                formUpdateProduct={formEdit}
+                handleFormEdit={handleFormEdit}
+                onToggleEditProduct={toggleEdit}
+                onProductClicked={detailProd}
+                onDeleteProduct={delProd}
+                onUpdateProduct={updatedProd}
+                categories={categories}
+                handleEditImage={handleEditImage}
+              />
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

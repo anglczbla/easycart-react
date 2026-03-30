@@ -22,7 +22,7 @@ const CategoryItem = ({
   onChangeEdit,
 }: CategoryItemProps) => {
   return (
-    <div className="border p-2 my-2 flex items-center justify-between">
+    <div className="border border-slate-300 rounded-lg p-2 my-2 flex items-center justify-between">
       {isShowEdit ? (
         <div className="flex gap-2 w-full">
           <Input
