@@ -3,6 +3,7 @@ import { useCartActions, useGetCartById } from "../../hooks/cart/useCart";
 import Button from "../ui/Button";
 import PriceTag from "../ui/PriceTag";
 import CartItem from "./CartItem";
+import { ShoppingBag } from "lucide-react";
 
 const CartList = () => {
   const cart = useGetCartById();
@@ -47,20 +48,7 @@ const CartList = () => {
       {data.length === 0 ? (
         <div className="text-center py-20 bg-gray-50 rounded-3xl border-2 border-dashed border-gray-200">
           <div className="bg-gray-200 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-8 w-8 text-gray-400"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
-              />
-            </svg>
+            <ShoppingBag className="h-8 w-8 text-gray-400" />
           </div>
           <h2 className="text-xl font-bold text-gray-900 mb-2">
             Your cart is empty

@@ -2,6 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useProductDetail } from "../../hooks/product/useProductDetail";
 import Button from "../ui/Button";
 import PriceTag from "../ui/PriceTag";
+import { ArrowLeft } from "lucide-react";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -33,20 +34,7 @@ const ProductDetail = () => {
         onClick={() => navigate(-1)}
         className="flex items-center text-gray-600 hover:text-primary transition-colors mb-6 group"
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-5 w-5 mr-2 transform group-hover:-translate-x-1 transition-transform"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M10 19l-7-7m0 0l7-7m-7 7h18"
-          />
-        </svg>
+        <ArrowLeft className="h-5 w-5 mr-2 transform group-hover:-translate-x-1 transition-transform" />
         Back to Products
       </button>
 
