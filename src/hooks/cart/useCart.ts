@@ -1,5 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import apiClient from "../../lib/axios";
+import { itemsInCart } from "../../store/cartSlice";
 import type {
   AddToCart,
   Cart,
@@ -15,6 +18,16 @@ export const useGetCartById = () => {
       return res.data.data;
     },
   });
+};
+
+export const useGetCart = () => {
+  const dispatch = useDispatch();
+  const { data } = useGetCartById();
+  useEffect(() => {
+    if (data) {
+      dispatch(itemsInCart(data));
+    }
+  }, [data, dispatch]);
 };
 
 export const useAddToCartMutation = () => {

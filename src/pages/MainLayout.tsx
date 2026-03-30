@@ -1,7 +1,9 @@
 import { Outlet } from "react-router-dom";
+import { useGetCart } from "../hooks/cart/useCart";
 import Navbar from "./Navbar";
 
 const MainLayout = () => {
+  useGetCart();
   return (
     <div className="min-h-screen bg-gray-50">
       <Navbar />

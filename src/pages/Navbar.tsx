@@ -14,10 +14,11 @@ const Navbar = () => {
   const admin = useAppSelector((state) => state.auth.admin);
   const { updateSearch, data, inputValue, isFetching, resetSearch } =
     useGlobalSearch(false);
-
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     updateSearch(e.target.value);
   };
+
+  const cart = useAppSelector((state) => state.cart.cart.length);
 
   const logoutUser = (id: string) => {
     logout.mutate(id, {
@@ -69,23 +70,6 @@ const Navbar = () => {
             Product
           </Link>
 
-          <Link to="/profile" className="hover:text-emerald-600 transition">
-            Profile
-          </Link>
-          {!admin && (
-            <div className="flex gap-5">
-              <Link to="/cart" className="hover:text-emerald-600 transition">
-                Cart
-              </Link>
-              <Link
-                to="/order-history"
-                className="hover:text-emerald-600 transition"
-              >
-                Order
-              </Link>
-            </div>
-          )}
-
           {admin && (
             <div className="flex gap-5">
               <Link
@@ -115,6 +99,25 @@ const Navbar = () => {
           {inputValue && (
             <div className="absolute top-full left-0 w-full bg-white text-slate-700 shadow-md rounded-lg z-10 p-2">
               {renderSearchResult()}
+            </div>
+          )}
+        </div>
+
+        <div className="flex gap-8  font-semibold text-gray-700 text-secondary">
+          <Link to="/profile" className="hover:text-emerald-600 transition">
+            Profile
+          </Link>
+          {!admin && (
+            <div className="flex gap-5">
+              <Link to="/cart" className="hover:text-emerald-600 transition">
+                Cart {cart}
+              </Link>
+              <Link
+                to="/order-history"
+                className="hover:text-emerald-600 transition"
+              >
+                Order
+              </Link>
             </div>
           )}
         </div>
