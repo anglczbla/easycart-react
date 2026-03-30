@@ -7,7 +7,7 @@ export const useUserForm = () => {
   const addProfile = useAddProfileMutation();
   const profile = useCurrentUser();
 
-  const [errors, setErrors] = useState<string[]>([]);
+  const [errors, setErrors] = useState<Record<string, string[]>>({});
   const [showEdit, setShowEdit] = useState<boolean>(false);
   const [formProfile, setFormProfile] = useState<Omit<User, "role">>({
     id: "",
@@ -45,7 +45,7 @@ export const useUserForm = () => {
   ) => {
     const { name, value } = e.target;
     setFormProfile({ ...formProfile, [name]: value });
-    setErrors([]);
+    setErrors({});
   };
 
   const updateProfile = (e: React.FormEvent<HTMLFormElement>) => {
@@ -78,8 +78,7 @@ export const useUserForm = () => {
         });
       },
       onError: (error: any) => {
-        const msg = error.response?.data?.message;
-        setErrors((prev) => [...prev, msg]);
+        setErrors(error.response?.data?.errors);
       },
     });
   };

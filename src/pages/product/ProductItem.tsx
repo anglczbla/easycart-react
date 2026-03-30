@@ -1,5 +1,6 @@
 import type { Category, Product, ProductForm } from "../../types/types";
 import Button from "../ui/Button";
+import PriceTag from "../ui/PriceTag";
 
 interface ProductItemProps {
   product: Product;
@@ -43,7 +44,7 @@ const ProductItem = ({
             <strong>Description:</strong> {product.description}
           </li>
           <li>
-            <strong>Price:</strong> Rp.{product.price}
+            <strong>Price:</strong> <PriceTag price={product.price} />
           </li>
           <li>
             <strong>Stock:</strong> {product.stock}

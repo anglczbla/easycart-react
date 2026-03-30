@@ -1,5 +1,6 @@
 import { useUserForm } from "../../hooks/user/useUserForm";
 import Button from "../ui/Button";
+import ErrorMessage from "../ui/ErrorMessage";
 
 const ProfilePage = () => {
   const {
@@ -14,6 +15,7 @@ const ProfilePage = () => {
     cancelButton,
     handleImage,
   } = useUserForm();
+
   return (
     <div>
       <div>
@@ -77,18 +79,12 @@ const ProfilePage = () => {
             />
             {showEdit ? (
               <form onSubmit={updateProfile}>
-                {errors.length > 0 && (
-                  <div className="font-bold text-red-500 text-center">
-                    {errors.map((msg: string, index: number) => (
-                      <p key={index}> {msg}</p>
-                    ))}
-                  </div>
-                )}
                 <input
                   type="file"
                   placeholder="add photo"
                   onChange={handleImage}
                 />
+                {errors && <ErrorMessage errors={errors.email} />}
                 <input
                   type="text"
                   name="email"
@@ -97,6 +93,7 @@ const ProfilePage = () => {
                   placeholder="input email"
                   className="w-full bg-slate-200 text-dark p-3 rounded-md focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary  mb-2"
                 />
+                {errors && <ErrorMessage errors={errors.username} />}
                 <input
                   type="text"
                   name="username"
@@ -105,6 +102,7 @@ const ProfilePage = () => {
                   placeholder="input new username"
                   className="w-full bg-slate-200 text-dark p-3 rounded-md focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary mb-2"
                 />
+                {errors && <ErrorMessage errors={errors.phone} />}
                 <input
                   type="number"
                   name="phone"
@@ -113,6 +111,7 @@ const ProfilePage = () => {
                   placeholder="input phone number"
                   className="w-full bg-slate-200 text-dark p-3 rounded-md focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary  mb-2"
                 />
+                {errors && <ErrorMessage errors={errors.address} />}
                 <input
                   type="text"
                   name="address"
@@ -121,6 +120,7 @@ const ProfilePage = () => {
                   placeholder="input addres"
                   className="w-full bg-slate-200 text-dark p-3 rounded-md focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary  mb-2"
                 />
+                {errors && <ErrorMessage errors={errors.city} />}
                 <input
                   type="text"
                   name="city"
@@ -129,7 +129,6 @@ const ProfilePage = () => {
                   placeholder="input city"
                   className="w-full bg-slate-200 text-dark p-3 rounded-md focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary  mb-2"
                 />
-
                 <div className="flex gap-3">
                   <Button
                     type="submit"
