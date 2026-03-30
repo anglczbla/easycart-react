@@ -19,11 +19,11 @@ const HomePage = () => {
               <img
                 src={item.image}
                 alt={item.name}
-                className="w-full h-full object-contain p-4 0 group-hover:scale-105 "
+                className="w-full h-full object-contain p-4 group-hover:scale-105"
               />
             </div>
 
-            <div className="p-6 flex flex-col flex-grow">
+            <div className="p-6 flex flex-col grow">
               <div className="flex justify-between items-start mb-2">
                 <h3 className="text-lg font-bold text-gray-900 line-clamp-1 flex-1 pr-2">
                   {item.name}
@@ -34,13 +34,13 @@ const HomePage = () => {
                 />
               </div>
 
-              <p className="text-gray-500 text-sm line-clamp-2 mb-6 flex-grow">
+              <p className="text-gray-500 text-sm line-clamp-2 mb-6 grow">
                 {item.description}
               </p>
 
               <Button
                 name="View Details"
-                className="w-full !py-2.5 rounded-xl text-sm"
+                className="w-full py-2.5! rounded-xl text-sm"
                 onClick={() => navigate(`/products/${item.id}`)}
               />
             </div>

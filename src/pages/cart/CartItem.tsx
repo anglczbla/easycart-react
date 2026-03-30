@@ -17,7 +17,7 @@ const CartItem = ({
 }: CartItemProps) => {
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 sm:p-6 mb-4 flex flex-col sm:flex-row gap-6 items-center transition-all hover:shadow-md">
-      <div className="w-24 h-24 bg-gray-50 rounded-xl overflow-hidden flex-shrink-0">
+      <div className="w-24 h-24 bg-gray-50 rounded-xl overflow-hidden shrink-0">
         <img
           src={cart.image}
           alt={cart.name}
@@ -25,7 +25,7 @@ const CartItem = ({
         />
       </div>
 
-      <div className="flex-grow text-center sm:text-left">
+      <div className="grow text-center sm:text-left">
         <h3 className="font-bold text-lg text-gray-900 mb-1">{cart.name}</h3>
         <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 justify-center sm:justify-start">
           <PriceTag price={cart.price} className="text-primary font-semibold" />
@@ -34,7 +34,7 @@ const CartItem = ({
             Subtotal:{" "}
             <PriceTag
               price={cart.price * cart.quantity}
-              className="!text-gray-900"
+              className="text-gray-900!"
             />
           </p>
         </div>

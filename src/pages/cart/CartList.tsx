@@ -1,9 +1,9 @@
+import { ShoppingBag } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useCartActions, useGetCartById } from "../../hooks/cart/useCart";
 import Button from "../ui/Button";
 import PriceTag from "../ui/PriceTag";
 import CartItem from "./CartItem";
-import { ShoppingBag } from "lucide-react";
 
 const CartList = () => {
   const cart = useGetCartById();
@@ -97,14 +97,12 @@ const CartList = () => {
                   <span>Subtotal</span>
                   <PriceTag
                     price={totalPrice}
-                    className="!text-gray-900 font-medium"
+                    className="text-gray-900! font-medium"
                   />
                 </div>
                 <div className="flex justify-between text-gray-600">
                   <span>Shipping</span>
-                  <span className="text-green-600 font-medium font-bold">
-                    Free
-                  </span>
+                  <span className="text-green-600 font-medium">Free</span>
                 </div>
                 <div className="border-t border-gray-100 pt-4 flex justify-between items-center">
                   <span className=" font-bold text-gray-900">Total</span>

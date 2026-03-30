@@ -36,7 +36,7 @@ const OrderPage = () => {
               <Button
                 onClick={() => navigate("/profile")}
                 name="Change"
-                className="!py-1.5 !px-4 text-sm !rounded-lg bg-gray-100 !text-gray-700 hover:bg-gray-200 shadow-none border-none"
+                className="py-1.5! px-4! text-sm rounded-lg! bg-gray-100 text-gray-700! hover:bg-gray-200 shadow-none border-none"
               />
             </div>
             <div className="bg-gray-50 rounded-xl p-4 border border-gray-100">
@@ -56,14 +56,14 @@ const OrderPage = () => {
             <div className="divide-y divide-gray-50">
               {orderData?.map((item) => (
                 <div key={item.cart_id} className="p-6 flex gap-4">
-                  <div className="w-20 h-20 bg-gray-50 rounded-lg overflow-hidden flex-shrink-0">
+                  <div className="w-20 h-20 bg-gray-50 rounded-lg overflow-hidden shrink-0">
                     <img
                       src={item.image}
                       alt={item.name}
                       className="w-full h-full object-contain p-2"
                     />
                   </div>
-                  <div className="flex-grow">
+                  <div className="grow">
                     <h3 className="font-semibold text-gray-900 mb-1">
                       {item.name}
                     </h3>
@@ -92,7 +92,7 @@ const OrderPage = () => {
                 <span>Subtotal</span>
                 <PriceTag
                   price={totalPrice}
-                  className="!text-gray-900 font-medium"
+                  className="text-gray-900! font-medium"
                 />
               </div>
               <div className="flex justify-between text-gray-600">

@@ -39,7 +39,7 @@ const ProductDetail = () => {
       </button>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 bg-white rounded-2xl shadow-xl overflow-hidden">
-        <div className="relative h-[400px] md:h-auto bg-gray-50">
+        <div className="relative h-100 md:h-auto bg-gray-50">
           <img
             src={data?.image}
             alt={data?.name}
@@ -94,7 +94,7 @@ const ProductDetail = () => {
                 }
               />
               <Button
-                className="flex-1 bg-white !text-primary border-2 border-primary hover:bg-primary/5 shadow-none"
+                className="flex-1 bg-white text-primary! border-2 border-primary hover:bg-primary/5 shadow-none"
                 onClick={handleCheckout}
                 name="Buy Now"
               />

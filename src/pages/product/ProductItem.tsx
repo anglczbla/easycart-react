@@ -34,7 +34,7 @@ const ProductItem = ({
   handleEditImage,
 }: ProductItemProps) => {
   return (
-    <div className="group bg-white rounded-xl shadow-lg overflow-hidden mb-10 p-5 hover:shadow-2xl transition-all duration-300 overflow-hidden flex flex-col border border-gray-100">
+    <div className="group bg-white rounded-xl shadow-lg overflow-hidden mb-10 p-5 hover:shadow-2xl transition-all duration-300 flex flex-col border border-gray-100">
       <div>
         <div>
           <div>
