@@ -1,6 +1,7 @@
 import { useLogin } from "../../hooks/auth/useLogin";
 import Button from "../ui/Button";
 import ErrorMessage from "../ui/ErrorMessage";
+import Input from "../ui/Input";
 import AuthLayout from "./AuthLayout";
 
 const LoginPage = () => {
@@ -23,23 +24,22 @@ const LoginPage = () => {
         className="flex flex-col gap-5 rounded-xl p-8 w-full max-w-md mx-auto"
       >
         <ErrorMessage errors={errors.email} />
-        <input
+        <Input
           type="email"
           name="email"
           value={formLogin.email}
           onChange={handleLogin}
           placeholder="input an email"
-          className="w-full border border-primary p-2 rounded-lg focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary"
+          errors={errors.email}
         />
-        <ErrorMessage errors={errors.password} />
         <div className="flex w-full gap-2 items-center">
-          <input
+          <Input
             type={showPassword ? "text" : "password"}
             name="password"
-            value={formLogin.password}
+            value={formLogin.password ?? ""}
             onChange={handleLogin}
             placeholder="input a password"
-            className="w-full border border-primary p-2 rounded-lg focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary"
+            errors={errors.password}
           />
           <Button
             name={showPassword ? "Hide" : "Show"}

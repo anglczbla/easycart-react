@@ -1,5 +1,6 @@
 import { useCategoryForm } from "../../hooks/category/useCategoryForm";
 import Button from "../ui/Button";
+import Input from "../ui/Input";
 import CategoryList from "./CategoryList";
 
 const CategoryPage = () => {
@@ -32,13 +33,12 @@ const CategoryPage = () => {
             </div>
           )}
         </div>
-        <input
+        <Input
           type="text"
           name="name"
           onChange={handleChangeCategory}
           value={category.name}
           placeholder="input category name"
-          className="border p-2 rounded-lg flex-grow"
         />
         <Button
           type="submit"

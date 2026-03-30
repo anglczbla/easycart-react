@@ -1,4 +1,5 @@
 import type { Category, Product, ProductForm } from "../../types/types";
+import Input from "../ui/Input";
 import ProductItem from "./ProductItem";
 
 interface ProductListProps {
@@ -57,13 +58,12 @@ const ProductList = ({
     <div>
       <div className="flex gap-4 mb-8">
         <div className="flex-1">
-          <input
+          <Input
             type="text"
             name="searching"
             value={inputValue}
             onChange={handleSearch}
             placeholder="Search products..."
-            className="w-full bg-slate-200 text-dark p-3 rounded-md focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary"
           />
         </div>
         <div className="w-1/3">

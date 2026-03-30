@@ -1,5 +1,6 @@
 import type { Category } from "../../types/types";
 import Button from "../ui/Button";
+import Input from "../ui/Input";
 
 interface CategoryItemProps {
   category: Category;
@@ -24,12 +25,11 @@ const CategoryItem = ({
     <div className="border p-2 my-2 flex items-center justify-between">
       {isShowEdit ? (
         <div className="flex gap-2 w-full">
-          <input
+          <Input
             type="text"
             name="name"
             value={formEdit.name}
             onChange={onChangeEdit}
-            className="border p-1 flex-grow"
           />
           <Button
             onClick={() => onUpdate(formEdit)}

@@ -1,6 +1,6 @@
 import { useUserForm } from "../../hooks/user/useUserForm";
 import Button from "../ui/Button";
-import ErrorMessage from "../ui/ErrorMessage";
+import Input from "../ui/Input";
 
 const ProfilePage = () => {
   const {
@@ -94,51 +94,49 @@ const ProfilePage = () => {
                 placeholder="add photo"
                 onChange={handleImage}
               />
-              {errors && <ErrorMessage errors={errors.email} />}
-              <input
+              <Input
                 type="text"
                 name="email"
                 value={formProfile.email}
                 onChange={handleFormProfile}
                 placeholder="input email"
-                className="w-full bg-slate-200 text-dark p-3 rounded-md focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary  mb-2"
+                errors={errors.email}
               />
-              {errors && <ErrorMessage errors={errors.username} />}
-              <input
+
+              <Input
                 type="text"
                 name="username"
                 value={formProfile.username}
                 onChange={handleFormProfile}
                 placeholder="input new username"
-                className="w-full bg-slate-200 text-dark p-3 rounded-md focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary mb-2"
+                errors={errors.username}
               />
-              {errors && <ErrorMessage errors={errors.phone} />}
-              <input
+
+              <Input
                 type="tel"
                 name="phone"
                 value={formProfile.phone}
                 onChange={handleFormProfile}
                 placeholder="input phone number"
-                className="w-full bg-slate-200 text-dark p-3 rounded-md focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary  mb-2"
+                errors={errors.phone}
               />
-              {errors && <ErrorMessage errors={errors.address} />}
-              <input
+
+              <Input
                 type="text"
                 name="address"
                 value={formProfile.address}
                 onChange={handleFormProfile}
                 placeholder="input addres"
-                className="w-full bg-slate-200 text-dark p-3 rounded-md focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary  mb-2"
+                errors={errors.addresss}
               />
-              {errors && <ErrorMessage errors={errors.city} />}
 
-              <input
+              <Input
                 type="text"
                 name="city"
                 value={formProfile.city}
                 onChange={handleFormProfile}
                 placeholder="input city"
-                className="w-full bg-slate-200 text-dark p-3 rounded-md focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary  mb-2"
+                errors={errors.city}
               />
               <div className="flex gap-3">
                 <Button

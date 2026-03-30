@@ -81,3 +81,26 @@ export interface Order {
 export interface OrderUsers extends Order {
   customer_name: string;
 }
+
+export interface InputProps {
+  label?: string;
+  name: string;
+  type?: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  placeholder?: string;
+  errors?: string[];
+}
+
+export interface ButtonProps {
+  name: string;
+  type?: "submit" | "reset" | "button";
+  onClick?: () => void;
+  disabled?: boolean;
+  className?: string;
+}
+
+export interface PriceTagProps {
+  price: string | number | undefined;
+  className?: string;
+}

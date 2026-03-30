@@ -1,6 +1,7 @@
 import { useRegister } from "../../hooks/auth/useRegister";
 import Button from "../ui/Button";
 import ErrorMessage from "../ui/ErrorMessage";
+import Input from "../ui/Input";
 import AuthLayout from "./AuthLayout";
 
 const RegisterPage = () => {
@@ -22,35 +23,33 @@ const RegisterPage = () => {
         className="flex flex-col gap-5 rounded-xl p-8 w-full max-w-md mx-auto"
       >
         <ErrorMessage errors={errors?.message} />
-        <ErrorMessage errors={errors?.username} />
-        <input
+
+        <Input
           type="text"
           name="username"
           value={formRegist.username}
           onChange={handleRegist}
           placeholder="input a username"
-          className="w-full border border-primary p-2 rounded-lg focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary mb-2"
+          errors={errors.username}
         />
 
-        <ErrorMessage errors={errors?.email} />
-        <input
+        <Input
           type="email"
           name="email"
           value={formRegist.email}
           onChange={handleRegist}
           placeholder="input an email"
-          className="w-full border border-primary p-2 rounded-lg focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary mb-2"
+          errors={errors.email}
         />
 
-        <ErrorMessage errors={errors?.password} />
         <div className="flex w-full gap-2 items-center">
-          <input
+          <Input
             type={showPassword ? "text" : "password"}
             name="password"
-            value={formRegist.password}
+            value={formRegist.password ?? ""}
             onChange={handleRegist}
             placeholder="input a password"
-            className="w-full border border-primary p-2 rounded-lg focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary mb-2"
+            errors={errors.password}
           />
 
           <Button

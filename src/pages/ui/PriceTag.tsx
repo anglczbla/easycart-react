@@ -1,14 +1,11 @@
-interface PriceTagProps {
-  price: string | number | undefined;
-  className?: string;
-}
+import type { PriceTagProps } from "../../types/types";
 
 const PriceTag = ({ price, className = "" }: PriceTagProps) => {
   const formatPrice = (value: string | number | undefined) => {
     if (value === undefined || value === null) return "Rp 0";
-    
+
     const numericPrice = typeof value === "string" ? Number(value) : value;
-    
+
     if (isNaN(numericPrice)) return "Rp 0";
 
     return new Intl.NumberFormat("id-ID", {
@@ -18,7 +15,11 @@ const PriceTag = ({ price, className = "" }: PriceTagProps) => {
     }).format(numericPrice);
   };
 
-  return <span className={`font-bold text-primary ${className}`}>{formatPrice(price)}</span>;
+  return (
+    <span className={`font-bold text-primary ${className}`}>
+      {formatPrice(price)}
+    </span>
+  );
 };
 
 export default PriceTag;

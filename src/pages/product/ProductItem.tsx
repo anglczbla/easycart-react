@@ -1,5 +1,6 @@
 import type { Category, Product, ProductForm } from "../../types/types";
 import Button from "../ui/Button";
+import Input from "../ui/Input";
 import PriceTag from "../ui/PriceTag";
 
 interface ProductItemProps {
@@ -88,13 +89,12 @@ const ProductItem = ({
       {isShowEditButton && (
         <div className="mt-5 border-t pt-5">
           <h3 className="font-bold mb-3">Edit Product</h3>
-          <input
+          <Input
             type="text"
             name="name"
             value={formUpdateProduct.name}
             onChange={handleFormEdit}
             placeholder="Product Name"
-            className="w-full bg-slate-200 text-dark p-3 rounded-md focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary mb-2"
           />
           <textarea
             name="description"
@@ -103,21 +103,19 @@ const ProductItem = ({
             placeholder="Description"
             className="w-full bg-slate-200 text-dark p-3 rounded-md focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary mb-2"
           />
-          <input
+          <Input
             type="number"
             name="price"
             value={formUpdateProduct.price}
             onChange={handleFormEdit}
             placeholder="Price"
-            className="w-full bg-slate-200 text-dark p-3 rounded-md focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary mb-2"
           />
-          <input
+          <Input
             type="number"
             name="stock"
             value={formUpdateProduct.stock}
             onChange={handleFormEdit}
             placeholder="Stock"
-            className="w-full bg-slate-200 text-dark p-3 rounded-md focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary mb-2"
           />
           <select
             name="category"

@@ -1,10 +1,4 @@
-interface ButtonProps {
-  name: string;
-  type?: "submit" | "reset" | "button";
-  onClick?: () => void;
-  disabled?: boolean;
-  className?: string;
-}
+import type { ButtonProps } from "../../types/types";
 
 const Button = ({
   name,

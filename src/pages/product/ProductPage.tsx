@@ -4,6 +4,7 @@ import { useAppSelector } from "../../hooks/useAppSelector";
 import ProductList from "../product/ProductList";
 import Button from "../ui/Button";
 import ErrorMessage from "../ui/ErrorMessage";
+import Input from "../ui/Input";
 
 const ProductPage = () => {
   const {
@@ -50,13 +51,12 @@ const ProductPage = () => {
           <div className="w-full mt-5 lg:w-2/3 lg:mx-auto ">
             <div className="w-full px-4 mb-8">
               <form onSubmit={submitProduct}>
-                <input
+                <Input
                   type="text"
                   name="name"
                   value={formProduct.name}
                   onChange={handleForm}
                   placeholder="input name product"
-                  className="w-full bg-slate-200 text-dark p-3 rounded-md focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary  mb-2"
                 />
                 <textarea
                   name="description"
@@ -66,28 +66,24 @@ const ProductPage = () => {
                   className="w-full bg-slate-200 text-dark p-3 rounded-md focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary mb-2"
                 />
                 <div className="flex gap-2">
-                  <input
+                  <Input
                     type="number"
                     name="price"
                     value={formProduct.price}
                     onChange={handleForm}
                     placeholder="input price product"
-                    className="w-full bg-slate-200 text-dark p-3 rounded-md focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary  mb-2"
+                    errors={errors.price}
                   />
 
-                  <ErrorMessage errors={errors.price} />
-
-                  <input
+                  <Input
                     type="number"
                     name="stock"
                     value={formProduct.stock}
                     onChange={handleForm}
                     placeholder="input stock product"
-                    className="w-full bg-slate-200 text-dark p-3 rounded-md focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary  mb-2"
+                    errors={errors.stock}
                   />
                 </div>
-
-                <ErrorMessage errors={errors.stock} />
 
                 <select
                   name="category"
