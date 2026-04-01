@@ -1,6 +1,8 @@
+import { useDeleteModal } from "../../hooks/delete/useDeleteModal";
 import type { ProductItemProps } from "../../types/types";
 import Button from "../ui/Button";
 import Input from "../ui/Input";
+import Modal from "../ui/Modal";
 import PriceTag from "../ui/PriceTag";
 
 const ProductItem = ({
@@ -16,6 +18,7 @@ const ProductItem = ({
   admin,
   handleEditImage,
 }: ProductItemProps) => {
+  const { isOpen, selectedId, handleOpen, handleClose } = useDeleteModal();
   return (
     <div className="w-full h-full bg-white rounded-xl shadow-lg overflow-hidden p-5 hover:shadow-2xl transition-all duration-300 flex flex-col border border-gray-100 group">
       <div className="flex-1">
@@ -41,11 +44,20 @@ const ProductItem = ({
 
       <div className="flex gap-2 mt-auto pt-4">
         {admin && (
-          <Button
-            onClick={() => onDeleteProduct(product.id)}
-            className="w-full"
-            name="Delete"
-          />
+          <>
+            <Button onClick={() => handleOpen(product.id)} name="Delete" />
+
+            <Modal
+              open={isOpen}
+              handleClose={handleClose}
+              title="Delete Product?"
+              content="Are you sure want delete this Product?"
+              onConfirm={() => {
+                onDeleteProduct(selectedId);
+                handleClose();
+              }}
+            />
+          </>
         )}
         {admin && (
           <Button

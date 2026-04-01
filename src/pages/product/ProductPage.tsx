@@ -46,7 +46,7 @@ const ProductPage = () => {
             </p>
           </div>
 
-          <ErrorMessage errors={errors.message} />
+          <ErrorMessage errors={errors?.message} />
 
           <div className="w-full mt-5 lg:w-2/3 lg:mx-auto ">
             <div className="w-full px-4 mb-8">
@@ -72,7 +72,7 @@ const ProductPage = () => {
                     value={formProduct.price}
                     onChange={handleForm}
                     placeholder="input price product"
-                    errors={errors.price}
+                    errors={errors?.price}
                   />
 
                   <Input
@@ -81,7 +81,7 @@ const ProductPage = () => {
                     value={formProduct.stock}
                     onChange={handleForm}
                     placeholder="input stock product"
-                    errors={errors.stock}
+                    errors={errors?.stock}
                   />
                 </div>
 
@@ -102,7 +102,7 @@ const ProductPage = () => {
                     ))
                   )}
                 </select>
-                <ErrorMessage errors={errors.category} />
+                <ErrorMessage errors={errors?.category} />
                 <input
                   type="file"
                   placeholder="select image"
