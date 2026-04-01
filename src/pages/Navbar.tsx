@@ -14,6 +14,8 @@ const Navbar = () => {
   const id = useAppSelector((state) => state.auth.idUser);
   const logout = useLogoutMutation();
   const admin = useAppSelector((state) => state.auth.admin);
+  console.log("admin", admin);
+
   const { updateSearch, data, inputValue, isFetching, resetSearch } =
     useGlobalSearch(false);
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -65,9 +67,6 @@ const Navbar = () => {
         </div>
 
         <div className="flex gap-8 font-semibold text-gray-700 text-secondary ">
-          <Link to="/" className="hover:text-emerald-600 transition">
-            Home
-          </Link>
           <Link to="/products" className="hover:text-emerald-600 transition">
             Product
           </Link>
@@ -115,6 +114,9 @@ const Navbar = () => {
           </Link>
           {!admin && (
             <div className="flex gap-5">
+              <Link to="/" className="hover:text-emerald-600 transition">
+                Home
+              </Link>
               <Link
                 to="/cart"
                 className="hover:text-emerald-600 transition flex items-center gap-2 relative"

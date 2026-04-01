@@ -1,6 +1,8 @@
+import { useDeleteModal } from "../../hooks/delete/useDeleteModal";
 import type { CategoryItemProps } from "../../types/types";
 import Button from "../ui/Button";
 import Input from "../ui/Input";
+import Modal from "../ui/Modal";
 
 const CategoryItem = ({
   category,
@@ -11,6 +13,7 @@ const CategoryItem = ({
   onUpdate,
   onChangeEdit,
 }: CategoryItemProps) => {
+  const { isOpen, selectedId, handleOpen, handleClose } = useDeleteModal();
   return (
     <div className="border border-slate-300 rounded-lg p-2 my-2 flex items-center justify-between">
       {isShowEdit ? (
@@ -42,9 +45,20 @@ const CategoryItem = ({
               name="Edit"
             />
             <Button
-              onClick={() => onDelete(category.id)}
+              onClick={() => handleOpen(category.id)}
               className="bg-red-500 px-2 py-1 rounded"
               name="Delete"
+            />
+
+            <Modal
+              open={isOpen}
+              handleClose={handleClose}
+              title="Delete Category?"
+              content="Are you sure want delete this Category?"
+              onConfirm={() => {
+                onDelete(selectedId);
+                handleClose();
+              }}
             />
           </div>
         </>
