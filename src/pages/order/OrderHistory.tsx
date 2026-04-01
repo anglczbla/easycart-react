@@ -1,4 +1,5 @@
 import { useGetHistoryOrders } from "../../hooks/order/useOrder";
+import UseDate from "../../hooks/useDate";
 import PriceTag from "../ui/PriceTag";
 
 const OrderHistory = () => {
@@ -33,6 +34,9 @@ const OrderHistory = () => {
                   <p className="text-sm text-gray-500 mb-2">
                     Quantity: {item.quantity}
                   </p>
+
+                  <UseDate date={item.created_at} />
+
                   <p className="text-sm text-gray-600 line-clamp-1">
                     <span className="font-semibold text-gray-400 uppercase text-[10px] tracking-wider block">
                       Shipping Address
