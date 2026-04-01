@@ -1,5 +1,5 @@
 import { useGetHistoryOrders } from "../../hooks/order/useOrder";
-import UseDate from "../../hooks/useDate";
+import Date from "../ui/Date";
 import PriceTag from "../ui/PriceTag";
 
 const OrderHistory = () => {
@@ -35,7 +35,7 @@ const OrderHistory = () => {
                     Quantity: {item.quantity}
                   </p>
 
-                  <UseDate date={item.created_at} />
+                  <Date date={item.created_at} />
 
                   <p className="text-sm text-gray-600 line-clamp-1">
                     <span className="font-semibold text-gray-400 uppercase text-[10px] tracking-wider block">

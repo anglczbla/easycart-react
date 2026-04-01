@@ -1,6 +1,6 @@
-import UseDate from "../../../hooks/useDate";
 import type { AllOrderPageListProps } from "../../../types/types";
 import Button from "../../ui/Button";
+import Date from "../../ui/Date";
 import PriceTag from "../../ui/PriceTag";
 
 const AllOrderPageList = ({
@@ -21,7 +21,7 @@ const AllOrderPageList = ({
               <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400 block mb-1">
                 Customer
               </span>
-              <UseDate date={item.created_at} />
+              <Date date={item.created_at} />
             </div>
             <p className="font-semibold text-gray-900">{item.customer_name}</p>
           </div>
