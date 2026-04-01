@@ -20,7 +20,7 @@ const ProductItem = ({
 }: ProductItemProps) => {
   const { isOpen, selectedId, handleOpen, handleClose } = useDeleteModal();
   return (
-    <div className="w-full h-full bg-white rounded-xl shadow-lg overflow-hidden p-5 hover:shadow-2xl transition-all duration-300 flex flex-col border border-gray-100 group">
+    <div className="w-full bg-white rounded-xl shadow-lg overflow-hidden p-5 hover:shadow-2xl transition-all duration-300 flex flex-col border border-gray-100 group">
       <div className="flex-1">
         <img
           src={product.image}

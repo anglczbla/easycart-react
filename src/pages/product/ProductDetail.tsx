@@ -1,6 +1,7 @@
 import { ArrowLeft } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useProductDetail } from "../../hooks/product/useProductDetail";
+import { useAppSelector } from "../../hooks/useAppSelector";
 import Button from "../ui/Button";
 import PriceTag from "../ui/PriceTag";
 
@@ -8,6 +9,7 @@ const ProductDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { data, isLoading, addItem, isPending } = useProductDetail(id || "");
+  const admin = useAppSelector((state) => state.auth.admin);
 
   const stock = Number(data?.stock);
 
@@ -80,25 +82,27 @@ const ProductDetail = () => {
               </span>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-4 pt-4">
-              <Button
-                className="flex-1"
-                disabled={stock <= 0 || isPending}
-                onClick={addItem}
-                name={
-                  isPending
-                    ? "Adding..."
-                    : stock <= 0
-                      ? "Out of Stock"
-                      : "Add to Cart"
-                }
-              />
-              <Button
-                className="flex-1 bg-white text-primary! border-2 border-primary hover:bg-primary/5 shadow-none"
-                onClick={handleCheckout}
-                name="Buy Now"
-              />
-            </div>
+            {!admin ? (
+              <div className="flex flex-col sm:flex-row gap-4 pt-4">
+                <Button
+                  className="flex-1"
+                  disabled={stock <= 0 || isPending}
+                  onClick={addItem}
+                  name={
+                    isPending
+                      ? "Adding..."
+                      : stock <= 0
+                        ? "Out of Stock"
+                        : "Add to Cart"
+                  }
+                />
+                <Button
+                  className="flex-1 bg-white text-primary! border-2 border-primary hover:bg-primary/5 shadow-none"
+                  onClick={handleCheckout}
+                  name="Buy Now"
+                />
+              </div>
+            ) : null}
           </div>
         </div>
       </div>
