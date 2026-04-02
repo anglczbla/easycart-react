@@ -9,13 +9,21 @@ import PriceTag from "../ui/PriceTag";
 const OrderPage = () => {
   const { data } = useUserForm();
   const { data: orderData } = useGetCartById();
-  const { creatingOrder, errorMessage } = useOrderActions();
+  const { creatingOrder, errorMessage, handleImage, image } = useOrderActions();
 
   const totalPrice =
     orderData?.reduce((total, item) => total + item.price * item.quantity, 0) ||
     0;
 
   const navigate = useNavigate();
+
+  const handlePlaceOrder = () => {
+    const formData = new FormData();
+    if (image) {
+      formData.append("image", image);
+    }
+    creatingOrder(formData);
+  };
 
   return (
     <div className="max-w-4xl mx-auto p-6 lg:py-12">
@@ -81,6 +89,19 @@ const OrderPage = () => {
               ))}
             </div>
           </section>
+
+          <section className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+            <h2 className="text-lg font-bold p-4 border-b border-gray-50">
+              Add Proof Payment
+            </h2>
+            <div className="flex justify-between items-center mb-4">
+              <input
+                type="file"
+                placeholder="add proof"
+                onChange={handleImage}
+              />
+            </div>
+          </section>
         </div>
 
         <div className="lg:col-span-1">
@@ -106,7 +127,7 @@ const OrderPage = () => {
             </div>
 
             <Button
-              onClick={creatingOrder}
+              onClick={handlePlaceOrder}
               disabled={!orderData || orderData.length === 0}
               className="w-full shadow-lg hover:shadow-primary/30"
               name="Place Order"

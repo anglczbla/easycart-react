@@ -1,4 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import apiClient from "../../lib/axios";
@@ -36,8 +37,8 @@ export const useGetOrderById = (orderId: string) => {
 
 export const useCreateOrderMutation = () => {
   return useMutation({
-    mutationFn: () => {
-      return apiClient.post("/orders");
+    mutationFn: (image: FormData) => {
+      return apiClient.post("/orders", image);
     },
   });
 };
@@ -54,9 +55,15 @@ export const useOrderActions = () => {
   const queryClient = useQueryClient();
   const createOrder = useCreateOrderMutation();
   const navigate = useNavigate();
+  const [image, setImage] = useState<File | null>(null);
 
-  const creatingOrder = () => {
-    createOrder.mutate(undefined, {
+  const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files) return;
+    setImage(e.target.files[0]);
+  };
+
+  const creatingOrder = (image: FormData) => {
+    createOrder.mutate(image, {
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ["order"] });
         queryClient.invalidateQueries({ queryKey: ["cart"] });
@@ -74,5 +81,7 @@ export const useOrderActions = () => {
   return {
     creatingOrder,
     errorMessage: (createOrder.error as any)?.response?.data?.message,
+    handleImage,
+    image,
   };
 };
