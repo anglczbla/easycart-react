@@ -5,6 +5,7 @@ import {
   useGetAllOrders,
   useUpdateOrderMutation,
 } from "../../../hooks/order/useOrder";
+import useFilterByDate from "../../../hooks/useFilterByDate";
 import type { Order } from "../../../types/types";
 import AllOrderPageList from "./AllOrderPageList";
 
@@ -14,6 +15,7 @@ const AllOrderPage = () => {
   const [status, setStatus] = useState("");
   const [showEdit, setShowEdit] = useState<any>(false);
   const queryClient = useQueryClient();
+  const { filterDate, handleDate } = useFilterByDate(data || []);
 
   const toggleEdit = (id: string, status: string) => {
     setShowEdit(id);
@@ -50,7 +52,15 @@ const AllOrderPage = () => {
   return (
     <div>
       <div className="w-full flex flex-col gap-10">
-        {data?.length === 0 ? (
+        <div>
+          <h1>Filter by Date</h1>
+          <input
+            type="date"
+            className="w-50 bg-white rounded-xl shadow-xl p-2"
+            onChange={handleDate}
+          />
+        </div>
+        {filterDate?.length == 0 ? (
           <div className="text-center py-20 bg-gray-50 rounded-3xl border-2 border-dashed border-gray-200">
             <div className="w-full  flex items-center justify-center mx-auto overflow-hidden mb-4 p-5">
               <h1 className="flex justify-center items-center font-bold text-xl text-gray-600">
@@ -59,7 +69,7 @@ const AllOrderPage = () => {
             </div>
           </div>
         ) : (
-          data?.map((item) => (
+          filterDate?.map((item) => (
             <div key={item.id} className="bg-white rounded-xl shadow-lg p-5">
               <AllOrderPageList
                 item={item}

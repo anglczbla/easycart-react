@@ -1,22 +1,25 @@
 import downloadImage from "../../hooks/download";
 import { useGetHistoryOrders } from "../../hooks/order/useOrder";
+import useFilterByDate from "../../hooks/useFilterByDate";
 import Button from "../ui/Button";
 import Date from "../ui/Date";
 import PriceTag from "../ui/PriceTag";
 
 const OrderHistory = () => {
   const { data } = useGetHistoryOrders();
+  const { handleDate, filterDate } = useFilterByDate(data || []);
 
   return (
     <div className="max-w-4xl mx-auto p-6">
       <h2 className="text-2xl font-bold mb-6">Order History</h2>
-      {!data || data.length === 0 ? (
+      <input type="date" onChange={handleDate} />
+      {filterDate.length === 0 ? (
         <div className="text-center py-10 bg-gray-50 rounded-xl">
           <p className="text-gray-500">No order history found</p>
         </div>
       ) : (
         <div className="space-y-4">
-          {data.map((item) => (
+          {filterDate.map((item) => (
             <div
               key={item.id}
               className="bg-white rounded-xl shadow-md p-6 flex gap-6"
@@ -49,7 +52,7 @@ const OrderHistory = () => {
                     <Button
                       name="Download Proof"
                       onClick={() => downloadImage(item.image)}
-                      className="mt-2"
+                      className="py-2! px-4! text-xs rounded-lg! mt-2"
                     />
                   )}
                 </div>

@@ -1,7 +1,7 @@
 import downloadImage from "../../../hooks/download";
 import type { AllOrderPageListProps } from "../../../types/types";
 import Button from "../../ui/Button";
-import Date from "../../ui/Date";
+import DateDisplay from "../../ui/Date";
 import PriceTag from "../../ui/PriceTag";
 
 const AllOrderPageList = ({
@@ -18,12 +18,10 @@ const AllOrderPageList = ({
       <div className="flex flex-col md:flex-row justify-between gap-6">
         <div className="grow grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           <div>
-            <div className="flex justify-between">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400 block mb-1">
-                Customer
-              </span>
-              <Date date={item.created_at} />
-            </div>
+            <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400 block mb-1">
+              Customer
+            </span>
+
             <p className="font-semibold text-gray-900">{item.customer_name}</p>
           </div>
           <div>
@@ -46,6 +44,7 @@ const AllOrderPageList = ({
               Shipping Address
             </span>
             <p className="text-gray-600 text-sm">{item.shipping_address}</p>
+            <DateDisplay date={item.created_at} />
           </div>
         </div>
 

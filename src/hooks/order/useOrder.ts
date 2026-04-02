@@ -16,7 +16,7 @@ export const useGetAllOrders = () => {
 };
 
 export const useGetHistoryOrders = () => {
-  return useQuery<Order[]>({
+  return useQuery<OrderUsers[]>({
     queryKey: ["order", "history"],
     queryFn: async () => {
       const res = await apiClient.get(`/orders`);
