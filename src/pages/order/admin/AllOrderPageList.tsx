@@ -1,3 +1,4 @@
+import downloadImage from "../../../hooks/download";
 import type { AllOrderPageListProps } from "../../../types/types";
 import Button from "../../ui/Button";
 import Date from "../../ui/Date";
@@ -58,11 +59,20 @@ const AllOrderPageList = ({
           >
             {item.status}
           </span>
-          <Button
-            name="Update Status"
-            className="py-2! px-4! text-xs rounded-lg!"
-            onClick={() => toggleEdit(item.id, item.status)}
-          />
+          <div className="flex justify-between gap-5">
+            <Button
+              name="Update Status"
+              className="py-2! px-4! text-xs rounded-lg!"
+              onClick={() => toggleEdit(item.id, item.status)}
+            />
+            {item.image && (
+              <Button
+                name="Download Proof"
+                onClick={() => downloadImage(item.image)}
+                className="py-2! px-4! text-xs rounded-lg!"
+              />
+            )}
+          </div>
         </div>
       </div>
 

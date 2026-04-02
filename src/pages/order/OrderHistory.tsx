@@ -1,4 +1,6 @@
+import downloadImage from "../../hooks/download";
 import { useGetHistoryOrders } from "../../hooks/order/useOrder";
+import Button from "../ui/Button";
 import Date from "../ui/Date";
 import PriceTag from "../ui/PriceTag";
 
@@ -39,10 +41,17 @@ const OrderHistory = () => {
 
                   <p className="text-sm text-gray-600 line-clamp-1">
                     <span className="font-semibold text-gray-400 uppercase text-[10px] tracking-wider block">
-                      Shipping Address
+                      {item.shipping_address}
                     </span>
-                    {item.shipping_address}
                   </p>
+
+                  {item.image && (
+                    <Button
+                      name="Download Proof"
+                      onClick={() => downloadImage(item.image)}
+                      className="mt-2"
+                    />
+                  )}
                 </div>
                 <div className="flex flex-col items-end justify-between">
                   <div className="text-right">

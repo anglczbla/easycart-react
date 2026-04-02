@@ -77,6 +77,7 @@ export interface Order {
   quantity: number;
   product_image: string;
   created_at: string;
+  image: string;
 }
 
 export interface OrderUsers extends Order {
