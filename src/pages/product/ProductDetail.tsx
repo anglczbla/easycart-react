@@ -1,21 +1,16 @@
 import { ArrowLeft } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useProductDetail } from "../../hooks/product/useProductDetail";
-import { useAppSelector } from "../../hooks/useAppSelector";
 import Button from "../../components/ui/Button";
 import PriceTag from "../../components/ui/PriceTag";
+import { useProductDetail } from "../../hooks/product/useProductDetail";
+import { useAppSelector } from "../../hooks/useAppSelector";
 
 const ProductDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { data, isLoading, addItem, isPending } = useProductDetail(id || "");
+  const { data, isLoading, addItem, isPending, handleCheckout, stock } =
+    useProductDetail(id || "");
   const admin = useAppSelector((state) => state.auth.admin);
-
-  const stock = Number(data?.stock);
-
-  const handleCheckout = () => {
-    navigate("/order");
-  };
 
   if (isLoading) {
     return (

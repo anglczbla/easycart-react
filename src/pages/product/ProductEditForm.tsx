@@ -1,14 +1,8 @@
 import React from "react";
-import type { Product, Category } from "../../types/types";
-import { useProductForm } from "../../hooks/product/useProductForm";
-import Input from "../../components/ui/Input";
 import Button from "../../components/ui/Button";
-
-interface ProductEditFormProps {
-  product: Product;
-  categories?: Category[];
-  onCancel: () => void;
-}
+import Input from "../../components/ui/Input";
+import { useProductForm } from "../../hooks/product/useProductForm";
+import type { ProductEditFormProps } from "../../types/types";
 
 const ProductEditForm = ({
   product,

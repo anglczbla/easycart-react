@@ -1,13 +1,7 @@
-import React from "react";
-import { useProductForm } from "../../hooks/product/useProductForm";
-import type { Product } from "../../types/types";
 import Input from "../../components/ui/Input";
+import { useProductForm } from "../../hooks/product/useProductForm";
+import type { ProductListProps } from "../../types/types";
 import ProductItem from "./ProductItem";
-
-interface ProductListProps {
-  products: Product[];
-  admin?: boolean;
-}
 
 const ProductList = ({ products, admin }: ProductListProps) => {
   const { categories, search } = useProductForm();
@@ -55,7 +49,7 @@ const ProductList = ({ products, admin }: ProductListProps) => {
             {products.map((prod) => (
               <ProductItem
                 key={prod.id}
-                admin={admin}
+                admin={admin ?? false}
                 product={prod}
                 categories={categories}
               />

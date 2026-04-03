@@ -1,17 +1,12 @@
-import React, { useState } from "react";
-import { useDeleteModal } from "../../hooks/delete/useDeleteModal";
-import { useProductForm } from "../../hooks/product/useProductForm";
-import type { Product, Category } from "../../types/types";
+import { useState } from "react";
 import Button from "../../components/ui/Button";
 import Modal from "../../components/ui/Modal";
 import PriceTag from "../../components/ui/PriceTag";
-import ProductEditForm from "./ProductEditForm";
+import { useDeleteModal } from "../../hooks/delete/useDeleteModal";
+import { useProductForm } from "../../hooks/product/useProductForm";
 
-interface ProductItemProps {
-  product: Product;
-  admin?: boolean;
-  categories?: Category[];
-}
+import type { ProductItemProps } from "../../types/types";
+import ProductEditForm from "./ProductEditForm";
 
 const ProductItem = ({ product, admin, categories }: ProductItemProps) => {
   const { handleDeleteProduct, goToDetail } = useProductForm();
