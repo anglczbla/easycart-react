@@ -1,24 +1,20 @@
 import { ShoppingBag } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { useCartActions, useGetCartById } from "../../hooks/cart/useCart";
 import Button from "../../components/ui/Button";
 import PriceTag from "../../components/ui/PriceTag";
+import { useCartActions } from "../../hooks/cart/useCartAction";
 import CartItem from "./CartItem";
 
 const CartList = () => {
-  const cart = useGetCartById();
   const navigate = useNavigate();
-  const { deleteItemCart, updateQtyItemCart, errorMessage } = useCartActions();
-  const data = cart.data || [];
-
-  const totalPrice = data.reduce(
-    (total, item) => total + item.price * item.quantity,
-    0,
-  );
-
-  const handleCheckout = () => {
-    navigate("/order");
-  };
+  const {
+    deleteItemCart,
+    updateQtyItemCart,
+    errorMessage,
+    totalPrice,
+    handleCheckout,
+    data,
+  } = useCartActions();
 
   return (
     <div className="max-w-4xl mx-auto p-6 lg:py-12">

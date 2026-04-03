@@ -1,6 +1,5 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
-import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import apiClient from "../../lib/axios";
 import { itemsInCart } from "../../store/cartSlice";
@@ -61,52 +60,4 @@ export const useDeleteItemCartMutation = () => {
       });
     },
   });
-};
-
-export const useCartActions = () => {
-  const deleteItem = useDeleteItemCartMutation();
-  const updateCart = useUpdateCartMutation();
-  const queryClient = useQueryClient();
-
-  const deleteItemCart = ({ id, product_id }: deleteItemCart) => {
-    deleteItem.mutate(
-      { id, product_id },
-      {
-        onSuccess: () => {
-          toast.success("success delete item");
-          queryClient.invalidateQueries({ queryKey: ["cart"] });
-        },
-        onError: (error: any) => {
-          const msg = error.response?.data?.message;
-          console.error(msg);
-        },
-      },
-    );
-  };
-
-  const updateQtyItemCart = ({ id, quantity, product_id }: UpdateCart) => {
-    updateCart.mutate(
-      {
-        id,
-        quantity,
-        product_id,
-      },
-      {
-        onSuccess: () => {
-          queryClient.invalidateQueries({ queryKey: ["cart"] });
-        },
-        onError: (error: any) => {
-          const msg = error.response?.data?.message;
-          console.error(msg);
-        },
-      },
-    );
-  };
-
-  return {
-    deleteItemCart,
-    updateQtyItemCart,
-
-    errorMessage: (updateCart.error as any)?.response?.data?.message,
-  };
 };
