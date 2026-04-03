@@ -2,11 +2,11 @@ import { Package, ShoppingCart, User } from "lucide-react";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import Button from "../components/ui/Button";
 import { useLogoutMutation } from "../hooks/auth/useAuth";
 import { useGlobalSearch } from "../hooks/search/useGlobalSearch";
 import { useAppSelector } from "../hooks/useAppSelector";
 import { removeToken } from "../store/authSlice";
-import Button from "../components/ui/Button";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -14,7 +14,6 @@ const Navbar = () => {
   const id = useAppSelector((state) => state.auth.idUser);
   const logout = useLogoutMutation();
   const admin = useAppSelector((state) => state.auth.admin);
-  console.log("admin", admin);
 
   const { updateSearch, data, inputValue, isFetching, resetSearch } =
     useGlobalSearch(false);
@@ -25,6 +24,7 @@ const Navbar = () => {
   const cart = useAppSelector((state) => state.cart.cart.length);
 
   const logoutUser = (id: string) => {
+    if (!id) return;
     logout.mutate(id, {
       onSuccess: () => {
         toast.success("success logout");

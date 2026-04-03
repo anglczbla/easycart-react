@@ -4,15 +4,10 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import type { Order } from "../../types/types";
 import { useGetCartById } from "../cart/useCart";
-import {
-  useCreateOrderMutation,
-  useGetAllOrders,
-  useUpdateOrderMutation,
-} from "./useOrder";
+import { useCreateOrderMutation, useUpdateOrderMutation } from "./useOrder";
 
 export const useOrderActions = () => {
   const navigate = useNavigate();
-  const { data } = useGetAllOrders();
   const { data: orderData } = useGetCartById();
   const queryClient = useQueryClient();
   const createOrder = useCreateOrderMutation();
@@ -101,7 +96,6 @@ export const useOrderActions = () => {
     cancelButton,
     showEdit,
     status,
-    data,
     totalPrice,
     handlePlaceOrder,
     goToProfile,
