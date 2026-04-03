@@ -53,7 +53,8 @@ export const useLogin = () => {
         navigate("/");
       },
       onError: (error: any) => {
-        setErrors(error.response?.data?.errors);
+        setErrors(error.response?.data?.message);
+        console.error(errors);
       },
     });
   };
@@ -67,5 +68,6 @@ export const useLogin = () => {
     isPending: mutation.isPending,
     errors,
     goToRegister,
+    errorMessage: (mutation.error as any)?.response?.data?.message,
   };
 };

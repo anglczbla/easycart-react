@@ -14,16 +14,16 @@ const LoginPage = () => {
     showPassword,
     errors,
     goToRegister,
+    errorMessage,
   } = useLogin();
 
   return (
     <AuthLayout title="Login" subtitle="Login to Your Account">
-      <ErrorMessage errors={errors?.message} />
+      <ErrorMessage message={errorMessage} />
       <form
         onSubmit={submitLogin}
         className="flex flex-col gap-5 rounded-xl p-8 w-full max-w-md mx-auto"
       >
-        <ErrorMessage errors={errors?.email} />
         <Input
           type="email"
           name="email"
