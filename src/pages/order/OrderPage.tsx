@@ -1,29 +1,21 @@
 import { MapPin } from "lucide-react";
-import { useNavigate } from "react-router-dom";
 import { useGetCartById } from "../../hooks/cart/useCart";
-import { useOrderActions } from "../../hooks/order/useOrder";
-import { useUserForm } from "../../hooks/user/useUserForm";
+
 import Button from "../../components/ui/Button";
 import PriceTag from "../../components/ui/PriceTag";
+import { useOrderActions } from "../../hooks/order/useOrderAction";
+import { useUserForm } from "../../hooks/user/useUserForm";
 
 const OrderPage = () => {
   const { data } = useUserForm();
   const { data: orderData } = useGetCartById();
-  const { creatingOrder, errorMessage, handleImage, image } = useOrderActions();
-
-  const totalPrice =
-    orderData?.reduce((total, item) => total + item.price * item.quantity, 0) ||
-    0;
-
-  const navigate = useNavigate();
-
-  const handlePlaceOrder = () => {
-    const formData = new FormData();
-    if (image) {
-      formData.append("image", image);
-    }
-    creatingOrder(formData);
-  };
+  const {
+    handlePlaceOrder,
+    errorMessage,
+    handleImage,
+    totalPrice,
+    goToProfile,
+  } = useOrderActions();
 
   return (
     <div className="max-w-4xl mx-auto p-6 lg:py-12">
@@ -42,7 +34,7 @@ const OrderPage = () => {
                 Shipping Address
               </h2>
               <Button
-                onClick={() => navigate("/profile")}
+                onClick={goToProfile}
                 name="Change"
                 className="py-1.5! px-4! text-sm rounded-lg! bg-gray-100 text-gray-700! hover:bg-gray-200 shadow-none border-none"
               />

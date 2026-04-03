@@ -1,53 +1,18 @@
-import { useQueryClient } from "@tanstack/react-query";
-import { useState } from "react";
-import toast from "react-hot-toast";
-import {
-  useGetAllOrders,
-  useUpdateOrderMutation,
-} from "../../../hooks/order/useOrder";
+import { useOrderActions } from "../../../hooks/order/useOrderAction";
 import useFilterByDate from "../../../hooks/useFilterByDate";
-import type { Order } from "../../../types/types";
 import AllOrderPageList from "./AllOrderPageList";
 
 const AllOrderPage = () => {
-  const { data } = useGetAllOrders();
-  const updateOrder = useUpdateOrderMutation();
-  const [status, setStatus] = useState("");
-  const [showEdit, setShowEdit] = useState<any>(false);
-  const queryClient = useQueryClient();
+  const {
+    updatingOrder,
+    toggleEdit,
+    handleChangeStatus,
+    cancelButton,
+    showEdit,
+    status,
+    data,
+  } = useOrderActions();
   const { filterDate, handleDate } = useFilterByDate(data || []);
-
-  const toggleEdit = (id: string, status: string) => {
-    setShowEdit(id);
-    setStatus(status);
-  };
-
-  const handleChangeStatus = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >,
-  ) => {
-    setStatus(e.target.value);
-  };
-
-  const cancelButton = () => {
-    setShowEdit(false);
-  };
-
-  const updatingOrder = (data: Order) => {
-    updateOrder.mutate(data, {
-      onSuccess: () => {
-        toast.success("success update status");
-        queryClient.invalidateQueries({ queryKey: ["order"] });
-        queryClient.invalidateQueries({ queryKey: ["all"] });
-        setShowEdit(false);
-      },
-      onError: (error: any) => {
-        const msg = error.response?.data?.message;
-        console.error(msg);
-      },
-    });
-  };
 
   return (
     <div>
