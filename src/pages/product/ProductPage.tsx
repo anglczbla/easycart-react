@@ -2,9 +2,9 @@ import { usegetAllCategories } from "../../hooks/category/useCategory";
 import { useProductForm } from "../../hooks/product/useProductForm";
 import { useAppSelector } from "../../hooks/useAppSelector";
 import ProductList from "../product/ProductList";
-import Button from "../ui/Button";
-import ErrorMessage from "../ui/ErrorMessage";
-import Input from "../ui/Input";
+import Button from "../../components/ui/Button";
+import ErrorMessage from "../../components/ui/ErrorMessage";
+import Input from "../../components/ui/Input";
 
 const ProductPage = () => {
   const {

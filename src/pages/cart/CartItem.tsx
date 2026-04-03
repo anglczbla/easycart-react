@@ -1,6 +1,6 @@
 import { Minus, Plus, Trash2 } from "lucide-react";
 import type { CartItemProps } from "../../types/types";
-import PriceTag from "../ui/PriceTag";
+import PriceTag from "../../components/ui/PriceTag";
 
 const CartItem = ({
   cart,

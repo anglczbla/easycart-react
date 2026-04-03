@@ -1,9 +1,9 @@
 import { useDeleteModal } from "../../hooks/delete/useDeleteModal";
 import type { ProductItemProps } from "../../types/types";
-import Button from "../ui/Button";
-import Input from "../ui/Input";
-import Modal from "../ui/Modal";
-import PriceTag from "../ui/PriceTag";
+import Button from "../../components/ui/Button";
+import Input from "../../components/ui/Input";
+import Modal from "../../components/ui/Modal";
+import PriceTag from "../../components/ui/PriceTag";
 
 const ProductItem = ({
   product,

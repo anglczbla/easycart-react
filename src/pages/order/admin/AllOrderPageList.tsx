@@ -1,8 +1,8 @@
-import downloadImage from "../../../hooks/download";
+import downloadImage from "../../../utils/download";
 import type { AllOrderPageListProps } from "../../../types/types";
-import Button from "../../ui/Button";
-import DateDisplay from "../../ui/Date";
-import PriceTag from "../../ui/PriceTag";
+import Button from "../../../components/ui/Button";
+import DateDisplay from "../../../components/ui/DateDisplay";
+import PriceTag from "../../../components/ui/PriceTag";
 
 const AllOrderPageList = ({
   item,

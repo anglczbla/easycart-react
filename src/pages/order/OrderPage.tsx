@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useGetCartById } from "../../hooks/cart/useCart";
 import { useOrderActions } from "../../hooks/order/useOrder";
 import { useUserForm } from "../../hooks/user/useUserForm";
-import Button from "../ui/Button";
-import PriceTag from "../ui/PriceTag";
+import Button from "../../components/ui/Button";
+import PriceTag from "../../components/ui/PriceTag";
 
 const OrderPage = () => {
   const { data } = useUserForm();

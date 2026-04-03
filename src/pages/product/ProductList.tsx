@@ -1,5 +1,5 @@
 import type { ProductListProps } from "../../types/types";
-import Input from "../ui/Input";
+import Input from "../../components/ui/Input";
 import ProductItem from "./ProductItem";
 
 const ProductList = ({

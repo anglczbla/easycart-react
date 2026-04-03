@@ -1,9 +1,9 @@
-import downloadImage from "../../hooks/download";
+import downloadImage from "../../utils/download";
 import { useGetHistoryOrders } from "../../hooks/order/useOrder";
 import useFilterByDate from "../../hooks/useFilterByDate";
-import Button from "../ui/Button";
-import Date from "../ui/Date";
-import PriceTag from "../ui/PriceTag";
+import Button from "../../components/ui/Button";
+import DateDisplay from "../../components/ui/DateDisplay";
+import PriceTag from "../../components/ui/PriceTag";
 
 const OrderHistory = () => {
   const { data } = useGetHistoryOrders();
@@ -40,7 +40,7 @@ const OrderHistory = () => {
                     Quantity: {item.quantity}
                   </p>
 
-                  <Date date={item.created_at} />
+                  <DateDisplay date={item.created_at} />
 
                   <p className="text-sm text-gray-600 line-clamp-1">
                     <span className="font-semibold text-gray-400 uppercase text-[10px] tracking-wider block">

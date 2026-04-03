@@ -1,8 +1,8 @@
 import { useDeleteModal } from "../../hooks/delete/useDeleteModal";
 import type { CategoryItemProps } from "../../types/types";
-import Button from "../ui/Button";
-import Input from "../ui/Input";
-import Modal from "../ui/Modal";
+import Button from "../../components/ui/Button";
+import Input from "../../components/ui/Input";
+import Modal from "../../components/ui/Modal";
 
 const CategoryItem = ({
   category,

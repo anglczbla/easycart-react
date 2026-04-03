@@ -6,7 +6,7 @@ import { useLogoutMutation } from "../hooks/auth/useAuth";
 import { useGlobalSearch } from "../hooks/search/useGlobalSearch";
 import { useAppSelector } from "../hooks/useAppSelector";
 import { removeToken } from "../store/authSlice";
-import Button from "./ui/Button";
+import Button from "../components/ui/Button";
 
 const Navbar = () => {
   const navigate = useNavigate();

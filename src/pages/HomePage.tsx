@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { usegetAllProducts } from "../hooks/product/useProduct";
-import Button from "./ui/Button";
-import PriceTag from "./ui/PriceTag";
+import Button from "../components/ui/Button";
+import PriceTag from "../components/ui/PriceTag";
 
 const HomePage = () => {
   const products = usegetAllProducts();
