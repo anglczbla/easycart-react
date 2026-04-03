@@ -1,7 +1,7 @@
-import { useLogin } from "../../hooks/auth/useLogin";
 import Button from "../../components/ui/Button";
 import ErrorMessage from "../../components/ui/ErrorMessage";
 import Input from "../../components/ui/Input";
+import { useLogin } from "../../hooks/auth/useLogin";
 import AuthLayout from "./AuthLayout";
 
 const LoginPage = () => {
@@ -18,19 +18,19 @@ const LoginPage = () => {
 
   return (
     <AuthLayout title="Login" subtitle="Login to Your Account">
-      <ErrorMessage errors={errors.message} />
+      <ErrorMessage errors={errors?.message} />
       <form
         onSubmit={submitLogin}
         className="flex flex-col gap-5 rounded-xl p-8 w-full max-w-md mx-auto"
       >
-        <ErrorMessage errors={errors.email} />
+        <ErrorMessage errors={errors?.email} />
         <Input
           type="email"
           name="email"
           value={formLogin.email}
           onChange={handleLogin}
           placeholder="input an email"
-          errors={errors.email}
+          errors={errors?.email}
         />
         <div className="flex w-full gap-2 items-center">
           <Input
@@ -39,7 +39,7 @@ const LoginPage = () => {
             value={formLogin.password ?? ""}
             onChange={handleLogin}
             placeholder="input a password"
-            errors={errors.password}
+            errors={errors?.password}
           />
           <Button
             name={showPassword ? "Hide" : "Show"}

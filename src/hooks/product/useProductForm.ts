@@ -1,20 +1,29 @@
-import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import type { ProductForm } from "../../types/types";
+import type { Product, ProductForm } from "../../types/types";
+import { usegetAllCategories } from "../category/useCategory";
 import { useGlobalSearch } from "../search/useGlobalSearch";
-import {
-  useAddProductMutation,
-  useDeleteProductMutation,
-  usegetAllProducts,
-  useUpdateProductMutation,
-} from "./useProduct";
+import { usegetAllProducts } from "./useProduct";
+import { useProductActions } from "./useProductActions";
 
-export const useProductForm = () => {
-  const queryClient = useQueryClient();
+export const useProductForm = (initialProduct?: Product) => {
   const navigate = useNavigate();
-  const [formProduct, setFormProduct] = useState<ProductForm>({
+  const {
+    handleAddProduct,
+    handleUpdateProduct,
+    handleDeleteProduct,
+    isPendingAdd,
+    isPendingUpdate,
+    errorsAdd,
+    errorsUpdate,
+  } = useProductActions();
+
+  const { data: products, isLoading: isLoadingProducts } = usegetAllProducts();
+  const { data: categories, isLoading: isLoadingCategories } =
+    usegetAllCategories();
+  const search = useGlobalSearch();
+
+  const [formAdd, setFormAdd] = useState<ProductForm>({
     id: "",
     name: "",
     description: "",
@@ -23,81 +32,63 @@ export const useProductForm = () => {
     category: "",
   });
   const [image, setImage] = useState<File | null>(null);
-  const [editImage, setEditImage] = useState<File | null>(null);
 
-  const [formEdit, setFormEdit] = useState<ProductForm>({
-    id: "",
-    name: "",
-    description: "",
-    price: "",
-    stock: "",
-    category: "",
-  });
-
-  const [showEdit, setShowEdit] = useState<string | null>();
-  const [errors, setErrors] = useState<Record<string, string[]>>({});
-
-  console.log("err", errors);
-
-  const addProduct = useAddProductMutation();
-  const updateProduct = useUpdateProductMutation();
-  const deleteProduct = useDeleteProductMutation();
-  const products = usegetAllProducts();
-  const {
-    inputValue,
-    updateSearch,
-    data: dataProduct,
-    updateCategory,
-    categoryValue,
-    isLoading: isLoadingSearch,
-  } = useGlobalSearch();
-
-  const handleSearch = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >,
-  ) => {
-    updateSearch(e.target.value);
-  };
-
-  const handleCategory = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >,
-  ) => {
-    updateCategory(e.target.value);
-  };
-
-  const toggleEdit = (id: string) => {
-    const product = products.data?.find((prod) => prod.id === id);
-
-    setShowEdit(id);
-
-    if (product) {
-      setFormEdit({
-        id: product.id,
-        name: product.name,
-        category: product.category,
-        description: product.description,
-        price: product.price.toString(),
-        stock: product.stock.toString(),
-      });
-    }
-  };
-
-  const detailProd = (id: string) => {
-    navigate(`/products/${id}`);
-  };
-
-  const handleForm = (
+  const handleFormAdd = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
     >,
   ) => {
     const { name, value } = e.target;
-    setFormProduct({ ...formProduct, [name]: value });
-    setErrors({});
+    setFormAdd((prev) => ({ ...prev, [name]: value }));
   };
+
+  const handleImageAdd = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) setImage(e.target.files[0]);
+  };
+
+  const submitAdd = (e: React.FormEvent) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("name", formAdd.name);
+    formData.append("description", formAdd.description);
+    formData.append("price", formAdd.price);
+    formData.append("stock", formAdd.stock);
+    formData.append("category", formAdd.category);
+    if (image) formData.append("image", image);
+
+    handleAddProduct(formData, () => {
+      setFormAdd({
+        id: "",
+        name: "",
+        description: "",
+        price: "",
+        stock: "",
+        category: "",
+      });
+      setImage(null);
+    });
+  };
+
+  const [formEdit, setFormEdit] = useState<ProductForm>(
+    initialProduct
+      ? {
+          id: initialProduct.id,
+          name: initialProduct.name,
+          category: initialProduct.category,
+          description: initialProduct.description,
+          price: initialProduct.price.toString(),
+          stock: initialProduct.stock.toString(),
+        }
+      : {
+          id: "",
+          name: "",
+          description: "",
+          price: "",
+          stock: "",
+          category: "",
+        },
+  );
+  const [editImage, setEditImage] = useState<File | null>(null);
 
   const handleFormEdit = (
     e: React.ChangeEvent<
@@ -105,146 +96,55 @@ export const useProductForm = () => {
     >,
   ) => {
     const { name, value } = e.target;
-    setFormEdit({ ...formEdit, [name]: value });
-    setErrors({});
+    setFormEdit((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files) return;
-    setImage(e.target.files[0]);
+  const handleImageEdit = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) setEditImage(e.target.files[0]);
   };
 
-  const handleEditImage = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files) return;
-    setEditImage(e.target.files[0]);
-  };
-
-  const submitProduct = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    if (
-      !formProduct.name ||
-      !formProduct.description ||
-      !formProduct.price ||
-      !formProduct.stock ||
-      !formProduct.category ||
-      !image
-    ) {
-      return setErrors({ message: ["all fields are required"] });
-    }
-
+  const submitUpdate = (onSuccess?: () => void) => {
     const formData = new FormData();
+    formData.append("name", formEdit.name);
+    formData.append("description", formEdit.description);
+    formData.append("price", formEdit.price);
+    formData.append("stock", formEdit.stock);
+    formData.append("category", formEdit.category);
+    if (editImage) formData.append("image", editImage);
 
-    formData.append("name", formProduct.name);
-    formData.append("description", formProduct.description);
-    formData.append("price", formProduct.price);
-    formData.append("stock", formProduct.stock);
-    formData.append("category", formProduct.category);
-    formData.append("image", image);
-
-    addProduct.mutate(formData, {
-      onSuccess: () => {
-        toast.success("success add product!");
-        queryClient.invalidateQueries({ queryKey: ["products"] });
-        setFormProduct({
-          id: "",
-          name: "",
-          description: "",
-          price: "",
-          stock: "",
-          category: "",
-        });
-        setErrors({});
-      },
-      onError: (error: any) => {
-        setErrors(error.response?.data?.errors);
-      },
-    });
+    handleUpdateProduct(formEdit.id, formData, onSuccess);
   };
 
-  const updatedProd = (updatedProduct: ProductForm) => {
-    if (
-      !updatedProduct.name ||
-      !updatedProduct.description ||
-      !updatedProduct.price ||
-      !updatedProduct.stock ||
-      !updatedProduct.category
-    ) {
-      return setErrors({ message: ["all fields are required"] });
-    }
+  const goToDetail = (id: string) => navigate(`/products/${id}`);
 
-    const formData = new FormData();
-
-    formData.append("name", updatedProduct.name);
-    formData.append("description", updatedProduct.description);
-    formData.append("price", updatedProduct.price);
-    formData.append("stock", updatedProduct.stock);
-    formData.append("category", updatedProduct.category);
-    if (editImage) {
-      formData.append("image", editImage);
-    }
-
-    updateProduct.mutate(
-      { id: updatedProduct.id, formData },
-      {
-        onSuccess: () => {
-          toast.success("success edit products");
-          queryClient.invalidateQueries({ queryKey: ["products"] });
-          setShowEdit(null);
-          setFormEdit({
-            id: "",
-            name: "",
-            description: "",
-            price: "",
-            stock: "",
-            category: "",
-          });
-          setErrors({});
-        },
-        onError: (error: any) => {
-          setErrors(error.response?.data?.errors);
-        },
-      },
-    );
-  };
-
-  const delProd = (id: string) => {
-    deleteProduct.mutate(id, {
-      onSuccess: () => {
-        toast.success("success delete products");
-        queryClient.invalidateQueries({ queryKey: ["products"] });
-        setErrors({});
-      },
-      onError: (error: any) => {
-        setErrors(error.response?.data?.errors);
-        queryClient.removeQueries({ queryKey: ["products"] });
-      },
-    });
-  };
+  const displayProducts =
+    search.inputValue || search.categoryValue
+      ? search.data || []
+      : products || [];
 
   return {
-    formProduct,
+    products,
+    categories,
+    displayProducts,
+    isLoading: isLoadingProducts || isLoadingCategories,
+
+    search,
+
+    formAdd,
+    handleFormAdd,
+    handleImageAdd,
+    submitAdd,
+    isPendingAdd,
+    errorsAdd,
+
     formEdit,
-    handleForm,
     handleFormEdit,
-    submitProduct,
-    updatedProd,
-    delProd,
-    errors,
-    toggleEdit,
-    showEdit,
-    isPending: addProduct.isPending,
-    detailProd,
-    data: products.data,
-    dataProduct,
-    inputValue,
-    handleSearch,
-    handleCategory,
-    categoryValue,
-    isLoadingSearch,
-    editImage,
-    image,
-    handleEditImage,
-    handleImage,
+    handleImageEdit,
+    submitUpdate,
+    isPendingUpdate,
+    errorsUpdate,
+
+    handleDeleteProduct,
+    goToDetail,
   };
 };

@@ -1,43 +1,34 @@
-import type { ProductListProps } from "../../types/types";
+import React from "react";
+import { useProductForm } from "../../hooks/product/useProductForm";
+import type { Product } from "../../types/types";
 import Input from "../../components/ui/Input";
 import ProductItem from "./ProductItem";
 
-const ProductList = ({
-  formEdit,
-  updatedProd,
-  delProd,
-  toggleEdit,
-  showEdit,
-  handleFormEdit,
-  detailProd,
-  data,
-  filterSearch,
-  categories,
-  inputValue,
-  handleSearch,
-  handleCategory,
-  categoryValue,
-  isLoadingSearch,
-  admin,
-  handleEditImage,
-}: ProductListProps) => {
+interface ProductListProps {
+  products: Product[];
+  admin?: boolean;
+}
+
+const ProductList = ({ products, admin }: ProductListProps) => {
+  const { categories, search } = useProductForm();
+
   return (
     <div>
-      <div className="flex gap-4 mb-8">
+      <div className="flex gap-4 mb-8 px-4 lg:px-0">
         <div className="flex-1">
           <Input
             type="text"
             name="searching"
-            value={inputValue}
-            onChange={handleSearch}
+            value={search.inputValue}
+            onChange={(e) => search.updateSearch(e.target.value)}
             placeholder="Search products..."
           />
         </div>
         <div className="w-1/3">
           <select
             name="category"
-            value={categoryValue}
-            onChange={handleCategory}
+            value={search.categoryValue}
+            onChange={(e) => search.updateCategory(e.target.value)}
             className="w-full bg-slate-200 text-dark p-3 rounded-md focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary"
           >
             <option value="">All Categories</option>
@@ -50,38 +41,23 @@ const ProductList = ({
         </div>
       </div>
 
-      {isLoadingSearch && (
-        <p className="w-full text-center mt-10">searching products...</p>
+      {search.isLoading && (
+        <p className="w-full text-center mt-10">Searching products...</p>
       )}
 
-      {!isLoadingSearch && data.length === 0 && (
-        <p className="w-full text-center mt-10">product empty</p>
+      {!search.isLoading && products.length === 0 && (
+        <p className="w-full text-center mt-10">Product not found</p>
       )}
 
-      {!isLoadingSearch &&
-        data.length > 0 &&
-        (inputValue !== "" || categoryValue !== "") &&
-        filterSearch.length === 0 && (
-          <p className="w-full text-center mt-10">product not found</p>
-        )}
-
-      {!isLoadingSearch && (
-        <div className="max-w-7xl mx-auto px-6 py-10">
+      {!search.isLoading && (
+        <div className="max-w-7xl mx-auto py-10">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 items-start gap-8">
-            {filterSearch.map((prod) => (
+            {products.map((prod) => (
               <ProductItem
                 key={prod.id}
                 admin={admin}
                 product={prod}
-                isShowEditButton={prod.id === showEdit}
-                formUpdateProduct={formEdit}
-                handleFormEdit={handleFormEdit}
-                onToggleEditProduct={toggleEdit}
-                onProductClicked={detailProd}
-                onDeleteProduct={delProd}
-                onUpdateProduct={updatedProd}
                 categories={categories}
-                handleEditImage={handleEditImage}
               />
             ))}
           </div>
