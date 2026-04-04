@@ -95,11 +95,14 @@ export interface InputProps {
 }
 
 export interface ButtonProps {
-  name: string;
+  name: string | React.ReactNode;
   type?: "submit" | "reset" | "button";
   onClick?: () => void;
   disabled?: boolean;
   className?: string;
+  variant?: "primary" | "secondary" | "outline" | "ghost" | "danger";
+  size?: "sm" | "md" | "lg";
+  isLoading?: boolean;
 }
 
 export interface PriceTagProps {

@@ -3,26 +3,28 @@ import { AlertCircle } from "lucide-react";
 const ErrorMessage = ({
   errors,
   message,
+  className = "",
 }: {
   errors?: string[];
   message?: string;
+  className?: string;
 }) => {
   const messages = [...(errors ?? []), ...(message ? [message] : [])];
 
   if (messages.length === 0) return null;
 
   return (
-    <>
+    <div className={`flex flex-col gap-2 ${className}`}>
       {messages.map((msg, index) => (
         <div
           key={index}
-          className="bg-red-50 border-l-4 border-red-500 text-red-700 p-4 mb-8 rounded shadow-sm flex items-center gap-3"
+          className="flex items-center gap-2 text-error animate-in fade-in slide-in-from-top-1 duration-200"
         >
-          <AlertCircle className="h-5 w-5" />
-          <span className="font-semibold">{msg}</span>
+          <AlertCircle className="h-4 w-4 shrink-0" />
+          <span className="text-xs font-medium leading-tight">{msg}</span>
         </div>
       ))}
-    </>
+    </div>
   );
 };
 

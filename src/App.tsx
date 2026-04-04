@@ -25,7 +25,30 @@ function App() {
     <Provider store={store}>
       <BrowserRouter>
         <QueryClientProvider client={queryClient}>
-          <Toaster position="top-center" reverseOrder={false} />
+          <Toaster 
+            position="top-center" 
+            toastOptions={{
+              className: "rounded-2xl font-semibold text-sm card-shadow border border-gray-100",
+              duration: 3000,
+              style: {
+                padding: '16px 24px',
+                color: 'var(--color-primary)',
+                background: 'white',
+              },
+              success: {
+                iconTheme: {
+                  primary: 'var(--color-success)',
+                  secondary: 'white',
+                },
+              },
+              error: {
+                iconTheme: {
+                  primary: 'var(--color-error)',
+                  secondary: 'white',
+                },
+              }
+            }}
+          />
           <Routes>
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/login" element={<LoginPage />} />
