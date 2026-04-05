@@ -2,13 +2,12 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "react-hot-toast";
 import { Provider } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import AdminRoute from "./components/auth/AdminRoute";
+import MainLayout from "./components/layout/MainLayout";
 import LoginPage from "./pages/auth/LoginPage";
 import RegisterPage from "./pages/auth/RegisterPage";
 import CartPage from "./pages/cart/CartPage";
 import CategoryPage from "./pages/category/CategoryPage";
 import HomePage from "./pages/HomePage";
-import MainLayout from "./components/layout/MainLayout";
 import NotFound from "./pages/NotFound";
 import AllOrderPage from "./pages/order/admin/AllOrderPage";
 import OrderHistoryPage from "./pages/order/OrderHistoryPage";
@@ -16,7 +15,9 @@ import OrderPage from "./pages/order/OrderPage";
 import ProductDetailPage from "./pages/product/ProductDetailPage";
 import ProductPage from "./pages/product/ProductPage";
 import ProfilePage from "./pages/profile/ProfilePage";
-import ProtectedRoute from "./components/auth/ProtectedRoute";
+import AdminRoute from "./route/AdminRoute";
+import ProtectedRoute from "./route/ProtectedRoute";
+import UserRoute from "./route/UserRoute";
 import { store } from "./store/store";
 
 const queryClient = new QueryClient();
@@ -25,28 +26,29 @@ function App() {
     <Provider store={store}>
       <BrowserRouter>
         <QueryClientProvider client={queryClient}>
-          <Toaster 
-            position="top-center" 
+          <Toaster
+            position="top-center"
             toastOptions={{
-              className: "rounded-2xl font-semibold text-sm card-shadow border border-gray-100",
+              className:
+                "rounded-2xl font-semibold text-sm card-shadow border border-gray-100",
               duration: 3000,
               style: {
-                padding: '16px 24px',
-                color: 'var(--color-primary)',
-                background: 'white',
+                padding: "16px 24px",
+                color: "var(--color-primary)",
+                background: "white",
               },
               success: {
                 iconTheme: {
-                  primary: 'var(--color-success)',
-                  secondary: 'white',
+                  primary: "var(--color-success)",
+                  secondary: "white",
                 },
               },
               error: {
                 iconTheme: {
-                  primary: 'var(--color-error)',
-                  secondary: 'white',
+                  primary: "var(--color-error)",
+                  secondary: "white",
                 },
-              }
+              },
             }}
           />
           <Routes>
@@ -58,10 +60,12 @@ function App() {
                 <Route path="/" element={<HomePage />} />
                 <Route path="/products" element={<ProductPage />} />
                 <Route path="/products/:id" element={<ProductDetailPage />} />
-                <Route path="/cart" element={<CartPage />} />
                 <Route path="/profile" element={<ProfilePage />} />
                 <Route path="/order" element={<OrderPage />} />
-                <Route path="/order-history" element={<OrderHistoryPage />} />
+                <Route element={<UserRoute />}>
+                  <Route path="/cart" element={<CartPage />} />
+                  <Route path="/order-history" element={<OrderHistoryPage />} />
+                </Route>
                 <Route element={<AdminRoute />}>
                   <Route path="/masterData" element={<CategoryPage />} />
                   <Route path="/all-orders" element={<AllOrderPage />} />
