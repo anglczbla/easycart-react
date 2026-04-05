@@ -1,7 +1,7 @@
 import { useCategoryForm } from "../../hooks/category/useCategoryForm";
 import Button from "../../components/ui/Button";
 import Input from "../../components/ui/Input";
-import CategoryList from "./CategoryList";
+import CategoryList from "../../components/category/CategoryList";
 
 const CategoryPage = () => {
   const {

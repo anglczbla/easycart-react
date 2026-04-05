@@ -1,4 +1,4 @@
-import Input from "../../components/ui/Input";
+import Input from "../ui/Input";
 import { useProductForm } from "../../hooks/product/useProductForm";
 import type { ProductListProps } from "../../types/types";
 import ProductItem from "./ProductItem";

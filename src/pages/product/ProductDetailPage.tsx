@@ -5,7 +5,7 @@ import PriceTag from "../../components/ui/PriceTag";
 import { useProductDetail } from "../../hooks/product/useProductDetail";
 import { useAppSelector } from "../../hooks/useAppSelector";
 
-const ProductDetail = () => {
+const ProductDetailPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { data, isLoading, addItem, isPending, handleCheckout, stock } =
@@ -75,7 +75,7 @@ const ProductDetail = () => {
           </div>
 
           <div className="space-y-8">
-            <div className="bg-surface p-8 rounded-[32px] border border-gray-100">
+            <div className="bg-surface p-8 rounded-4xl border border-gray-100">
               <h3 className="text-xs font-bold text-primary/40 uppercase tracking-[0.2em] mb-4">
                 About this item
               </h3>
@@ -87,7 +87,7 @@ const ProductDetail = () => {
             {!admin ? (
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
                 <Button
-                  className="flex-1 !py-4 !rounded-2xl shadow-lg shadow-primary/10"
+                  className="flex-1 py-4! rounded-2xl! shadow-lg shadow-primary/10"
                   disabled={stock <= 0 || isPending}
                   onClick={addItem}
                   isLoading={isPending}
@@ -100,7 +100,7 @@ const ProductDetail = () => {
                 />
                 <Button
                   variant="secondary"
-                  className="flex-1 !py-4 !rounded-2xl border-2 border-primary/10"
+                  className="flex-1 py-4! rounded-2xl! border-2 border-primary/10"
                   onClick={handleCheckout}
                   disabled={stock <= 0}
                   name={
@@ -123,4 +123,4 @@ const ProductDetail = () => {
   );
 };
 
-export default ProductDetail;
+export default ProductDetailPage;

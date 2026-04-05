@@ -3,11 +3,11 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import Button from "../components/ui/Button";
-import { useLogoutMutation } from "../hooks/auth/useAuth";
-import { useGlobalSearch } from "../hooks/search/useGlobalSearch";
-import { useAppSelector } from "../hooks/useAppSelector";
-import { removeToken } from "../store/authSlice";
+import Button from "../ui/Button";
+import { useLogoutMutation } from "../../hooks/auth/useAuth";
+import { useGlobalSearch } from "../../hooks/search/useGlobalSearch";
+import { useAppSelector } from "../../hooks/useAppSelector";
+import { removeToken } from "../../store/authSlice";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -80,7 +80,7 @@ const Navbar = () => {
     <nav className="sticky top-0 z-50 w-full bg-primary shadow-lg border-b border-primary-dark">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
-          <div className="flex-shrink-0">
+          <div className="shrink-0">
             <Link
               to="/"
               className="flex items-center"
@@ -165,7 +165,7 @@ const Navbar = () => {
             )}
             <Button
               variant="ghost"
-              className="text-secondary hover:text-error !px-2"
+              className="text-secondary hover:text-error px-2"
               onClick={() => logoutUser(id)}
               name="Logout"
             />
@@ -227,7 +227,7 @@ const Navbar = () => {
 
             <Button
               variant="danger"
-              className="w-full justify-center !rounded-xl mt-6"
+              className="w-full justify-center rounded-xl mt-6"
               onClick={() => logoutUser(id)}
               name="Logout"
             />

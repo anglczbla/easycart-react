@@ -1,9 +1,9 @@
-import downloadImage from "../../utils/download";
 import { useGetHistoryOrders } from "../../hooks/order/useOrder";
 import useFilterByDate from "../../hooks/useFilterByDate";
-import Button from "../../components/ui/Button";
-import DateDisplay from "../../components/ui/DateDisplay";
-import PriceTag from "../../components/ui/PriceTag";
+import downloadImage from "../../utils/download";
+import Button from "../ui/Button";
+import DateDisplay from "../ui/DateDisplay";
+import PriceTag from "../ui/PriceTag";
 
 const OrderHistory = () => {
   const { data } = useGetHistoryOrders();
@@ -12,10 +12,18 @@ const OrderHistory = () => {
   return (
     <div className="max-w-4xl mx-auto p-6">
       <h2 className="text-2xl font-bold mb-6">Order History</h2>
-      <input type="date" onChange={handleDate} />
+      <input
+        type="date"
+        className="w-50 bg-white rounded-xl shadow-xl p-2 mb-5"
+        onChange={handleDate}
+      />
       {filterDate.length === 0 ? (
-        <div className="text-center py-10 bg-gray-50 rounded-xl">
-          <p className="text-gray-500">No order history found</p>
+        <div className="text-center py-20 bg-gray-50 rounded-3xl border-2 border-dashed border-gray-200">
+          <div className="w-full  flex items-center justify-center mx-auto overflow-hidden mb-4 p-5">
+            <h1 className="flex justify-center items-center font-bold text-xl text-gray-600">
+              Order Empty
+            </h1>
+          </div>
         </div>
       ) : (
         <div className="space-y-4">

@@ -3,7 +3,7 @@ import ErrorMessage from "../../components/ui/ErrorMessage";
 import Input from "../../components/ui/Input";
 import { useProductForm } from "../../hooks/product/useProductForm";
 import { useAppSelector } from "../../hooks/useAppSelector";
-import ProductList from "./ProductList";
+import ProductList from "../../components/product/ProductList";
 
 const ProductPage = () => {
   const admin = useAppSelector((state) => state.auth.admin);

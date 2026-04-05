@@ -2,21 +2,21 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "react-hot-toast";
 import { Provider } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import AdminRoute from "./pages/AdminRoute";
+import AdminRoute from "./components/auth/AdminRoute";
 import LoginPage from "./pages/auth/LoginPage";
 import RegisterPage from "./pages/auth/RegisterPage";
-import CartList from "./pages/cart/CartList";
+import CartPage from "./pages/cart/CartPage";
 import CategoryPage from "./pages/category/CategoryPage";
 import HomePage from "./pages/HomePage";
-import MainLayout from "./pages/MainLayout";
+import MainLayout from "./components/layout/MainLayout";
 import NotFound from "./pages/NotFound";
 import AllOrderPage from "./pages/order/admin/AllOrderPage";
-import OrderHistory from "./pages/order/OrderHistory";
+import OrderHistoryPage from "./pages/order/OrderHistoryPage";
 import OrderPage from "./pages/order/OrderPage";
-import ProductDetail from "./pages/product/ProductDetail";
+import ProductDetailPage from "./pages/product/ProductDetailPage";
 import ProductPage from "./pages/product/ProductPage";
 import ProfilePage from "./pages/profile/ProfilePage";
-import ProtectedRoute from "./pages/ProtectedRoute";
+import ProtectedRoute from "./components/auth/ProtectedRoute";
 import { store } from "./store/store";
 
 const queryClient = new QueryClient();
@@ -57,11 +57,11 @@ function App() {
               <Route element={<MainLayout />}>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/products" element={<ProductPage />} />
-                <Route path="/products/:id" element={<ProductDetail />} />
-                <Route path="/cart" element={<CartList />} />
+                <Route path="/products/:id" element={<ProductDetailPage />} />
+                <Route path="/cart" element={<CartPage />} />
                 <Route path="/profile" element={<ProfilePage />} />
                 <Route path="/order" element={<OrderPage />} />
-                <Route path="/order-history" element={<OrderHistory />} />
+                <Route path="/order-history" element={<OrderHistoryPage />} />
                 <Route element={<AdminRoute />}>
                   <Route path="/masterData" element={<CategoryPage />} />
                   <Route path="/all-orders" element={<AllOrderPage />} />

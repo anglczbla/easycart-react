@@ -87,68 +87,70 @@ const ProfilePage = () => {
         />
 
         {showEdit ? (
-          <div className="w-full bg-white rounded-lg shadow-lg p-6 mt-2">
+          <div className="w-full bg-white rounded-lg shadow-lg p-6 mt-2 ">
             <form onSubmit={updateProfile}>
-              <input
-                type="file"
-                placeholder="add photo"
-                onChange={handleImage}
-              />
-              <Input
-                type="text"
-                name="email"
-                value={formProfile.email}
-                onChange={handleFormProfile}
-                placeholder="input email"
-                errors={errors.email}
-              />
-
-              <Input
-                type="text"
-                name="username"
-                value={formProfile.username}
-                onChange={handleFormProfile}
-                placeholder="input new username"
-                errors={errors.username}
-              />
-
-              <Input
-                type="tel"
-                name="phone"
-                value={formProfile.phone}
-                onChange={handleFormProfile}
-                placeholder="input phone number"
-                errors={errors.phone}
-              />
-
-              <Input
-                type="text"
-                name="address"
-                value={formProfile.address}
-                onChange={handleFormProfile}
-                placeholder="input addres"
-                errors={errors.addresss}
-              />
-
-              <Input
-                type="text"
-                name="city"
-                value={formProfile.city}
-                onChange={handleFormProfile}
-                placeholder="input city"
-                errors={errors.city}
-              />
-              <div className="flex gap-3">
-                <Button
-                  type="submit"
-                  className="flex mt-5 "
-                  name={isPending ? "...Update Profile" : "Update Profile"}
+              <div className="flex flex-col gap-5">
+                <input
+                  type="file"
+                  placeholder="add photo"
+                  onChange={handleImage}
                 />
-                <Button
-                  onClick={cancelButton}
-                  className="flex mt-5  bg-red-700"
-                  name="Cancel"
+                <Input
+                  type="text"
+                  name="email"
+                  value={formProfile.email}
+                  onChange={handleFormProfile}
+                  placeholder="input email"
+                  errors={errors.email}
                 />
+
+                <Input
+                  type="text"
+                  name="username"
+                  value={formProfile.username}
+                  onChange={handleFormProfile}
+                  placeholder="input new username"
+                  errors={errors.username}
+                />
+
+                <Input
+                  type="tel"
+                  name="phone"
+                  value={formProfile.phone}
+                  onChange={handleFormProfile}
+                  placeholder="input phone number"
+                  errors={errors.phone}
+                />
+
+                <Input
+                  type="text"
+                  name="address"
+                  value={formProfile.address}
+                  onChange={handleFormProfile}
+                  placeholder="input addres"
+                  errors={errors.addresss}
+                />
+
+                <Input
+                  type="text"
+                  name="city"
+                  value={formProfile.city}
+                  onChange={handleFormProfile}
+                  placeholder="input city"
+                  errors={errors.city}
+                />
+                <div className="flex gap-3">
+                  <Button
+                    type="submit"
+                    className="flex mt-5 "
+                    name={isPending ? "...Update Profile" : "Update Profile"}
+                  />
+                  <Button
+                    onClick={cancelButton}
+                    className="flex mt-5  bg-red-700"
+                    name="Cancel"
+                  />
+                </div>
               </div>
             </form>
           </div>

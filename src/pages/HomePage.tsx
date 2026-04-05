@@ -24,7 +24,7 @@ const HomePage = () => {
           <Button
             name="Explore Collections"
             variant="secondary"
-            className="!px-10 !py-4 rounded-2xl group"
+            className="px-10! py-4! rounded-2xl group"
             onClick={() => navigate("/products")}
           />
         </div>
@@ -57,13 +57,13 @@ const HomePage = () => {
           ? Array.from({ length: 8 }).map((_, i) => (
               <div
                 key={i}
-                className="bg-white rounded-[32px] h-[420px] animate-pulse shadow-sm border border-gray-50"
+                className="bg-white rounded-4xl h-105 animate-pulse shadow-sm border border-gray-50"
               />
             ))
           : products.data?.map((item) => (
               <div
                 key={item.id}
-                className="group bg-white rounded-[32px] card-shadow hover:shadow-2xl transition-elegant overflow-hidden flex flex-col border border-gray-100/50"
+                className="group bg-white rounded-4xl card-shadow hover:shadow-2xl transition-elegant overflow-hidden flex flex-col border border-gray-100/50"
               >
                 <div
                   className="relative h-64 bg-surface/50 overflow-hidden cursor-pointer"
@@ -99,7 +99,7 @@ const HomePage = () => {
                   <Button
                     name="View Product"
                     variant="primary"
-                    className="w-full !rounded-2xl !py-3 font-bold shadow-sm"
+                    className="w-full rounded-2xl py-3! font-bold shadow-sm"
                     onClick={() => navigate(`/products/${item.id}`)}
                   />
                 </div>

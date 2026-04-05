@@ -1,7 +1,7 @@
 import { useState } from "react";
-import Button from "../../components/ui/Button";
-import Modal from "../../components/ui/Modal";
-import PriceTag from "../../components/ui/PriceTag";
+import Button from "../ui/Button";
+import Modal from "../ui/Modal";
+import PriceTag from "../ui/PriceTag";
 import { useDeleteModal } from "../../hooks/delete/useDeleteModal";
 import { useProductForm } from "../../hooks/product/useProductForm";
 

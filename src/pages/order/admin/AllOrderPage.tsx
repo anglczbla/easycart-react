@@ -1,6 +1,6 @@
 import { useOrderActions } from "../../../hooks/order/useOrderAction";
 import useFilterByDate from "../../../hooks/useFilterByDate";
-import AllOrderPageList from "./AllOrderPageList";
+import AllOrderPageList from "../../../components/order/admin/AllOrderPageList";
 
 const AllOrderPage = () => {
   const {

@@ -3,7 +3,7 @@ import Button from "../../components/ui/Button";
 import ErrorMessage from "../../components/ui/ErrorMessage";
 import Input from "../../components/ui/Input";
 import { useLogin } from "../../hooks/auth/useLogin";
-import AuthLayout from "./AuthLayout";
+import AuthLayout from "../../components/auth/AuthLayout";
 
 const LoginPage = () => {
   const {
@@ -21,7 +21,7 @@ const LoginPage = () => {
   return (
     <AuthLayout title="Welcome Back" subtitle="Log in to access your dashboard">
       <ErrorMessage message={errorMessage} className="mb-6" />
-      
+
       <form onSubmit={submitLogin} className="space-y-6">
         <Input
           label="Email Address"
@@ -46,7 +46,7 @@ const LoginPage = () => {
           <button
             type="button"
             onClick={helperPassword}
-            className="absolute right-4 top-[42px] text-muted hover:text-primary transition-colors p-1"
+            className="absolute right-4 top-10.5 text-muted hover:text-primary transition-colors p-1"
           >
             {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
           </button>
@@ -56,7 +56,7 @@ const LoginPage = () => {
           <Button
             type="submit"
             isLoading={isPending}
-            className="w-full justify-center !py-3.5"
+            className="w-full justify-center py-3.5!"
             name={
               <div className="flex items-center gap-2">
                 <LogIn size={18} />
@@ -70,7 +70,9 @@ const LoginPage = () => {
               <span className="w-full border-t border-gray-100" />
             </div>
             <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-white px-2 text-muted font-medium">New to EasyCart?</span>
+              <span className="bg-white px-2 text-muted font-medium">
+                New to EasyCart?
+              </span>
             </div>
           </div>
 
@@ -78,7 +80,7 @@ const LoginPage = () => {
             type="button"
             variant="secondary"
             onClick={goToRegister}
-            className="w-full justify-center !py-3.5"
+            className="w-full justify-center py-3.5!"
             name="Create an Account"
           />
         </div>

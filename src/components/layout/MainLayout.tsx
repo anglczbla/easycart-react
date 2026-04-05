@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import { useGetCart } from "../hooks/cart/useCart";
+import { useGetCart } from "../../hooks/cart/useCart";
 import Navbar from "./Navbar";
 
 const MainLayout = () => {

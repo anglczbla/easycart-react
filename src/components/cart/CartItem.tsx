@@ -1,6 +1,6 @@
 import { Minus, Plus, Trash2 } from "lucide-react";
+import PriceTag from "../ui/PriceTag";
 import type { CartItemProps } from "../../types/types";
-import PriceTag from "../../components/ui/PriceTag";
 
 const CartItem = ({
   cart,
@@ -9,7 +9,7 @@ const CartItem = ({
   onDecrementQty,
 }: CartItemProps) => {
   return (
-    <div className="bg-white rounded-[32px] card-shadow border border-gray-100 p-6 flex flex-col sm:flex-row gap-8 items-center transition-elegant hover:shadow-xl group">
+    <div className="bg-white rounded-4xl card-shadow border border-gray-100 p-6 flex flex-col sm:flex-row gap-8 items-center transition-elegant hover:shadow-xl group">
       <div className="w-32 h-32 bg-surface rounded-3xl overflow-hidden shrink-0 border border-gray-50 p-4">
         <img
           src={cart.image}
@@ -19,9 +19,14 @@ const CartItem = ({
       </div>
 
       <div className="grow text-center sm:text-left space-y-2">
-        <h3 className="font-bold text-xl text-primary leading-tight">{cart.name}</h3>
+        <h3 className="font-bold text-xl text-primary leading-tight">
+          {cart.name}
+        </h3>
         <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6 justify-center sm:justify-start">
-          <PriceTag price={cart.price} className="text-primary-light font-bold text-lg" />
+          <PriceTag
+            price={cart.price}
+            className="text-primary-light font-bold text-lg"
+          />
           <div className="hidden sm:block w-1.5 h-1.5 rounded-full bg-gray-200" />
           <p className="text-sm text-muted font-medium flex items-center gap-2">
             Total:

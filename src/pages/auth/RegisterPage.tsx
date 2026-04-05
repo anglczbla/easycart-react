@@ -3,7 +3,7 @@ import Button from "../../components/ui/Button";
 import ErrorMessage from "../../components/ui/ErrorMessage";
 import Input from "../../components/ui/Input";
 import { useRegister } from "../../hooks/auth/useRegister";
-import AuthLayout from "./AuthLayout";
+import AuthLayout from "../../components/auth/AuthLayout";
 
 const RegisterPage = () => {
   const {
@@ -18,7 +18,10 @@ const RegisterPage = () => {
   } = useRegister();
 
   return (
-    <AuthLayout title="Create Account" subtitle="Join our community of shoppers">
+    <AuthLayout
+      title="Create Account"
+      subtitle="Join our community of shoppers"
+    >
       <ErrorMessage message={errors?.message?.[0]} className="mb-6" />
 
       <form onSubmit={submitRegister} className="space-y-5">
@@ -55,7 +58,7 @@ const RegisterPage = () => {
           <button
             type="button"
             onClick={helperPassword}
-            className="absolute right-4 top-[42px] text-muted hover:text-primary transition-colors p-1"
+            className="absolute right-4 top-10.5 text-muted hover:text-primary transition-colors p-1"
           >
             {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
           </button>
@@ -65,7 +68,7 @@ const RegisterPage = () => {
           <Button
             type="submit"
             isLoading={isPending}
-            className="w-full justify-center !py-3.5 shadow-md"
+            className="w-full justify-center py-3.5! shadow-md"
             name={
               <div className="flex items-center gap-2">
                 <UserPlus size={18} />
@@ -79,7 +82,9 @@ const RegisterPage = () => {
               <span className="w-full border-t border-gray-100" />
             </div>
             <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-white px-2 text-muted font-medium">Already have an account?</span>
+              <span className="bg-white px-2 text-muted font-medium">
+                Already have an account?
+              </span>
             </div>
           </div>
 
@@ -87,7 +92,7 @@ const RegisterPage = () => {
             type="button"
             variant="secondary"
             onClick={goToLogin}
-            className="w-full justify-center !py-3.5"
+            className="w-full justify-center py-3.5!"
             name="Sign In instead"
           />
         </div>

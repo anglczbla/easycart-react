@@ -16,16 +16,14 @@ const Modal = ({
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-9999 flex items-center justify-center p-4">
       <div
         className="fixed inset-0 bg-primary/20 backdrop-blur-sm transition-opacity"
         onClick={handleClose}
       />
 
       <div className="relative w-full max-w-sm transform overflow-hidden rounded-3xl bg-white p-8 text-center shadow-2xl transition-all animate-in zoom-in-95 duration-300">
-        <h3 className="text-xl font-bold text-primary mb-3">
-          {title}
-        </h3>
+        <h3 className="text-xl font-bold text-primary mb-3">{title}</h3>
 
         <p className="text-sm font-medium text-muted leading-relaxed mb-8 px-2">
           {content}
