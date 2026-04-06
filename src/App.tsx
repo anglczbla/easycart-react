@@ -15,6 +15,7 @@ import OrderPage from "./pages/order/OrderPage";
 import ProductDetailPage from "./pages/product/ProductDetailPage";
 import ProductPage from "./pages/product/ProductPage";
 import ProfilePage from "./pages/profile/ProfilePage";
+import ReviewPage from "./pages/review/reviewPage";
 import AdminRoute from "./route/AdminRoute";
 import ProtectedRoute from "./route/ProtectedRoute";
 import UserRoute from "./route/UserRoute";
@@ -62,6 +63,7 @@ function App() {
                 <Route path="/products/:id" element={<ProductDetailPage />} />
                 <Route path="/profile" element={<ProfilePage />} />
                 <Route path="/order" element={<OrderPage />} />
+                <Route path="/review" element={<ReviewPage />} />
                 <Route element={<UserRoute />}>
                   <Route path="/cart" element={<CartPage />} />
                   <Route path="/order-history" element={<OrderHistoryPage />} />
