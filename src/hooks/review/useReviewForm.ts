@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import type { EditFormReview, ReviewForm } from "../../types/types";
+import { useAppSelector } from "../useAppSelector";
 import { useGetReviewByProductId } from "./useReview";
 import { useReviewActions } from "./useReviewActions";
 
-export const useReviewForm = () => {
-  const { productId } = useParams();
+export const useReviewForm = (productId?: string) => {
+  const userId = useAppSelector((state) => state.auth.idUser);
 
   const { handleAddReview, handleUpdateReview, handleDeleteReview } =
     useReviewActions();
@@ -54,7 +55,7 @@ export const useReviewForm = () => {
     const formData = new FormData();
     formData.append("comment", formReview.comment);
     formData.append("rating", formReview.rating);
-    formData.append("user_id", formReview.user_id);
+    formData.append("user_id", userId);
     if (!productId) return;
     formData.append("product_id", productId);
     if (image) formData.append("image", image);
@@ -94,7 +95,11 @@ export const useReviewForm = () => {
     handleFormReview,
     formReview,
     review,
+    formEditReview,
     handleEditFormReview,
     handleEditImageReview,
+    setFormEditReview,
+    isPendingAdd: useReviewActions().isPendingAdd,
+    isPendingUpdate: useReviewActions().isPendingUpdate,
   };
 };

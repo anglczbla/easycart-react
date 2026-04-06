@@ -4,6 +4,7 @@ import Button from "../../components/ui/Button";
 import PriceTag from "../../components/ui/PriceTag";
 import { useProductDetail } from "../../hooks/product/useProductDetail";
 import { useAppSelector } from "../../hooks/useAppSelector";
+import ReviewPage from "../review/ReviewPage";
 
 const ProductDetailPage = () => {
   const { id } = useParams();
@@ -117,6 +118,7 @@ const ProductDetailPage = () => {
               </div>
             )}
           </div>
+          <ReviewPage productId={id || ""} />
         </div>
       </div>
     </div>
