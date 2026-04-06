@@ -19,6 +19,12 @@ const ReviewPage = ({ productId }: { productId: string }) => {
     isPendingAdd,
     showEdit,
     toggleEdit,
+    submitUpdateReview,
+    handleEditFormReview,
+    formEditReview,
+    handleEditImageReview,
+    setFormEditReview,
+    isPendingUpdate,
   } = useReviewForm(productId);
 
   const toggleForm = () => setShowForm(!showForm);
@@ -104,6 +110,12 @@ const ReviewPage = ({ productId }: { productId: string }) => {
                 deleteReview={handleDeleteReview}
                 showEdit={showEdit}
                 toggleEdit={toggleEdit}
+                submitUpdateReview={submitUpdateReview}
+                handleEditFormReview={handleEditFormReview}
+                formEditReview={formEditReview}
+                handleEditImageReview={handleEditImageReview}
+                setFormEditReview={setFormEditReview}
+                isPendingUpdate={isPendingUpdate}
               />
             ) : (
               <div className="text-center py-12 bg-surface rounded-3xl border border-dashed border-gray-200">

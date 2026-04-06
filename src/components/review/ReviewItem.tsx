@@ -9,6 +9,12 @@ const ReviewItem = ({
   deleteReview,
   showEdit,
   toggleEdit,
+  submitUpdateReview,
+  handleEditFormReview,
+  formEditReview,
+  handleEditImageReview,
+  setFormEditReview,
+  isPendingUpdate,
 }: ReviewItemProps) => {
   const userId = useAppSelector((state) => state.auth.idUser);
   return (
@@ -47,7 +53,7 @@ const ReviewItem = ({
                   variant="ghost"
                   size="sm"
                   className="p-2! rounded-xl!"
-                  onClick={toggleEdit}
+                  onClick={() => toggleEdit(review.id)}
                   name={<Edit2 size={16} className="text-primary/60" />}
                 />
               )}
@@ -70,9 +76,17 @@ const ReviewItem = ({
           </p>
         </div>
       </div>
-      {showEdit && (
+      {showEdit === review.id && (
         <div className="mt-4 border-t border-gray-50 pt-4">
-          <ReviewEditForm review={review} />
+          <ReviewEditForm
+            review={review}
+            submitUpdateReview={submitUpdateReview}
+            handleEditFormReview={handleEditFormReview}
+            formEditReview={formEditReview}
+            handleEditImageReview={handleEditImageReview}
+            setFormEditReview={setFormEditReview}
+            isPendingUpdate={isPendingUpdate}
+          />
         </div>
       )}
     </div>

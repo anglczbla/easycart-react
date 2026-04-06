@@ -30,10 +30,11 @@ export const useReviewForm = (productId?: string) => {
   const { data: review } = useGetReviewByProductId(productId ?? "");
   const [image, setImage] = useState<File | null>(null);
   const [editImage, setEditImage] = useState<File | null>(null);
-  const [showEdit, setShowEdit] = useState<boolean>(false);
+  const [showEdit, setShowEdit] = useState<string | null>(null);
+  console.log(showEdit);
 
-  const toggleEdit = () => {
-    setShowEdit(!showEdit);
+  const toggleEdit = (id: string) => {
+    setShowEdit(id);
   };
 
   const handleFormReview = (
@@ -72,14 +73,14 @@ export const useReviewForm = (productId?: string) => {
     formData.append("product_id", productId);
     if (image) formData.append("image", image);
 
-    handleAddReview(productId, formData);
-
-    setFormReview({
-      comment: "",
-      rating: "",
-      user_id: "",
+    handleAddReview(productId, formData, () => {
+      setFormReview({
+        comment: "",
+        rating: "",
+        user_id: "",
+      });
+      setImage(null);
     });
-    setImage(null);
   };
 
   const submitUpdateReview = (e: React.FormEvent) => {
@@ -89,16 +90,16 @@ export const useReviewForm = (productId?: string) => {
     formData.append("rating", formEditReview.rating);
     if (editImage) formData.append("image", editImage);
 
-    handleUpdateReview(formEditReview.id, formData);
+    handleUpdateReview(formEditReview.id, formData, () => {
+      setShowEdit(null);
 
-    setShowEdit(false);
-
-    setFormEditReview({
-      id: "",
-      comment: "",
-      rating: "",
+      setFormEditReview({
+        id: "",
+        comment: "",
+        rating: "",
+      });
+      setEditImage(null);
     });
-    setEditImage(null);
   };
 
   return {

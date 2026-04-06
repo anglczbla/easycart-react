@@ -6,6 +6,12 @@ const ReviewList = ({
   deleteReview,
   showEdit,
   toggleEdit,
+  submitUpdateReview,
+  handleEditFormReview,
+  formEditReview,
+  handleEditImageReview,
+  setFormEditReview,
+  isPendingUpdate,
 }: ReviewListProps) => {
   return (
     <div>
@@ -16,6 +22,12 @@ const ReviewList = ({
           deleteReview={deleteReview}
           showEdit={showEdit}
           toggleEdit={toggleEdit}
+          submitUpdateReview={submitUpdateReview}
+          handleEditFormReview={handleEditFormReview}
+          formEditReview={formEditReview}
+          handleEditImageReview={handleEditImageReview}
+          setFormEditReview={setFormEditReview}
+          isPendingUpdate={isPendingUpdate}
         />
       ))}
     </div>

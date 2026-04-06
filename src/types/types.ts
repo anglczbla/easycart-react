@@ -201,13 +201,35 @@ export interface EditFormReview {
 export interface ReviewItemProps {
   review: Review;
   deleteReview: (id: string, prodId: string) => void;
-  showEdit: boolean;
-  toggleEdit: () => void;
+  showEdit: string | null;
+  toggleEdit: (id: string) => void;
+  submitUpdateReview: (e: React.FormEvent) => void;
+  handleEditFormReview: (e: React.ChangeEvent<any>) => void;
+  handleEditImageReview: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  setFormEditReview: React.Dispatch<React.SetStateAction<EditFormReview>>;
+  formEditReview: EditFormReview;
+  isPendingUpdate: boolean;
 }
 
 export interface ReviewListProps {
   review: Review[];
   deleteReview: (id: string, prodId: string) => void;
-  showEdit: boolean;
-  toggleEdit: () => void;
+  showEdit: string | null;
+  toggleEdit: (id: string) => void;
+  submitUpdateReview: (e: React.FormEvent) => void;
+  handleEditFormReview: (e: React.ChangeEvent<any>) => void;
+  handleEditImageReview: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  setFormEditReview: React.Dispatch<React.SetStateAction<EditFormReview>>;
+  formEditReview: EditFormReview;
+  isPendingUpdate: boolean;
+}
+
+export interface ReviewEditProps {
+  review: Review;
+  submitUpdateReview: (e: React.FormEvent) => void;
+  handleEditFormReview: (e: React.ChangeEvent<any>) => void;
+  handleEditImageReview: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  setFormEditReview: React.Dispatch<React.SetStateAction<EditFormReview>>;
+  formEditReview: EditFormReview;
+  isPendingUpdate: boolean;
 }

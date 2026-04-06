@@ -1,19 +1,17 @@
 import { useEffect } from "react";
-import { useReviewForm } from "../../hooks/review/useReviewForm";
-import type { Review } from "../../types/types";
+import type { ReviewEditProps } from "../../types/types";
 import Button from "../ui/Button";
 import Input from "../ui/Input";
 
-const ReviewEditForm = ({ review }: { review: Review }) => {
-  const {
-    submitUpdateReview,
-    handleEditFormReview,
-    formEditReview,
-    handleEditImageReview,
-    setFormEditReview,
-    isPendingUpdate,
-  } = useReviewForm();
-
+const ReviewEditForm = ({
+  review,
+  submitUpdateReview,
+  handleEditFormReview,
+  formEditReview,
+  handleEditImageReview,
+  setFormEditReview,
+  isPendingUpdate,
+}: ReviewEditProps) => {
   useEffect(() => {
     if (review) {
       setFormEditReview({

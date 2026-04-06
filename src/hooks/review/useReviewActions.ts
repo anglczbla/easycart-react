@@ -32,13 +32,18 @@ export const useReviewActions = () => {
     );
   };
 
-  const handleUpdateReview = (id: string, formData: FormData) => {
+  const handleUpdateReview = (
+    id: string,
+    formData: FormData,
+    onSuccess?: () => void,
+  ) => {
     updateReview.mutate(
       { id, formData },
       {
         onSuccess: () => {
           toast.success("Success update review!");
           queryClient.invalidateQueries({ queryKey: ["review"] });
+          onSuccess?.();
         },
         onError: (error: any) => {
           console.error(error);
