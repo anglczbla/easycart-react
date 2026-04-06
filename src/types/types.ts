@@ -153,57 +153,6 @@ export interface AllOrderPageListProps {
   handleChangeStatus: React.ChangeEventHandler<HTMLSelectElement>;
 }
 
-// export interface ProductItemProps {
-//   product: Product;
-//   admin?: boolean;
-//   formUpdateProduct: ProductForm;
-//   isShowEditButton: boolean;
-//   onUpdateProduct: (updatedProduct: ProductForm) => void;
-//   onDeleteProduct: (id: string) => void;
-//   onToggleEditProduct: (id: string) => void;
-//   handleFormEdit: (
-//     e: React.ChangeEvent<
-//       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-//     >,
-//   ) => void;
-//   onProductClicked: (id: string) => void;
-//   categories: Category[] | undefined;
-//   handleEditImage: (e: React.ChangeEvent<HTMLInputElement>) => void;
-// }
-
-// export interface ProductListProps {
-//   formEdit: ProductForm;
-//   admin: boolean;
-//   updatedProd: (updatedProduct: ProductForm) => void;
-//   delProd: (id: string) => void;
-//   toggleEdit: (id: string) => void;
-//   showEdit: any;
-//   handleFormEdit: (
-//     e: React.ChangeEvent<
-//       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-//     >,
-//   ) => void;
-//   detailProd: (id: string) => void;
-//   data: Product[];
-//   filterSearch: Product[];
-//   categories: Category[] | undefined;
-//   inputValue: string;
-//   categoryValue: string;
-//   handleSearch: (
-//     e: React.ChangeEvent<
-//       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-//     >,
-//   ) => void;
-
-//   handleCategory: (
-//     e: React.ChangeEvent<
-//       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-//     >,
-//   ) => void;
-//   isLoadingSearch?: boolean;
-//   handleEditImage: (e: React.ChangeEvent<HTMLInputElement>) => void;
-// }
-
 export interface ProductEditFormProps {
   product: Product;
   categories?: Category[];
@@ -224,4 +173,15 @@ export interface ProductItemProps {
 export interface ProductListProps {
   products: Product[];
   admin?: boolean;
+}
+
+export interface Review {
+  id: string;
+  user_id: string;
+  comment: string;
+  username: string;
+  product_id: string;
+  product_name: string;
+  rating: number;
+  image: string | null;
 }
