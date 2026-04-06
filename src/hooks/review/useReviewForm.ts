@@ -6,7 +6,6 @@ import { useReviewActions } from "./useReviewActions";
 
 export const useReviewForm = (productId?: string) => {
   const userId = useAppSelector((state) => state.auth.idUser);
-
   const {
     handleAddReview,
     handleUpdateReview,
@@ -20,6 +19,9 @@ export const useReviewForm = (productId?: string) => {
     rating: "",
     user_id: "",
   });
+
+  console.log("form review", formReview);
+
   const [formEditReview, setFormEditReview] = useState<EditFormReview>({
     id: "",
     comment: "",

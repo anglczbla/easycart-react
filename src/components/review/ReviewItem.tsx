@@ -1,14 +1,8 @@
 import { Edit2, Star, Trash2 } from "lucide-react";
-import type { Review } from "../../types/types";
+import { useAppSelector } from "../../hooks/useAppSelector";
+import type { ReviewItemProps } from "../../types/types";
 import Button from "../ui/Button";
 import ReviewEditForm from "./ReviewEditForm";
-
-export interface ReviewItemProps {
-  review: Review;
-  deleteReview: (id: string, prodId: string) => void;
-  showEdit: boolean;
-  toggleEdit: () => void;
-}
 
 const ReviewItem = ({
   review,
@@ -16,6 +10,7 @@ const ReviewItem = ({
   showEdit,
   toggleEdit,
 }: ReviewItemProps) => {
+  const userId = useAppSelector((state) => state.auth.idUser);
   return (
     <div className="bg-white p-6 rounded-3xl border border-gray-100 card-shadow mb-4 last:mb-0 transition-elegant hover:border-primary/20">
       <div className="flex flex-col md:flex-row gap-6">
@@ -47,20 +42,24 @@ const ReviewItem = ({
               </span>
             </div>
             <div className="flex items-center gap-2">
-              <Button
-                variant="ghost"
-                size="sm"
-                className="p-2! rounded-xl!"
-                onClick={toggleEdit}
-                name={<Edit2 size={16} className="text-primary/60" />}
-              />
-              <Button
-                variant="ghost"
-                size="sm"
-                className="p-2! rounded-xl! hover:bg-error/5"
-                onClick={() => deleteReview(review.id, review.product_id)}
-                name={<Trash2 size={16} className="text-error/60" />}
-              />
+              {userId === review.user_id && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="p-2! rounded-xl!"
+                  onClick={toggleEdit}
+                  name={<Edit2 size={16} className="text-primary/60" />}
+                />
+              )}
+              {userId === review.user_id && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="p-2! rounded-xl! hover:bg-error/5"
+                  onClick={() => deleteReview(review.id, review.product_id)}
+                  name={<Trash2 size={16} className="text-error/60" />}
+                />
+              )}
             </div>
           </div>
           <p className="text-primary/70 leading-relaxed font-medium">

@@ -197,3 +197,17 @@ export interface EditFormReview {
   rating: string;
   id: string;
 }
+
+export interface ReviewItemProps {
+  review: Review;
+  deleteReview: (id: string, prodId: string) => void;
+  showEdit: boolean;
+  toggleEdit: () => void;
+}
+
+export interface ReviewListProps {
+  review: Review[];
+  deleteReview: (id: string, prodId: string) => void;
+  showEdit: boolean;
+  toggleEdit: () => void;
+}
