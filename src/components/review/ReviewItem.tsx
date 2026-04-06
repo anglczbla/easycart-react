@@ -64,11 +64,13 @@ const ReviewItem = ({
             </div>
           </div>
           <p className="text-primary/70 leading-relaxed font-medium">
+            @{review.username}
+          </p>
+          <p className="text-primary/70 leading-relaxed font-medium">
             {review.comment}
           </p>
         </div>
       </div>
-
       {showEdit && (
         <div className="mt-4 border-t border-gray-50 pt-4">
           <ReviewEditForm review={review} />
