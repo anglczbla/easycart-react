@@ -31,8 +31,8 @@ export const useUpdateReviewMutation = () => {
 
 export const useDeleteReviewMutation = () => {
   return useMutation({
-    mutationFn: (id: string) => {
-      return apiClient.delete(`/review/${id}`);
+    mutationFn: ({ id, prodId }: { id: string; prodId: string }) => {
+      return apiClient.delete(`/review/${id}/${prodId}`);
     },
   });
 };

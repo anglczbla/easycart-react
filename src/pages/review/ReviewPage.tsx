@@ -15,6 +15,8 @@ const ReviewPage = ({ productId }: { productId: string }) => {
     formReview,
     review,
     isPendingAdd,
+    showEdit,
+    toggleEdit,
   } = useReviewForm(productId);
 
   const toggleForm = () => setShowForm(!showForm);
@@ -77,7 +79,7 @@ const ReviewPage = ({ productId }: { productId: string }) => {
             </div>
             <Button
               type="submit"
-              name="Submit Review"
+              name={"Submit Review"}
               isLoading={isPendingAdd}
               className="w-full"
             />
@@ -87,7 +89,12 @@ const ReviewPage = ({ productId }: { productId: string }) => {
 
       <div className="space-y-6">
         {review && review.length > 0 ? (
-          <ReviewList review={review} deleteReview={handleDeleteReview} />
+          <ReviewList
+            review={review}
+            deleteReview={handleDeleteReview}
+            showEdit={showEdit}
+            toggleEdit={toggleEdit}
+          />
         ) : (
           <div className="text-center py-12 bg-surface rounded-3xl border border-dashed border-gray-200">
             <p className="text-muted font-medium">

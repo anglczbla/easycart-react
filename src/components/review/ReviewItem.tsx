@@ -1,21 +1,21 @@
 import { Edit2, Star, Trash2 } from "lucide-react";
-import { useState } from "react";
 import type { Review } from "../../types/types";
 import Button from "../ui/Button";
 import ReviewEditForm from "./ReviewEditForm";
 
 export interface ReviewItemProps {
   review: Review;
-  deleteReview: (id: string) => void;
+  deleteReview: (id: string, prodId: string) => void;
+  showEdit: boolean;
+  toggleEdit: () => void;
 }
 
-const ReviewItem = ({ review, deleteReview }: ReviewItemProps) => {
-  const [showEdit, setShowEdit] = useState<boolean>(false);
-
-  const toggleEdit = () => {
-    setShowEdit(!showEdit);
-  };
-
+const ReviewItem = ({
+  review,
+  deleteReview,
+  showEdit,
+  toggleEdit,
+}: ReviewItemProps) => {
   return (
     <div className="bg-white p-6 rounded-3xl border border-gray-100 card-shadow mb-4 last:mb-0 transition-elegant hover:border-primary/20">
       <div className="flex flex-col md:flex-row gap-6">
@@ -58,7 +58,7 @@ const ReviewItem = ({ review, deleteReview }: ReviewItemProps) => {
                 variant="ghost"
                 size="sm"
                 className="p-2! rounded-xl! hover:bg-error/5"
-                onClick={() => deleteReview(review.id)}
+                onClick={() => deleteReview(review.id, review.product_id)}
                 name={<Trash2 size={16} className="text-error/60" />}
               />
             </div>

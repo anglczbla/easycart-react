@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
 import type { EditFormReview, ReviewForm } from "../../types/types";
 import { useAppSelector } from "../useAppSelector";
 import { useGetReviewByProductId } from "./useReview";
@@ -8,8 +7,14 @@ import { useReviewActions } from "./useReviewActions";
 export const useReviewForm = (productId?: string) => {
   const userId = useAppSelector((state) => state.auth.idUser);
 
-  const { handleAddReview, handleUpdateReview, handleDeleteReview } =
-    useReviewActions();
+  const {
+    handleAddReview,
+    handleUpdateReview,
+    handleDeleteReview,
+    isPendingAdd,
+    isPendingDelete,
+    isPendingUpdate,
+  } = useReviewActions();
   const [formReview, setFormReview] = useState<ReviewForm>({
     comment: "",
     rating: "",
@@ -23,6 +28,11 @@ export const useReviewForm = (productId?: string) => {
   const { data: review } = useGetReviewByProductId(productId ?? "");
   const [image, setImage] = useState<File | null>(null);
   const [editImage, setEditImage] = useState<File | null>(null);
+  const [showEdit, setShowEdit] = useState<boolean>(false);
+
+  const toggleEdit = () => {
+    setShowEdit(!showEdit);
+  };
 
   const handleFormReview = (
     e: React.ChangeEvent<
@@ -79,6 +89,8 @@ export const useReviewForm = (productId?: string) => {
 
     handleUpdateReview(formEditReview.id, formData);
 
+    setShowEdit(false);
+
     setFormEditReview({
       id: "",
       comment: "",
@@ -99,7 +111,10 @@ export const useReviewForm = (productId?: string) => {
     handleEditFormReview,
     handleEditImageReview,
     setFormEditReview,
-    isPendingAdd: useReviewActions().isPendingAdd,
-    isPendingUpdate: useReviewActions().isPendingUpdate,
+    isPendingAdd,
+    isPendingDelete,
+    isPendingUpdate,
+    showEdit,
+    toggleEdit,
   };
 };

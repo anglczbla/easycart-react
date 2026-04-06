@@ -47,16 +47,19 @@ export const useReviewActions = () => {
     );
   };
 
-  const handleDeleteReview = (id: string) => {
-    deleteReview.mutate(id, {
-      onSuccess: () => {
-        toast.success("Success delete product!");
-        queryClient.invalidateQueries({ queryKey: ["review"] });
+  const handleDeleteReview = (id: string, prodId: string) => {
+    deleteReview.mutate(
+      { id, prodId },
+      {
+        onSuccess: () => {
+          toast.success("Success delete review!");
+          queryClient.invalidateQueries({ queryKey: ["review"] });
+        },
+        onError: (error: any) => {
+          console.error(error);
+        },
       },
-      onError: (error: any) => {
-        console.error(error);
-      },
-    });
+    );
   };
 
   return {
