@@ -4,18 +4,19 @@ import type { Review } from "../../types/types";
 
 export const useGetReviewByProductId = (id: string) => {
   return useQuery<Review[]>({
-    queryKey: ["reviews", id],
+    queryKey: ["review", id],
     queryFn: async () => {
       const res = await apiClient.get(`/review/${id}`);
       return res.data.data;
     },
+    enabled: !!id,
   });
 };
 
 export const useCreateReviewMutation = () => {
   return useMutation({
-    mutationFn: (newReview: FormData) => {
-      return apiClient.post("/review", newReview);
+    mutationFn: ({ id, formData }: { id: string; formData: FormData }) => {
+      return apiClient.post(`/review/${id}`, formData);
     },
   });
 };

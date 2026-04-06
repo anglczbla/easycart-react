@@ -12,17 +12,24 @@ export const useReviewActions = () => {
   const updateReview = useUpdateReviewMutation();
   const deleteReview = useDeleteReviewMutation();
 
-  const handleAddReview = (formData: FormData, onSuccess?: () => void) => {
-    addReview.mutate(formData, {
-      onSuccess: () => {
-        toast.success("Success add review!");
-        queryClient.invalidateQueries({ queryKey: ["review"] });
-        onSuccess?.();
+  const handleAddReview = (
+    id: string,
+    formData: FormData,
+    onSuccess?: () => void,
+  ) => {
+    addReview.mutate(
+      { id, formData },
+      {
+        onSuccess: () => {
+          toast.success("Success add review!");
+          queryClient.invalidateQueries({ queryKey: ["review"] });
+          onSuccess?.();
+        },
+        onError: (error: any) => {
+          console.error(error);
+        },
       },
-      onError: (error: any) => {
-        console.error(error);
-      },
-    });
+    );
   };
 
   const handleUpdateReview = (id: string, formData: FormData) => {

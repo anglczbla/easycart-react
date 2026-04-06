@@ -1,0 +1,100 @@
+import { useState } from "react";
+import { useParams } from "react-router-dom";
+import type { EditFormReview, ReviewForm } from "../../types/types";
+import { useGetReviewByProductId } from "./useReview";
+import { useReviewActions } from "./useReviewActions";
+
+export const useReviewForm = () => {
+  const { productId } = useParams();
+
+  const { handleAddReview, handleUpdateReview, handleDeleteReview } =
+    useReviewActions();
+  const [formReview, setFormReview] = useState<ReviewForm>({
+    comment: "",
+    rating: "",
+    user_id: "",
+  });
+  const [formEditReview, setFormEditReview] = useState<EditFormReview>({
+    id: "",
+    comment: "",
+    rating: "",
+  });
+  const { data: review } = useGetReviewByProductId(productId ?? "");
+  const [image, setImage] = useState<File | null>(null);
+  const [editImage, setEditImage] = useState<File | null>(null);
+
+  const handleFormReview = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >,
+  ) => {
+    const { name, value } = e.target;
+    setFormReview({ ...formReview, [name]: value });
+  };
+
+  const handleEditFormReview = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >,
+  ) => {
+    const { name, value } = e.target;
+    setFormEditReview({ ...formEditReview, [name]: value });
+  };
+
+  const handleImageReview = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) setImage(e.target.files[0]);
+  };
+
+  const handleEditImageReview = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) setEditImage(e.target.files[0]);
+  };
+
+  const submitReview = (e: React.FormEvent) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("comment", formReview.comment);
+    formData.append("rating", formReview.rating);
+    formData.append("user_id", formReview.user_id);
+    if (!productId) return;
+    formData.append("product_id", productId);
+    if (image) formData.append("image", image);
+
+    handleAddReview(productId, formData);
+
+    setFormReview({
+      comment: "",
+      rating: "",
+      user_id: "",
+    });
+    setImage(null);
+  };
+
+  const submitUpdateReview = (e: React.FormEvent) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("comment", formEditReview.comment);
+    formData.append("rating", formEditReview.rating);
+    if (editImage) formData.append("image", editImage);
+
+    handleUpdateReview(formEditReview.id, formData);
+
+    setFormEditReview({
+      id: "",
+      comment: "",
+      rating: "",
+    });
+    setEditImage(null);
+  };
+
+  return {
+    submitReview,
+    submitUpdateReview,
+    handleDeleteReview,
+    handleImageReview,
+    handleFormReview,
+    formReview,
+    review,
+    handleEditFormReview,
+    handleEditImageReview,
+  };
+};

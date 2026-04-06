@@ -185,3 +185,15 @@ export interface Review {
   rating: number;
   image: string | null;
 }
+
+export interface ReviewForm {
+  comment: string;
+  rating: string;
+  user_id: string;
+}
+
+export interface EditFormReview {
+  comment: string;
+  rating: string;
+  id: string;
+}
