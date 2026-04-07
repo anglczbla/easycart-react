@@ -12,6 +12,7 @@ const ReviewList = ({
   handleEditImageReview,
   setFormEditReview,
   isPendingUpdate,
+  errors,
 }: ReviewListProps) => {
   return (
     <div>
@@ -28,6 +29,7 @@ const ReviewList = ({
           handleEditImageReview={handleEditImageReview}
           setFormEditReview={setFormEditReview}
           isPendingUpdate={isPendingUpdate}
+          errors={errors}
         />
       ))}
     </div>

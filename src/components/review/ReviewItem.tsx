@@ -15,6 +15,7 @@ const ReviewItem = ({
   handleEditImageReview,
   setFormEditReview,
   isPendingUpdate,
+  errors,
 }: ReviewItemProps) => {
   const userId = useAppSelector((state) => state.auth.idUser);
   return (
@@ -86,6 +87,8 @@ const ReviewItem = ({
             handleEditImageReview={handleEditImageReview}
             setFormEditReview={setFormEditReview}
             isPendingUpdate={isPendingUpdate}
+            errors={errors}
+            onCancel={() => toggleEdit("")}
           />
         </div>
       )}

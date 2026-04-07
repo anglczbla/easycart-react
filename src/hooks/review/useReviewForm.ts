@@ -13,6 +13,8 @@ export const useReviewForm = (productId?: string) => {
     isPendingAdd,
     isPendingDelete,
     isPendingUpdate,
+    errorAddReview,
+    errorsUpdateReview,
   } = useReviewActions();
   const [formReview, setFormReview] = useState<ReviewForm>({
     comment: "",
@@ -117,6 +119,8 @@ export const useReviewForm = (productId?: string) => {
     isPendingAdd,
     isPendingDelete,
     isPendingUpdate,
+    errorAddReview,
+    errorsUpdateReview,
     showEdit,
     toggleEdit,
   };

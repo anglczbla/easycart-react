@@ -11,6 +11,8 @@ const ReviewEditForm = ({
   handleEditImageReview,
   setFormEditReview,
   isPendingUpdate,
+  errors,
+  onCancel,
 }: ReviewEditProps) => {
   useEffect(() => {
     if (review) {
@@ -34,6 +36,7 @@ const ReviewEditForm = ({
           type="text"
           onChange={handleEditFormReview}
           value={formEditReview.comment}
+          errors={errors?.comment}
         />
         <Input
           label="Rating (1-5)"
@@ -41,6 +44,7 @@ const ReviewEditForm = ({
           type="number"
           onChange={handleEditFormReview}
           value={formEditReview.rating}
+          errors={errors?.rating}
         />
         <div className="space-y-1.5">
           <label className="text-xs font-semibold text-primary/60 px-1">
@@ -52,12 +56,19 @@ const ReviewEditForm = ({
             className="w-full text-xs text-muted file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-primary/5 file:text-primary hover:file:bg-primary/10 transition-elegant"
           />
         </div>
-        <div className="pt-2">
+        <div className="pt-2 flex gap-3">
+          <Button
+            type="button"
+            name="Cancel"
+            variant="outline"
+            onClick={onCancel}
+            className="flex-1"
+          />
           <Button
             type="submit"
             name="Update Review"
             isLoading={isPendingUpdate}
-            className="w-full"
+            className="flex-1"
           />
         </div>
       </form>

@@ -25,13 +25,14 @@ const ReviewPage = ({ productId }: { productId: string }) => {
     handleEditImageReview,
     setFormEditReview,
     isPendingUpdate,
+    errorAddReview,
+    errorsUpdateReview,
   } = useReviewForm(productId);
 
   const toggleForm = () => setShowForm(!showForm);
 
   const handleSubmit = (e: React.FormEvent) => {
     submitReview(e);
-    setShowForm(false);
   };
 
   return (
@@ -74,6 +75,7 @@ const ReviewPage = ({ productId }: { productId: string }) => {
                   placeholder="What do you think about this product?"
                   onChange={handleFormReview}
                   value={formReview.comment}
+                  errors={errorAddReview?.comment}
                 />
                 <Input
                   label="Rating (1-5)"
@@ -82,6 +84,7 @@ const ReviewPage = ({ productId }: { productId: string }) => {
                   placeholder="5"
                   onChange={handleFormReview}
                   value={formReview.rating}
+                  errors={errorAddReview?.rating}
                 />
                 <div className="space-y-2">
                   <label className="text-sm font-semibold text-primary/80 px-1">
@@ -116,6 +119,7 @@ const ReviewPage = ({ productId }: { productId: string }) => {
                 handleEditImageReview={handleEditImageReview}
                 setFormEditReview={setFormEditReview}
                 isPendingUpdate={isPendingUpdate}
+                errors={errorsUpdateReview}
               />
             ) : (
               <div className="text-center py-12 bg-surface rounded-3xl border border-dashed border-gray-200">

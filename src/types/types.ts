@@ -209,6 +209,7 @@ export interface ReviewItemProps {
   setFormEditReview: React.Dispatch<React.SetStateAction<EditFormReview>>;
   formEditReview: EditFormReview;
   isPendingUpdate: boolean;
+  errors?: any;
 }
 
 export interface ReviewListProps {
@@ -222,6 +223,7 @@ export interface ReviewListProps {
   setFormEditReview: React.Dispatch<React.SetStateAction<EditFormReview>>;
   formEditReview: EditFormReview;
   isPendingUpdate: boolean;
+  errors?: any;
 }
 
 export interface ReviewEditProps {
@@ -232,4 +234,6 @@ export interface ReviewEditProps {
   setFormEditReview: React.Dispatch<React.SetStateAction<EditFormReview>>;
   formEditReview: EditFormReview;
   isPendingUpdate: boolean;
+  errors?: any;
+  onCancel: () => void;
 }

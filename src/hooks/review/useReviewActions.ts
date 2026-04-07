@@ -74,5 +74,7 @@ export const useReviewActions = () => {
     isPendingAdd: addReview.isPending,
     isPendingUpdate: updateReview.isPending,
     isPendingDelete: deleteReview.isPending,
+    errorsUpdateReview: (updateReview.error as any)?.response?.data?.errors,
+    errorAddReview: (addReview.error as any)?.response?.data?.errors,
   };
 };
