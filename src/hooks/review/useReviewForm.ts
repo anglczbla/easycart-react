@@ -65,7 +65,7 @@ export const useReviewForm = (productId?: string) => {
     if (e.target.files) setEditImage(e.target.files[0]);
   };
 
-  const submitReview = (e: React.FormEvent) => {
+  const submitReview = (e: React.FormEvent, onSuccess?: () => void) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append("comment", formReview.comment);
@@ -82,10 +82,11 @@ export const useReviewForm = (productId?: string) => {
         user_id: "",
       });
       setImage(null);
+      onSuccess?.();
     });
   };
 
-  const submitUpdateReview = (e: React.FormEvent) => {
+  const submitUpdateReview = (e: React.FormEvent, onSuccess?: () => void) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append("comment", formEditReview.comment);
@@ -101,6 +102,7 @@ export const useReviewForm = (productId?: string) => {
         rating: "",
       });
       setEditImage(null);
+      onSuccess?.();
     });
   };
 

@@ -26,7 +26,7 @@ export const useReviewActions = () => {
           onSuccess?.();
         },
         onError: (error: any) => {
-          console.error(error);
+          console.error(error.response.data.error);
         },
       },
     );
@@ -74,7 +74,7 @@ export const useReviewActions = () => {
     isPendingAdd: addReview.isPending,
     isPendingUpdate: updateReview.isPending,
     isPendingDelete: deleteReview.isPending,
-    errorsUpdateReview: (updateReview.error as any)?.response?.data?.errors,
-    errorAddReview: (addReview.error as any)?.response?.data?.errors,
+    errorsUpdateReview: (updateReview.error as any)?.response?.data,
+    errorAddReview: (addReview.error as any)?.response?.data,
   };
 };

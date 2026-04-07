@@ -29,14 +29,14 @@ const ReviewEditForm = ({
       <h3 className="text-sm font-bold text-primary mb-4 uppercase tracking-wider">
         Edit Your Review
       </h3>
-      <form onSubmit={submitUpdateReview} className="space-y-4">
+      <form onSubmit={(e) => submitUpdateReview(e)} className="space-y-4">
         <Input
           label="Comment"
           name="comment"
           type="text"
           onChange={handleEditFormReview}
           value={formEditReview.comment}
-          errors={errors?.comment}
+          errors={errors?.errors?.comment}
         />
         <Input
           label="Rating (1-5)"
@@ -44,7 +44,7 @@ const ReviewEditForm = ({
           type="number"
           onChange={handleEditFormReview}
           value={formEditReview.rating}
-          errors={errors?.rating}
+          errors={errors?.errors?.rating}
         />
         <div className="space-y-1.5">
           <label className="text-xs font-semibold text-primary/60 px-1">

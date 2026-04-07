@@ -29,10 +29,14 @@ const ReviewPage = ({ productId }: { productId: string }) => {
     errorsUpdateReview,
   } = useReviewForm(productId);
 
+  console.log("err", errorAddReview);
+
   const toggleForm = () => setShowForm(!showForm);
 
   const handleSubmit = (e: React.FormEvent) => {
-    submitReview(e);
+    submitReview(e, () => {
+      setShowForm(false);
+    });
   };
 
   return (
@@ -67,6 +71,13 @@ const ReviewPage = ({ productId }: { productId: string }) => {
               <h3 className="text-xl font-bold text-primary mb-6">
                 Review This Product
               </h3>
+
+              {errorAddReview?.error && (
+                <div className="mb-4 p-4 bg-error/10 border border-error/20 text-error rounded-2xl text-sm font-medium">
+                  {errorAddReview.error}
+                </div>
+              )}
+
               <form onSubmit={handleSubmit} className="space-y-6">
                 <Input
                   label="Comment"
@@ -75,7 +86,7 @@ const ReviewPage = ({ productId }: { productId: string }) => {
                   placeholder="What do you think about this product?"
                   onChange={handleFormReview}
                   value={formReview.comment}
-                  errors={errorAddReview?.comment}
+                  errors={errorAddReview?.errors?.comment}
                 />
                 <Input
                   label="Rating (1-5)"
@@ -84,7 +95,7 @@ const ReviewPage = ({ productId }: { productId: string }) => {
                   placeholder="5"
                   onChange={handleFormReview}
                   value={formReview.rating}
-                  errors={errorAddReview?.rating}
+                  errors={errorAddReview?.errors?.rating}
                 />
                 <div className="space-y-2">
                   <label className="text-sm font-semibold text-primary/80 px-1">
