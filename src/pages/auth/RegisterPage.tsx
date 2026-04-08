@@ -1,9 +1,9 @@
 import { Eye, EyeOff, UserPlus } from "lucide-react";
+import AuthLayout from "../../components/auth/AuthLayout";
 import Button from "../../components/ui/Button";
 import ErrorMessage from "../../components/ui/ErrorMessage";
 import Input from "../../components/ui/Input";
 import { useRegister } from "../../hooks/auth/useRegister";
-import AuthLayout from "../../components/auth/AuthLayout";
 
 const RegisterPage = () => {
   const {
@@ -32,7 +32,7 @@ const RegisterPage = () => {
           value={formRegist.username}
           onChange={handleRegist}
           placeholder="e.g. johndoe"
-          errors={errors.username}
+          errors={errors?.username}
         />
 
         <Input
@@ -42,7 +42,7 @@ const RegisterPage = () => {
           value={formRegist.email}
           onChange={handleRegist}
           placeholder="e.g. johndoe@example.com"
-          errors={errors.email}
+          errors={errors?.email}
         />
 
         <div className="relative group">
@@ -53,7 +53,7 @@ const RegisterPage = () => {
             value={formRegist.password ?? ""}
             onChange={handleRegist}
             placeholder="Choose a strong password"
-            errors={errors.password}
+            errors={errors?.password}
           />
           <button
             type="button"

@@ -1,9 +1,9 @@
 import { Eye, EyeOff, LogIn } from "lucide-react";
+import AuthLayout from "../../components/auth/AuthLayout";
 import Button from "../../components/ui/Button";
 import ErrorMessage from "../../components/ui/ErrorMessage";
 import Input from "../../components/ui/Input";
 import { useLogin } from "../../hooks/auth/useLogin";
-import AuthLayout from "../../components/auth/AuthLayout";
 
 const LoginPage = () => {
   const {
@@ -18,9 +18,11 @@ const LoginPage = () => {
     errorMessage,
   } = useLogin();
 
+  console.log(errorMessage);
+
   return (
     <AuthLayout title="Welcome Back" subtitle="Log in to access your dashboard">
-      <ErrorMessage message={errorMessage} className="mb-6" />
+      <ErrorMessage message={errors?.message?.[0]} className="mb-6" />
 
       <form onSubmit={submitLogin} className="space-y-6">
         <Input

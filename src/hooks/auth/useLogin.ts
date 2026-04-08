@@ -54,7 +54,7 @@ export const useLogin = () => {
       },
       onError: (error: any) => {
         setErrors(error.response?.data?.message);
-        console.error(errors);
+        console.error(errors.response);
       },
     });
   };
