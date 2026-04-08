@@ -13,17 +13,14 @@ export const useReviewForm = (productId?: string) => {
     isPendingAdd,
     isPendingDelete,
     isPendingUpdate,
-    errorAddReview,
-    errorsUpdateReview,
+    setErrors,
+    errors,
   } = useReviewActions();
   const [formReview, setFormReview] = useState<ReviewForm>({
     comment: "",
     rating: "",
     user_id: "",
   });
-
-  console.log("form review", formReview);
-
   const [formEditReview, setFormEditReview] = useState<EditFormReview>({
     id: "",
     comment: "",
@@ -33,7 +30,6 @@ export const useReviewForm = (productId?: string) => {
   const [image, setImage] = useState<File | null>(null);
   const [editImage, setEditImage] = useState<File | null>(null);
   const [showEdit, setShowEdit] = useState<string | null>(null);
-  console.log(showEdit);
 
   const toggleEdit = (id: string) => {
     setShowEdit(id);
@@ -46,6 +42,9 @@ export const useReviewForm = (productId?: string) => {
   ) => {
     const { name, value } = e.target;
     setFormReview({ ...formReview, [name]: value });
+    if (Object.keys(errors).length > 0) {
+      setErrors({});
+    }
   };
 
   const handleEditFormReview = (
@@ -55,6 +54,9 @@ export const useReviewForm = (productId?: string) => {
   ) => {
     const { name, value } = e.target;
     setFormEditReview({ ...formEditReview, [name]: value });
+    if (Object.keys(errors).length > 0) {
+      setErrors({});
+    }
   };
 
   const handleImageReview = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -121,9 +123,9 @@ export const useReviewForm = (productId?: string) => {
     isPendingAdd,
     isPendingDelete,
     isPendingUpdate,
-    errorAddReview,
-    errorsUpdateReview,
+
     showEdit,
     toggleEdit,
+    errors,
   };
 };

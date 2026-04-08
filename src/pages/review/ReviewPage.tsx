@@ -25,11 +25,9 @@ const ReviewPage = ({ productId }: { productId: string }) => {
     handleEditImageReview,
     setFormEditReview,
     isPendingUpdate,
-    errorAddReview,
-    errorsUpdateReview,
-  } = useReviewForm(productId);
 
-  console.log("err", errorAddReview);
+    errors,
+  } = useReviewForm(productId);
 
   const toggleForm = () => setShowForm(!showForm);
 
@@ -72,9 +70,9 @@ const ReviewPage = ({ productId }: { productId: string }) => {
                 Review This Product
               </h3>
 
-              {errorAddReview?.error && (
+              {errors?.message && (
                 <div className="mb-4 p-4 bg-error/10 border border-error/20 text-error rounded-2xl text-sm font-medium">
-                  {errorAddReview.error}
+                  {errors.message}
                 </div>
               )}
 
@@ -86,7 +84,7 @@ const ReviewPage = ({ productId }: { productId: string }) => {
                   placeholder="What do you think about this product?"
                   onChange={handleFormReview}
                   value={formReview.comment}
-                  errors={errorAddReview?.errors?.comment}
+                  errors={errors?.errors?.comment}
                 />
                 <Input
                   label="Rating (1-5)"
@@ -95,7 +93,7 @@ const ReviewPage = ({ productId }: { productId: string }) => {
                   placeholder="5"
                   onChange={handleFormReview}
                   value={formReview.rating}
-                  errors={errorAddReview?.errors?.rating}
+                  errors={errors?.errors?.rating}
                 />
                 <div className="space-y-2">
                   <label className="text-sm font-semibold text-primary/80 px-1">
@@ -130,7 +128,7 @@ const ReviewPage = ({ productId }: { productId: string }) => {
                 handleEditImageReview={handleEditImageReview}
                 setFormEditReview={setFormEditReview}
                 isPendingUpdate={isPendingUpdate}
-                errors={errorsUpdateReview}
+                errors={errors}
               />
             ) : (
               <div className="text-center py-12 bg-surface rounded-3xl border border-dashed border-gray-200">

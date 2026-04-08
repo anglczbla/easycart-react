@@ -1,4 +1,5 @@
 import { useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
 import toast from "react-hot-toast";
 import {
   useCreateReviewMutation,
@@ -11,6 +12,7 @@ export const useReviewActions = () => {
   const addReview = useCreateReviewMutation();
   const updateReview = useUpdateReviewMutation();
   const deleteReview = useDeleteReviewMutation();
+  const [errors, setErrors] = useState<any>({});
 
   const handleAddReview = (
     id: string,
@@ -26,7 +28,7 @@ export const useReviewActions = () => {
           onSuccess?.();
         },
         onError: (error: any) => {
-          console.error(error.response.data.error);
+          setErrors(error.response.data);
         },
       },
     );
@@ -46,7 +48,7 @@ export const useReviewActions = () => {
           onSuccess?.();
         },
         onError: (error: any) => {
-          console.error(error);
+          setErrors(error.response.data);
         },
       },
     );
@@ -61,7 +63,7 @@ export const useReviewActions = () => {
           queryClient.invalidateQueries({ queryKey: ["review"] });
         },
         onError: (error: any) => {
-          console.error(error);
+          setErrors(error.response.data);
         },
       },
     );
@@ -74,7 +76,9 @@ export const useReviewActions = () => {
     isPendingAdd: addReview.isPending,
     isPendingUpdate: updateReview.isPending,
     isPendingDelete: deleteReview.isPending,
-    errorsUpdateReview: (updateReview.error as any)?.response?.data,
-    errorAddReview: (addReview.error as any)?.response?.data,
+    // errorsUpdateReview: (updateReview.error as any)?.response?.data,
+    // errorAddReview: (addReview.error as any)?.response?.data,
+    setErrors,
+    errors,
   };
 };
