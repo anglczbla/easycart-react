@@ -1,6 +1,7 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
+import type { AxiosError, AxiosResponse } from "axios";
 import apiClient from "../../lib/axios";
-import type { Order, OrderUsers } from "../../types/types";
+import type { ApiError, Order, OrderUsers } from "../../types/types";
 
 export const useGetAllOrders = () => {
   return useQuery<OrderUsers[]>({
@@ -33,7 +34,7 @@ export const useGetOrderById = (orderId: string) => {
 };
 
 export const useCreateOrderMutation = () => {
-  return useMutation({
+  return useMutation<AxiosResponse, AxiosError<ApiError>, FormData>({
     mutationFn: (image: FormData) => {
       return apiClient.post("/orders", image);
     },
@@ -41,7 +42,7 @@ export const useCreateOrderMutation = () => {
 };
 
 export const useUpdateOrderMutation = () => {
-  return useMutation({
+  return useMutation<AxiosResponse, AxiosError<ApiError>, Order>({
     mutationFn: (data: Order) => {
       return apiClient.put(`/orders/${data.id}`, { status: data.status });
     },

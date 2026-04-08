@@ -42,8 +42,8 @@ export const useReviewForm = (productId?: string) => {
   ) => {
     const { name, value } = e.target;
     setFormReview({ ...formReview, [name]: value });
-    if (Object.keys(errors).length > 0) {
-      setErrors({});
+    if (errors) {
+      setErrors(null);
     }
   };
 
@@ -54,8 +54,8 @@ export const useReviewForm = (productId?: string) => {
   ) => {
     const { name, value } = e.target;
     setFormEditReview({ ...formEditReview, [name]: value });
-    if (Object.keys(errors).length > 0) {
-      setErrors({});
+    if (errors) {
+      setErrors(null);
     }
   };
 

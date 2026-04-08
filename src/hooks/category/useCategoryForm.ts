@@ -1,13 +1,14 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import type { Category } from "../../types/types";
+import type { ApiError, Category } from "../../types/types";
 import {
   useAddCategoryMutation,
   useDeleteCategoryMutation,
   usegetAllCategories,
   useUpdateCategoryMutation,
 } from "./useCategory";
+import { AxiosError } from "axios";
 
 export const useCategoryForm = () => {
   const queryClient = useQueryClient();
@@ -72,8 +73,8 @@ export const useCategoryForm = () => {
         });
         setErrors([]);
       },
-      onError: (error: any) => {
-        const msg = error.response?.data?.message;
+      onError: (error: AxiosError<ApiError>) => {
+        const msg = error.response?.data?.message || "An error occurred";
         console.error(msg);
         setErrors([...errors, msg]);
       },
@@ -97,8 +98,8 @@ export const useCategoryForm = () => {
         setErrors([]);
       },
 
-      onError: (error: any) => {
-        const msg = error.response?.data?.message;
+      onError: (error: AxiosError<ApiError>) => {
+        const msg = error.response?.data?.message || "An error occurred";
         console.error(msg);
         setErrors([msg]);
       },
@@ -112,8 +113,8 @@ export const useCategoryForm = () => {
         queryClient.invalidateQueries({ queryKey: ["category"] });
         setErrors([]);
       },
-      onError: (error: any) => {
-        const msg = error.response?.data?.message;
+      onError: (error: AxiosError<ApiError>) => {
+        const msg = error.response?.data?.message || "An error occurred";
         console.error(msg);
         setErrors([...errors, msg]);
       },

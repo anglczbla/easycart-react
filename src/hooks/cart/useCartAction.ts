@@ -1,12 +1,13 @@
 import { useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import type { deleteItemCart, UpdateCart } from "../../types/types";
+import type { ApiError, deleteItemCart, UpdateCart } from "../../types/types";
 import {
   useDeleteItemCartMutation,
   useGetCartById,
   useUpdateCartMutation,
 } from "./useCart";
+import { AxiosError } from "axios";
 
 export const useCartActions = () => {
   const deleteItem = useDeleteItemCartMutation();
@@ -33,8 +34,8 @@ export const useCartActions = () => {
           toast.success("success delete item");
           queryClient.invalidateQueries({ queryKey: ["cart"] });
         },
-        onError: (error: any) => {
-          const msg = error.response?.data?.message;
+        onError: (error: AxiosError<ApiError>) => {
+          const msg = error.response?.data?.message || "An error occurred";
           console.error(msg);
         },
       },
@@ -52,8 +53,8 @@ export const useCartActions = () => {
         onSuccess: () => {
           queryClient.invalidateQueries({ queryKey: ["cart"] });
         },
-        onError: (error: any) => {
-          const msg = error.response?.data?.message;
+        onError: (error: AxiosError<ApiError>) => {
+          const msg = error.response?.data?.message || "An error occurred";
           console.error(msg);
         },
       },
@@ -66,6 +67,6 @@ export const useCartActions = () => {
     totalPrice,
     handleCheckout,
     data,
-    errorMessage: (updateCart.error as any)?.response?.data?.message,
+    errorMessage: updateCart.error?.response?.data?.message,
   };
 };

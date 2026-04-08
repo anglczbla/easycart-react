@@ -2,13 +2,14 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import type { Order } from "../../types/types";
+import type { ApiError, Order } from "../../types/types";
 import { useGetCartById } from "../cart/useCart";
 import {
   useCreateOrderMutation,
   useGetAllOrders,
   useUpdateOrderMutation,
 } from "./useOrder";
+import { AxiosError } from "axios";
 
 export const useOrderActions = () => {
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ export const useOrderActions = () => {
   const updateOrder = useUpdateOrderMutation();
   const [image, setImage] = useState<File | null>(null);
   const [status, setStatus] = useState("");
-  const [showEdit, setShowEdit] = useState<any>(false);
+  const [showEdit, setShowEdit] = useState<string | false>(false);
 
   const totalPrice =
     orderData?.reduce((total, item) => total + item.price * item.quantity, 0) ||
@@ -60,8 +61,8 @@ export const useOrderActions = () => {
         toast.success("success create order");
         navigate("/order-history");
       },
-      onError: (error: any) => {
-        const msg = error.response?.data?.message;
+      onError: (error: AxiosError<ApiError>) => {
+        const msg = error.response?.data?.message || "An error occurred";
         console.error(msg);
       },
     });
@@ -83,8 +84,8 @@ export const useOrderActions = () => {
         queryClient.invalidateQueries({ queryKey: ["all"] });
         setShowEdit(false);
       },
-      onError: (error: any) => {
-        const msg = error.response?.data?.message;
+      onError: (error: AxiosError<ApiError>) => {
+        const msg = error.response?.data?.message || "An error occurred";
         console.error(msg);
       },
     });
@@ -92,7 +93,7 @@ export const useOrderActions = () => {
 
   return {
     creatingOrder,
-    errorMessage: (createOrder.error as any)?.response?.data?.message,
+    errorMessage: createOrder.error?.response?.data?.message,
     handleImage,
     image,
     updatingOrder,

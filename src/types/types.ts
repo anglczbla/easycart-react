@@ -198,18 +198,27 @@ export interface EditFormReview {
   id: string;
 }
 
+export interface ApiError {
+  message?: string;
+  errors?: Record<string, string[]>;
+}
+
 export interface ReviewItemProps {
   review: Review;
   deleteReview: (id: string, prodId: string) => void;
   showEdit: string | null;
   toggleEdit: (id: string) => void;
   submitUpdateReview: (e: React.FormEvent) => void;
-  handleEditFormReview: (e: React.ChangeEvent<any>) => void;
+  handleEditFormReview: (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
+  ) => void;
   handleEditImageReview: (e: React.ChangeEvent<HTMLInputElement>) => void;
   setFormEditReview: React.Dispatch<React.SetStateAction<EditFormReview>>;
   formEditReview: EditFormReview;
   isPendingUpdate: boolean;
-  errors?: any;
+  errors?: ApiError;
 }
 
 export interface ReviewListProps {
@@ -218,22 +227,30 @@ export interface ReviewListProps {
   showEdit: string | null;
   toggleEdit: (id: string) => void;
   submitUpdateReview: (e: React.FormEvent) => void;
-  handleEditFormReview: (e: React.ChangeEvent<any>) => void;
+  handleEditFormReview: (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
+  ) => void;
   handleEditImageReview: (e: React.ChangeEvent<HTMLInputElement>) => void;
   setFormEditReview: React.Dispatch<React.SetStateAction<EditFormReview>>;
   formEditReview: EditFormReview;
   isPendingUpdate: boolean;
-  errors?: any;
+  errors?: ApiError;
 }
 
 export interface ReviewEditProps {
   review: Review;
   submitUpdateReview: (e: React.FormEvent) => void;
-  handleEditFormReview: (e: React.ChangeEvent<any>) => void;
+  handleEditFormReview: (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
+  ) => void;
   handleEditImageReview: (e: React.ChangeEvent<HTMLInputElement>) => void;
   setFormEditReview: React.Dispatch<React.SetStateAction<EditFormReview>>;
   formEditReview: EditFormReview;
   isPendingUpdate: boolean;
-  errors?: any;
+  errors?: ApiError;
   onCancel: () => void;
 }

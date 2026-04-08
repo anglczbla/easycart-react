@@ -1,10 +1,12 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
+import type { AxiosError, AxiosResponse } from "axios";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import apiClient from "../../lib/axios";
 import { itemsInCart } from "../../store/cartSlice";
 import type {
   AddToCart,
+  ApiError,
   Cart,
   UpdateCart,
   deleteItemCart,
@@ -31,7 +33,7 @@ export const useGetCart = () => {
 };
 
 export const useAddToCartMutation = () => {
-  return useMutation({
+  return useMutation<AxiosResponse, AxiosError<ApiError>, AddToCart>({
     mutationFn: (newItem: AddToCart) => {
       return apiClient.post("/cart", newItem);
     },
@@ -39,7 +41,7 @@ export const useAddToCartMutation = () => {
 };
 
 export const useUpdateCartMutation = () => {
-  return useMutation({
+  return useMutation<AxiosResponse, AxiosError<ApiError>, UpdateCart>({
     mutationFn: ({ id, quantity, product_id }: UpdateCart) => {
       const data = {
         quantity,
@@ -51,7 +53,7 @@ export const useUpdateCartMutation = () => {
 };
 
 export const useDeleteItemCartMutation = () => {
-  return useMutation({
+  return useMutation<AxiosResponse, AxiosError<ApiError>, deleteItemCart>({
     mutationFn: ({ id, product_id }: deleteItemCart) => {
       return apiClient.delete(`/cart/${id}`, {
         data: {

@@ -3,8 +3,9 @@ import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addToken } from "../../store/authSlice";
-import type { LoginInput } from "../../types/types";
+import type { ApiError, LoginInput } from "../../types/types";
 import { useLoginMutation } from "./useAuth";
+import { AxiosError } from "axios";
 
 export const useLogin = () => {
   const navigate = useNavigate();
@@ -52,9 +53,15 @@ export const useLogin = () => {
         setErrors({});
         navigate("/");
       },
-      onError: (error: any) => {
-        setErrors(error.response?.data?.message);
-        console.error(errors.response);
+      onError: (error: AxiosError<ApiError>) => {
+        const errorData = error.response?.data;
+        if (errorData?.errors) {
+          setErrors(errorData.errors);
+        } else if (errorData?.message) {
+          setErrors({ message: [errorData.message] });
+        } else {
+          setErrors({ message: ["An error occurred"] });
+        }
       },
     });
   };
@@ -68,6 +75,6 @@ export const useLogin = () => {
     isPending: mutation.isPending,
     errors,
     goToRegister,
-    errorMessage: (mutation.error as any)?.response?.data?.message,
+    errorMessage: mutation.error?.response?.data?.message,
   };
 };

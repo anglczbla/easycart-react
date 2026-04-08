@@ -1,8 +1,10 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import type { User } from "../../types/types";
+import type { ApiError, User } from "../../types/types";
 import { useAddProfileMutation, useCurrentUser } from "./useUser";
+import { AxiosError } from "axios";
+
 export const useUserForm = () => {
   const queryClient = useQueryClient();
   const addProfile = useAddProfileMutation();
@@ -78,8 +80,8 @@ export const useUserForm = () => {
           avatar: "",
         });
       },
-      onError: (error: any) => {
-        setErrors(error.response?.data?.errors);
+      onError: (error: AxiosError<ApiError>) => {
+        setErrors(error.response?.data?.errors || {});
       },
     });
   };

@@ -6,13 +6,15 @@ import {
   useDeleteReviewMutation,
   useUpdateReviewMutation,
 } from "./useReview";
+import { AxiosError } from "axios";
+import type { ApiError } from "../../types/types";
 
 export const useReviewActions = () => {
   const queryClient = useQueryClient();
   const addReview = useCreateReviewMutation();
   const updateReview = useUpdateReviewMutation();
   const deleteReview = useDeleteReviewMutation();
-  const [errors, setErrors] = useState<any>({});
+  const [errors, setErrors] = useState<ApiError | null>(null);
 
   const handleAddReview = (
     id: string,
@@ -26,9 +28,10 @@ export const useReviewActions = () => {
           toast.success("Success add review!");
           queryClient.invalidateQueries({ queryKey: ["review"] });
           onSuccess?.();
+          setErrors(null);
         },
-        onError: (error: any) => {
-          setErrors(error.response.data);
+        onError: (error: AxiosError<ApiError>) => {
+          setErrors(error.response?.data || { message: "An error occurred" });
         },
       },
     );
@@ -46,9 +49,10 @@ export const useReviewActions = () => {
           toast.success("Success update review!");
           queryClient.invalidateQueries({ queryKey: ["review"] });
           onSuccess?.();
+          setErrors(null);
         },
-        onError: (error: any) => {
-          setErrors(error.response.data);
+        onError: (error: AxiosError<ApiError>) => {
+          setErrors(error.response?.data || { message: "An error occurred" });
         },
       },
     );
@@ -61,9 +65,10 @@ export const useReviewActions = () => {
         onSuccess: () => {
           toast.success("Success delete review!");
           queryClient.invalidateQueries({ queryKey: ["review"] });
+          setErrors(null);
         },
-        onError: (error: any) => {
-          setErrors(error.response.data);
+        onError: (error: AxiosError<ApiError>) => {
+          setErrors(error.response?.data || { message: "An error occurred" });
         },
       },
     );
@@ -76,8 +81,6 @@ export const useReviewActions = () => {
     isPendingAdd: addReview.isPending,
     isPendingUpdate: updateReview.isPending,
     isPendingDelete: deleteReview.isPending,
-    // errorsUpdateReview: (updateReview.error as any)?.response?.data,
-    // errorAddReview: (addReview.error as any)?.response?.data,
     setErrors,
     errors,
   };

@@ -1,7 +1,8 @@
+import { AxiosError } from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import type { RegisterInput } from "../../types/types";
+import type { ApiError, RegisterInput } from "../../types/types";
 import { useRegisterMutation } from "./useAuth";
 
 export const useRegister = () => {
@@ -46,8 +47,8 @@ export const useRegister = () => {
         setErrors({});
         navigate("/login");
       },
-      onError: (error: any) => {
-        setErrors(error.response?.data?.errors);
+      onError: (error: AxiosError<ApiError>) => {
+        setErrors(error.response?.data?.errors || {});
       },
     });
   };

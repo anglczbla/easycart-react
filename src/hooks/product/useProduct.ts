@@ -1,6 +1,7 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
+import type { AxiosError, AxiosResponse } from "axios";
 import apiClient from "../../lib/axios";
-import type { Product } from "../../types/types";
+import type { ApiError, Product } from "../../types/types";
 
 export const usegetAllProducts = () => {
   return useQuery<Product[]>({
@@ -38,7 +39,7 @@ export const useSearchProduct = (query: string, category: string) => {
 };
 
 export const useAddProductMutation = () => {
-  return useMutation({
+  return useMutation<AxiosResponse, AxiosError<ApiError>, FormData>({
     mutationFn: (newProduct: FormData) => {
       return apiClient.post("/products", newProduct);
     },
@@ -46,7 +47,11 @@ export const useAddProductMutation = () => {
 };
 
 export const useUpdateProductMutation = () => {
-  return useMutation({
+  return useMutation<
+    AxiosResponse,
+    AxiosError<ApiError>,
+    { id: string; formData: FormData }
+  >({
     mutationFn: ({ id, formData }: { id: string; formData: FormData }) => {
       return apiClient.put(`/products/${id}`, formData);
     },
@@ -54,7 +59,7 @@ export const useUpdateProductMutation = () => {
 };
 
 export const useDeleteProductMutation = () => {
-  return useMutation({
+  return useMutation<AxiosResponse, AxiosError<ApiError>, string>({
     mutationFn: (id: string) => {
       return apiClient.delete(`/products/${id}`);
     },

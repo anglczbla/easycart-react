@@ -5,6 +5,8 @@ import {
   useDeleteProductMutation,
   useUpdateProductMutation,
 } from "./useProduct";
+import { AxiosError } from "axios";
+import type { ApiError } from "../../types/types";
 
 export const useProductActions = () => {
   const queryClient = useQueryClient();
@@ -19,7 +21,7 @@ export const useProductActions = () => {
         queryClient.invalidateQueries({ queryKey: ["products"] });
         onSuccess?.();
       },
-      onError: (error: any) => {
+      onError: (error: AxiosError<ApiError>) => {
         console.error(error);
       },
     });
@@ -57,7 +59,7 @@ export const useProductActions = () => {
     handleDeleteProduct,
     isPendingAdd: addProductMutation.isPending,
     isPendingUpdate: updateProductMutation.isPending,
-    errorsAdd: (addProductMutation.error as any)?.response?.data?.errors,
-    errorsUpdate: (updateProductMutation.error as any)?.response?.data?.errors,
+    errorsAdd: addProductMutation.error?.response?.data?.errors,
+    errorsUpdate: updateProductMutation.error?.response?.data?.errors,
   };
 };

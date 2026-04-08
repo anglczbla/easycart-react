@@ -1,4 +1,4 @@
-const DateDisplay = ({ date }: any) => {
+const DateDisplay = ({ date }: { date: string | number | Date }) => {
   return (
     <div className="text-sm text-gray-600 line-clamp-1">
       {new Date(date).toLocaleDateString("id-ID", {
