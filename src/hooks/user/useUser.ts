@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
+import type { AxiosError, AxiosResponse } from "axios";
 import apiClient from "../../lib/axios";
 import type { ApiError, User } from "../../types/types";
-import { AxiosError, AxiosResponse } from "axios";
 
 export const useCurrentUser = () => {
   return useQuery<User>({

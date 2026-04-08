@@ -128,7 +128,7 @@ const ReviewPage = ({ productId }: { productId: string }) => {
                 handleEditImageReview={handleEditImageReview}
                 setFormEditReview={setFormEditReview}
                 isPendingUpdate={isPendingUpdate}
-                errors={errors}
+                errors={errors ?? undefined}
               />
             ) : (
               <div className="text-center py-12 bg-surface rounded-3xl border border-dashed border-gray-200">
