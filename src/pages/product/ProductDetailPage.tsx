@@ -12,6 +12,7 @@ const ProductDetailPage = () => {
   const { data, isLoading, addItem, isPending, handleCheckout, stock } =
     useProductDetail(id || "");
   const admin = useAppSelector((state) => state.auth.admin);
+  const token = useAppSelector((state) => state.auth.token);
 
   if (isLoading) {
     return (
@@ -87,30 +88,39 @@ const ProductDetailPage = () => {
 
             {!admin ? (
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                <Button
-                  className="flex-1 py-4! rounded-2xl! shadow-lg shadow-primary/10"
-                  disabled={stock <= 0 || isPending}
-                  onClick={addItem}
-                  isLoading={isPending}
-                  name={
-                    <div className="flex items-center gap-2">
-                      <ShoppingCart size={20} />
-                      <span>{stock <= 0 ? "Out of Stock" : "Add to Cart"}</span>
-                    </div>
-                  }
-                />
-                <Button
-                  variant="secondary"
-                  className="flex-1 py-4! rounded-2xl! border-2 border-primary/10"
-                  onClick={handleCheckout}
-                  disabled={stock <= 0}
-                  name={
-                    <div className="flex items-center gap-2">
-                      <Zap size={20} />
-                      <span>Buy Now</span>
-                    </div>
-                  }
-                />
+                <div className="flex gap-5 ">
+                  <Button
+                    className="flex-1 py-4! rounded-2xl! shadow-lg shadow-primary/10"
+                    disabled={!token ? isPending : stock <= 0 || isPending}
+                    onClick={token ? addItem : undefined}
+                    isLoading={token ? isPending : undefined}
+                    name={
+                      <div className="flex items-center gap-2">
+                        <ShoppingCart size={20} />
+                        <span>
+                          {!token
+                            ? "Login to Add To Cart"
+                            : stock <= 0
+                              ? "Out of Stock"
+                              : "Add to Cart"}
+                        </span>
+                      </div>
+                    }
+                  />
+
+                  <Button
+                    variant="secondary"
+                    className="flex-1 py-4! rounded-2xl! border-2 border-primary/10"
+                    disabled={token ? stock <= 0 : false}
+                    onClick={token ? handleCheckout : undefined}
+                    name={
+                      <div className="flex items-center gap-2">
+                        <Zap size={20} />
+                        <span>{!token ? "Login to Buy" : "Buy Now"}</span>
+                      </div>
+                    }
+                  />
+                </div>
               </div>
             ) : (
               <div className="p-6 bg-primary/5 rounded-2xl border border-primary/10 text-primary font-bold text-center">

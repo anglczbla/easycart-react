@@ -2,14 +2,17 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import type { AxiosError, AxiosResponse } from "axios";
 import apiClient from "../../lib/axios";
 import type { ApiError, Order, OrderUsers } from "../../types/types";
+import { useAppSelector } from "../useAppSelector";
 
 export const useGetAllOrders = () => {
+  const admin = useAppSelector((state) => state.auth.admin);
   return useQuery<OrderUsers[]>({
     queryKey: ["order", "all"],
     queryFn: async () => {
       const res = await apiClient.get("/orders/all");
       return res.data.data;
     },
+    enabled: admin,
   });
 };
 

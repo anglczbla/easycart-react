@@ -8,6 +8,7 @@ import { useAppSelector } from "../../hooks/useAppSelector";
 
 const ReviewPage = ({ productId }: { productId: string }) => {
   const admin = useAppSelector((state) => state.auth.admin);
+  const token = useAppSelector((state) => state.auth.token);
   const [showForm, setShowForm] = useState(false);
   const {
     submitReview,
@@ -48,16 +49,22 @@ const ReviewPage = ({ productId }: { productId: string }) => {
               </h2>
               <Button
                 variant={showForm ? "secondary" : "primary"}
-                onClick={toggleForm}
                 className="rounded-2xl shadow-sm"
+                onClick={token ? toggleForm : undefined}
                 name={
                   <div className="flex items-center gap-2">
-                    {showForm ? (
-                      <X size={18} />
+                    {token ? (
+                      <>
+                        {showForm ? (
+                          <X size={18} />
+                        ) : (
+                          <MessageSquarePlus size={18} />
+                        )}
+                        <span>{showForm ? "Cancel" : "Write a Review"}</span>
+                      </>
                     ) : (
-                      <MessageSquarePlus size={18} />
+                      <span>Login to Review</span>
                     )}
-                    <span>{showForm ? "Cancel" : "Write a Review"}</span>
                   </div>
                 }
               />

@@ -3,11 +3,11 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import Button from "../ui/Button";
 import { useLogoutMutation } from "../../hooks/auth/useAuth";
 import { useGlobalSearch } from "../../hooks/search/useGlobalSearch";
 import { useAppSelector } from "../../hooks/useAppSelector";
 import { removeToken } from "../../store/authSlice";
+import Button from "../ui/Button";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -15,6 +15,7 @@ const Navbar = () => {
   const id = useAppSelector((state) => state.auth.idUser);
   const logout = useLogoutMutation();
   const admin = useAppSelector((state) => state.auth.admin);
+  const token = useAppSelector((state) => state.auth.token);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const { updateSearch, data, inputValue, isFetching, resetSearch } =
@@ -31,7 +32,7 @@ const Navbar = () => {
     logout.mutate(id, {
       onSuccess: () => {
         toast.success("Successfully logged out");
-        navigate("/login");
+        navigate("/");
         dispatch(removeToken());
         localStorage.removeItem("userData");
       },
@@ -136,39 +137,58 @@ const Navbar = () => {
           </div>
 
           <div className="hidden md:flex items-center gap-6 text-secondary/90">
-            <Link
-              to="/profile"
-              className="hover:text-primary-light transition-elegant flex items-center gap-2"
-            >
-              <User className="h-5 w-5" />
-            </Link>
-            {!admin && (
-              <>
+            {token ? (
+              <div className="flex gap-5 items-center">
                 <Link
-                  to="/cart"
-                  className="hover:text-primary-light transition-elegant relative"
+                  to="/profile"
+                  className="hover:text-primary-light transition-elegant flex items-center gap-2"
                 >
-                  <ShoppingCart className="h-5 w-5" />
-                  {cart > 0 && (
-                    <span className="absolute -top-1.5 -right-1.5 bg-error text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center border-2 border-primary">
-                      {cart}
-                    </span>
-                  )}
+                  <User className="h-5 w-5" />
+                </Link>
+                {!admin && (
+                  <div className="flex gap-5">
+                    <Link
+                      to="/cart"
+                      className="hover:text-primary-light transition-elegant relative"
+                    >
+                      <ShoppingCart className="h-5 w-5" />
+                      {cart > 0 && (
+                        <span className="absolute -top-1.5 -right-1.5 bg-error text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center border-2 border-primary">
+                          {cart}
+                        </span>
+                      )}
+                    </Link>
+                    <Link
+                      to="/order-history"
+                      className="hover:text-primary-light transition-elegant"
+                    >
+                      <Package className="h-5 w-5" />
+                    </Link>
+                  </div>
+                )}
+                <Button
+                  variant="ghost"
+                  className="text-secondary hover:text-error px-2"
+                  onClick={() => logoutUser(id)}
+                  name="Logout"
+                />
+              </div>
+            ) : (
+              <div className="flex gap-5 items-center">
+                <Link
+                  to="/login"
+                  className="text-secondary hover:text-primary-light transition-elegant font-semibold"
+                >
+                  Login
                 </Link>
                 <Link
-                  to="/order-history"
-                  className="hover:text-primary-light transition-elegant"
+                  to="/register"
+                  className="text-secondary hover:text-primary-light transition-elegant font-semibold"
                 >
-                  <Package className="h-5 w-5" />
+                  Register
                 </Link>
-              </>
+              </div>
             )}
-            <Button
-              variant="ghost"
-              className="text-secondary hover:text-error px-2"
-              onClick={() => logoutUser(id)}
-              name="Logout"
-            />
           </div>
 
           <div className="md:hidden flex items-center gap-4">

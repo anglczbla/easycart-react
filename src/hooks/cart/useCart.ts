@@ -11,14 +11,17 @@ import type {
   UpdateCart,
   deleteItemCart,
 } from "../../types/types";
+import { useAppSelector } from "../useAppSelector";
 
 export const useGetCartById = () => {
+  const token = useAppSelector((state) => state.auth.token);
   return useQuery<Cart[]>({
     queryKey: ["cart"],
     queryFn: async () => {
       const res = await apiClient.get("/cart");
       return res.data.data;
     },
+    enabled: !!token,
   });
 };
 

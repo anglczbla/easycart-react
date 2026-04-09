@@ -16,6 +16,7 @@ import ProductDetailPage from "./pages/product/ProductDetailPage";
 import ProductPage from "./pages/product/ProductPage";
 import ProfilePage from "./pages/profile/ProfilePage";
 import AdminRoute from "./route/AdminRoute";
+import GuestRoute from "./route/GuestRoute";
 import ProtectedRoute from "./route/ProtectedRoute";
 import UserRoute from "./route/UserRoute";
 import { store } from "./store/store";
@@ -55,11 +56,14 @@ function App() {
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/login" element={<LoginPage />} />
 
-            <Route element={<ProtectedRoute />}>
-              <Route element={<MainLayout />}>
+            <Route element={<MainLayout />}>
+              <Route element={<GuestRoute />}>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/products" element={<ProductPage />} />
                 <Route path="/products/:id" element={<ProductDetailPage />} />
+              </Route>
+
+              <Route element={<ProtectedRoute />}>
                 <Route path="/profile" element={<ProfilePage />} />
                 <Route path="/order" element={<OrderPage />} />
                 <Route element={<UserRoute />}>
