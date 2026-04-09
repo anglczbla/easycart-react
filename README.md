@@ -81,7 +81,7 @@ Make sure you have [Node.js](https://nodejs.org/) installed.
    ```env
    VITE_BE_URL=http://localhost:5000/api
    ```
-   > Replace the URL with your actual backend API endpoint.
+   > Replace the URL with your actual backend API endpoint https://github.com/anglczbla/easycart-be
 
 4. **Start the development server**
    ```bash
