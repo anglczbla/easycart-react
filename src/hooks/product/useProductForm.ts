@@ -18,6 +18,8 @@ export const useProductForm = (initialProduct?: Product) => {
     errorsUpdate,
   } = useProductActions();
 
+  console.log("err add", errorsAdd);
+
   const { data: products, isLoading: isLoadingProducts } = usegetAllProducts();
   const { data: categories, isLoading: isLoadingCategories } =
     usegetAllCategories();

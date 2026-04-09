@@ -1,11 +1,11 @@
+import { ShoppingBag } from "lucide-react";
 import { useState } from "react";
+import { useDeleteModal } from "../../hooks/delete/useDeleteModal";
+import { useProductForm } from "../../hooks/product/useProductForm";
+import type { ProductItemProps } from "../../types/types";
 import Button from "../ui/Button";
 import Modal from "../ui/Modal";
 import PriceTag from "../ui/PriceTag";
-import { useDeleteModal } from "../../hooks/delete/useDeleteModal";
-import { useProductForm } from "../../hooks/product/useProductForm";
-
-import type { ProductItemProps } from "../../types/types";
 import ProductEditForm from "./ProductEditForm";
 
 const ProductItem = ({ product, admin, categories }: ProductItemProps) => {
@@ -14,62 +14,87 @@ const ProductItem = ({ product, admin, categories }: ProductItemProps) => {
   const [isEditing, setIsEditing] = useState(false);
 
   return (
-    <div className="w-full bg-white rounded-xl shadow-lg overflow-hidden p-5 hover:shadow-2xl transition-all duration-300 flex flex-col border border-gray-100 group">
-      <div className="flex-1">
+    <div className="group bg-white rounded-4xl card-shadow hover:shadow-2xl transition-elegant overflow-hidden flex flex-col border border-gray-100/50">
+      <div
+        className="relative h-64 bg-surface/50 overflow-hidden cursor-pointer"
+        onClick={() => goToDetail(product.id)}
+      >
         <img
           src={product.image}
           alt={product.name}
-          className="w-full h-48 object-cover rounded-lg transition-transform duration-300 group-hover:scale-105"
+          className="w-full h-full object-contain p-8 group-hover:scale-110 transition-elegant"
         />
-        <div className="flex justify-between mt-5">
-          <div className="flex-1 mr-4">
-            <h3 className="text-lg font-bold text-gray-900 line-clamp-1">
-              {product.name}
-            </h3>
-            <p className="text-gray-500 text-sm line-clamp-2">
-              {product.description}
-            </p>
+        {!admin && (
+          <div className="absolute top-4 right-4 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-elegant">
+            <div className="bg-white/90 backdrop-blur-md p-2.5 rounded-2xl shadow-xl text-primary">
+              <ShoppingBag size={20} />
+            </div>
           </div>
-          <div>
-            <PriceTag price={product.price} />
-          </div>
-        </div>
+        )}
       </div>
 
-      <div className="flex gap-2 mt-auto pt-4">
+      <div className="p-6 flex flex-col grow">
+        <div className="mb-4">
+          <h3 className="text-lg font-bold text-primary line-clamp-1 mb-1 group-hover:text-primary-light transition-colors">
+            {product.name}
+          </h3>
+          <PriceTag
+            price={product.price}
+            className="text-xl font-bold text-primary-light"
+          />
+        </div>
+
+        <p className="text-muted text-sm line-clamp-2 mb-8 grow font-medium leading-relaxed">
+          {product.description}
+        </p>
+
+        <div className="flex flex-col gap-3 mt-auto">
+          {admin && (
+            <div className="flex gap-3">
+              <Button
+                onClick={() => handleOpen(product.id)}
+                name="Delete"
+                variant="danger"
+                className="flex-1 rounded-2xl font-bold shadow-sm"
+              />
+              <Button
+                onClick={() => setIsEditing(true)}
+                name="Edit"
+                variant="secondary"
+                className="flex-1 rounded-2xl font-bold shadow-sm"
+              />
+            </div>
+          )}
+          <Button
+            onClick={() => goToDetail(product.id)}
+            name={admin ? "View Detail" : "View Product"}
+            variant="primary"
+            className="w-full rounded-2xl py-3! font-bold shadow-sm"
+          />
+        </div>
+
         {admin && (
-          <>
-            <Button onClick={() => handleOpen(product.id)} name="Delete" />
-            <Button
-              onClick={() => setIsEditing(true)}
-              className="w-full"
-              name="Edit"
-            />
-            <Modal
-              open={isOpen}
-              handleClose={handleClose}
-              title="Delete Product?"
-              content="Are you sure want delete this Product?"
-              onConfirm={() => {
-                handleDeleteProduct(selectedId);
-                handleClose();
-              }}
-            />
-          </>
+          <Modal
+            open={isOpen}
+            handleClose={handleClose}
+            title="Delete Product?"
+            content="Are you sure want delete this Product?"
+            onConfirm={() => {
+              handleDeleteProduct(selectedId);
+              handleClose();
+            }}
+          />
         )}
-        <Button
-          onClick={() => goToDetail(product.id)}
-          className="w-full text-center rounded-xl text-sm"
-          name="View Detail"
-        />
       </div>
 
       {isEditing && (
-        <ProductEditForm
-          product={product}
-          categories={categories}
-          onCancel={() => setIsEditing(false)}
-        />
+        <div className="p-6 border-t border-gray-100">
+          <ProductEditForm
+            product={product}
+            categories={categories}
+            onCancel={() => setIsEditing(false)}
+          />
+        </div>
       )}
     </div>
   );

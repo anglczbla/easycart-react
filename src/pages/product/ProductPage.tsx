@@ -1,9 +1,9 @@
+import ProductList from "../../components/product/ProductList";
 import Button from "../../components/ui/Button";
 import ErrorMessage from "../../components/ui/ErrorMessage";
 import Input from "../../components/ui/Input";
 import { useProductForm } from "../../hooks/product/useProductForm";
 import { useAppSelector } from "../../hooks/useAppSelector";
-import ProductList from "../../components/product/ProductList";
 
 const ProductPage = () => {
   const admin = useAppSelector((state) => state.auth.admin);
@@ -33,7 +33,13 @@ const ProductPage = () => {
             </p>
           </div>
 
-          <ErrorMessage errors={errorsAdd?.message} />
+          {errorsAdd && (
+            <div className="text-center p-5">
+              <ErrorMessage errors={errorsAdd?.message} />
+              <ErrorMessage errors={errorsAdd?.description} />
+              <ErrorMessage errors={errorsAdd?.category} />
+            </div>
+          )}
 
           <div className="w-full lg:w-2/3 mx-auto px-4">
             <form onSubmit={submitAdd} className="space-y-4">
