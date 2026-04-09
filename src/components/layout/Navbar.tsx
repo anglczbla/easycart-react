@@ -216,20 +216,40 @@ const Navbar = () => {
         <div className="md:hidden bg-primary-dark border-t border-primary/20 animate-in slide-in-from-top duration-300">
           <div className="px-4 pt-2 pb-6 space-y-4">
             <div className="flex flex-col gap-4 text-secondary/80 font-medium py-4">
-              <NavLinks />
-              <Link
-                to="/profile"
-                className="hover:text-primary-light transition-elegant"
-              >
-                Profile
-              </Link>
-              {!admin && (
-                <Link
-                  to="/order-history"
-                  className="hover:text-primary-light transition-elegant"
-                >
-                  My Orders
-                </Link>
+              {token ? (
+                <div>
+                  <Link
+                    to="/profile"
+                    className="hover:text-primary-light transition-elegant"
+                  >
+                    Profile
+                  </Link>
+                  {!admin && (
+                    <Link
+                      to="/order-history"
+                      className="hover:text-primary-light transition-elegant"
+                    >
+                      My Orders
+                    </Link>
+                  )}
+                </div>
+              ) : (
+                <div className="flex flex-col gap-5 items-center">
+                  <NavLinks />
+
+                  <Link
+                    to="/login"
+                    className="text-secondary hover:text-primary-light transition-elegant font-semibold"
+                  >
+                    Login
+                  </Link>
+                  <Link
+                    to="/register"
+                    className="text-secondary hover:text-primary-light transition-elegant font-semibold"
+                  >
+                    Register
+                  </Link>
+                </div>
               )}
             </div>
 
@@ -241,16 +261,42 @@ const Navbar = () => {
                 value={inputValue}
                 onChange={handleSearch}
                 placeholder="Search products..."
-                className="w-full bg-primary/40 text-secondary border border-transparent rounded-xl py-3 pl-10 focus:outline-none focus:ring-1 focus:ring-primary-light/30"
+                className="w-full bg-primary-dark/40 text-secondary border border-transparent rounded-full py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-primary-light/30 focus:bg-primary-dark/60 transition-elegant placeholder:text-secondary/40"
               />
+              {inputValue && inputValue.length > 0 && (
+                <div className="absolute top-full mt-2 left-0 w-full bg-white text-primary shadow-2xl rounded-2xl z-50 p-2 overflow-hidden border border-gray-100 animate-in fade-in slide-in-from-top-2">
+                  {isFetching ? (
+                    <p className="p-3 text-sm text-center text-muted animate-pulse">
+                      Searching...
+                    </p>
+                  ) : data?.length === 0 ? (
+                    <p className="p-3 text-sm text-center text-muted">
+                      No products found
+                    </p>
+                  ) : (
+                    data?.map((item) => (
+                      <Link
+                        key={item.id}
+                        to={`/products/${item.id}`}
+                        className="block p-3 hover:bg-surface rounded-xl transition-elegant text-sm font-medium border-b last:border-0 border-gray-50"
+                        onClick={resetSearch}
+                      >
+                        {item.name}
+                      </Link>
+                    ))
+                  )}
+                </div>
+              )}
             </div>
 
-            <Button
-              variant="danger"
-              className="w-full justify-center rounded-xl mt-6"
-              onClick={() => logoutUser(id)}
-              name="Logout"
-            />
+            {token && (
+              <Button
+                variant="danger"
+                className="w-full justify-center rounded-xl mt-6"
+                onClick={() => logoutUser(id)}
+                name="Logout"
+              />
+            )}
           </div>
         </div>
       )}
