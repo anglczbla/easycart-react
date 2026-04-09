@@ -45,7 +45,7 @@ const ProductList = ({ products, admin }: ProductListProps) => {
 
       {!search.isLoading && (
         <div className="max-w-7xl mx-auto py-10">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 items-start gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 items-start gap-8">
             {products.map((prod) => (
               <ProductItem
                 key={prod.id}
