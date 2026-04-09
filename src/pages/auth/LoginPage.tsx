@@ -15,10 +15,7 @@ const LoginPage = () => {
     showPassword,
     errors,
     goToRegister,
-    errorMessage,
   } = useLogin();
-
-  console.log(errorMessage);
 
   return (
     <AuthLayout title="Welcome Back" subtitle="Log in to access your dashboard">
