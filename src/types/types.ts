@@ -249,3 +249,11 @@ export interface ReviewEditProps {
   errors?: ApiError;
   onCancel: () => void;
 }
+
+export interface StarRatingInputProps {
+  label: string;
+  name: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  errors?: string[];
+}

@@ -3,6 +3,7 @@ import { useState } from "react";
 import ReviewList from "../../components/review/ReviewList";
 import Button from "../../components/ui/Button";
 import Input from "../../components/ui/Input";
+import StarRatingInput from "../../components/ui/StarRatingInput";
 import { useReviewForm } from "../../hooks/review/useReviewForm";
 import { useAppSelector } from "../../hooks/useAppSelector";
 
@@ -93,13 +94,9 @@ const ReviewPage = ({ productId }: { productId: string }) => {
                   value={formReview.comment}
                   errors={errors?.errors?.comment}
                 />
-                <Input
-                  label="Rating (1-5)"
+                <StarRatingInput
+                  label="Rating"
                   name="rating"
-                  type="text"
-                  inputMode="numeric"
-                  pattern="[0-9]*"
-                  placeholder="5"
                   onChange={handleFormReview}
                   value={formReview.rating}
                   errors={errors?.errors?.rating}

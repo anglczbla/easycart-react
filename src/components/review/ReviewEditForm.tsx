@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import type { ReviewEditProps } from "../../types/types";
 import Button from "../ui/Button";
 import Input from "../ui/Input";
+import StarRatingInput from "../ui/StarRatingInput";
 
 const ReviewEditForm = ({
   review,
@@ -38,12 +39,9 @@ const ReviewEditForm = ({
           value={formEditReview.comment}
           errors={errors?.errors?.comment}
         />
-        <Input
-          label="Rating (1-5)"
+        <StarRatingInput
+          label="Rating"
           name="rating"
-          type="text"
-          inputMode="numeric"
-          pattern="[0-9]*"
           onChange={handleEditFormReview}
           value={formEditReview.rating}
           errors={errors?.errors?.rating}
