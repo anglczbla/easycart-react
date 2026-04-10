@@ -96,7 +96,9 @@ const ReviewPage = ({ productId }: { productId: string }) => {
                 <Input
                   label="Rating (1-5)"
                   name="rating"
-                  type="number"
+                  type="text"
+                  inputMode="numeric"
+                  pattern="[0-9]*"
                   placeholder="5"
                   onChange={handleFormReview}
                   value={formReview.rating}

@@ -84,13 +84,8 @@ export interface OrderUsers extends Order {
   customer_name: string;
 }
 
-export interface InputProps {
+export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
-  name: string;
-  type?: string;
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  placeholder?: string;
   errors?: string[];
 }
 
@@ -113,8 +108,8 @@ export interface PriceTagProps {
 export interface CartItemProps {
   cart: Cart;
   onDelete: () => void;
-  onIncrementQty: () => void;
-  onDecrementQty: () => void;
+  onIncrementQty: (qty: number) => void;
+  onDecrementQty: (qty: number) => void;
 }
 
 export interface AuthLayoutProps {

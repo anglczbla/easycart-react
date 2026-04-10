@@ -1,6 +1,7 @@
 import { Minus, Plus, Trash2 } from "lucide-react";
-import PriceTag from "../ui/PriceTag";
+import { useState } from "react";
 import type { CartItemProps } from "../../types/types";
+import PriceTag from "../ui/PriceTag";
 
 const CartItem = ({
   cart,
@@ -8,6 +9,8 @@ const CartItem = ({
   onIncrementQty,
   onDecrementQty,
 }: CartItemProps) => {
+  const [quantity, setQuantity] = useState(cart.quantity);
+
   return (
     <div className="bg-white rounded-4xl card-shadow border border-gray-100 p-6 flex flex-col sm:flex-row gap-8 items-center transition-elegant hover:shadow-xl group">
       <div className="w-32 h-32 bg-surface rounded-3xl overflow-hidden shrink-0 border border-gray-50 p-4">
@@ -31,7 +34,7 @@ const CartItem = ({
           <p className="text-sm text-muted font-medium flex items-center gap-2">
             Total:
             <PriceTag
-              price={cart.price * cart.quantity}
+              price={cart.price * quantity}
               className="text-primary font-bold"
             />
           </p>
@@ -41,18 +44,32 @@ const CartItem = ({
       <div className="flex items-center gap-8">
         <div className="flex items-center bg-surface rounded-2xl p-1.5 border border-gray-100 shadow-sm">
           <button
-            onClick={onDecrementQty}
-            disabled={cart.quantity <= 1}
-            className="w-10 h-10 flex items-center justify-center rounded-xl bg-white text-primary hover:text-primary-light disabled:opacity-30 transition-elegant shadow-sm border border-gray-50"
+            onClick={() => {
+              const qty = quantity - 1;
+              setQuantity(qty);
+              onDecrementQty(qty);
+            }}
+            disabled={quantity <= 1}
+            className="w-10 h-10 flex items-center justify-center rounded-xl bg-white text-primary hover:text-primary-light disabled:opacity-30 transition-elegant shadow-sm border border-gray-50 cursor-pointer"
           >
             <Minus className="h-4 w-4" />
           </button>
           <span className="w-12 text-center font-bold text-primary text-lg">
-            {cart.quantity}
+            {quantity}
           </span>
           <button
-            onClick={onIncrementQty}
-            className="w-10 h-10 flex items-center justify-center rounded-xl bg-white text-primary hover:text-primary-light transition-elegant shadow-sm border border-gray-50"
+            onClick={() => {
+              // sync = antri
+              // asnyc = jalan bareng
+              const qty = quantity + 1;
+              setQuantity(qty);
+              onIncrementQty(qty);
+
+              // setQuantity(xxx + 1)
+              // setQuantity(quantity + 1)
+              // setQuantity((prevState) => prevState + 1);
+            }}
+            className="w-10 h-10 flex items-center justify-center rounded-xl bg-white text-primary hover:text-primary-light transition-elegant shadow-sm border border-gray-50 cursor-pointer"
           >
             <Plus className="h-4 w-4" />
           </button>

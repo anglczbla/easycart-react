@@ -41,7 +41,9 @@ const ReviewEditForm = ({
         <Input
           label="Rating (1-5)"
           name="rating"
-          type="number"
+          type="text"
+          inputMode="numeric"
+          pattern="[0-9]*"
           onChange={handleEditFormReview}
           value={formEditReview.rating}
           errors={errors?.errors?.rating}

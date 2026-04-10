@@ -1,4 +1,5 @@
 import { useQueryClient } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import type { ApiError, deleteItemCart, UpdateCart } from "../../types/types";
@@ -7,7 +8,6 @@ import {
   useGetCartById,
   useUpdateCartMutation,
 } from "./useCart";
-import { AxiosError } from "axios";
 
 export const useCartActions = () => {
   const deleteItem = useDeleteItemCartMutation();

@@ -1,9 +1,10 @@
 import { ArrowLeft, CreditCard, ShoppingBag } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useCartActions } from "../../hooks/cart/useCartAction";
+import { useDebounceCallback } from "../../hooks/useDebounceCallback";
 import Button from "../ui/Button";
 import ErrorMessage from "../ui/ErrorMessage";
 import PriceTag from "../ui/PriceTag";
-import { useCartActions } from "../../hooks/cart/useCartAction";
 import CartItem from "./CartItem";
 
 const CartList = () => {
@@ -16,6 +17,18 @@ const CartList = () => {
     handleCheckout,
     data,
   } = useCartActions();
+
+  const debounce = useDebounceCallback<{
+    cartId: string;
+    productId: string;
+    quantity: number;
+  }>((arg) => {
+    updateQtyItemCart({
+      id: arg.cartId,
+      quantity: arg.quantity,
+      product_id: arg.productId,
+    });
+  }, 500);
 
   return (
     <div className="max-w-6xl mx-auto py-8">
@@ -75,18 +88,18 @@ const CartList = () => {
                     product_id: item.product_id,
                   })
                 }
-                onIncrementQty={() =>
-                  updateQtyItemCart({
-                    id: item.cart_id,
-                    quantity: item.quantity + 1,
-                    product_id: item.product_id,
+                onIncrementQty={(qty) =>
+                  debounce({
+                    cartId: item.cart_id,
+                    productId: item.product_id,
+                    quantity: qty,
                   })
                 }
-                onDecrementQty={() =>
-                  updateQtyItemCart({
-                    id: item.cart_id,
-                    quantity: item.quantity - 1,
-                    product_id: item.product_id,
+                onDecrementQty={(qty) =>
+                  debounce({
+                    cartId: item.cart_id,
+                    productId: item.product_id,
+                    quantity: qty,
                   })
                 }
               />
